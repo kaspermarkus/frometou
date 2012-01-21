@@ -1,0 +1,99 @@
+<?php
+header("Content-type: text/css");
+?>
+body { 
+     background-color:#ede9cb;
+     font-size:11px;
+     color:#2f2f2f; 
+      font-family:verdana; 
+	
+ }
+
+font, a, label, button, select, option, input, th, td, textarea
+{
+	font-size:11px;
+	color:#2f2f2f;
+	font-family:verdana;
+
+}
+
+A {
+	color:#000000;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+A:HOVER 
+{
+	font-style:italic;
+}
+	
+th { 
+     text-align: left;
+}
+
+ .navigation BODY
+{
+     background-color:#ede9cb;
+     font-size:11px;
+     color:#2f2f2f; 
+      font-family:verdana; 
+	margin:20px 10px 15px 10px	
+}
+.navigation A {
+	color:#000000;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+.navigation A:HOVER {
+	color:#FF3300
+	}
+	
+.navigation TD {
+	padding:2px 9px 0px 21px;
+}
+
+.navigation TH {
+	padding:2px 9px 0px 4px;
+	font-size:12px;
+	text-decoration:underline;	
+}
+
+  TD.maintableBottom { font-size:11px; }
+  TD.maintableLeft { vertical-align:top; }
+  TD.maintableLeft { background-color:#916262; }
+  TD.maintableLeft { height:400px; }
+  TD.maintableLeft { width:163px; }
+  TD.maintableMain { padding:0px 40px 0px 40px; }
+  TD.maintableMain { width:545px; }
+  TD.maintableMain { vertical-align:top; }
+  TD.maintableMain { font-size:11px; }
+  TD.maintableMain { background-color:#F1F1F1; }
+  TD.maintableMain { color:#292222; }
+  TD.maintableMain { font-family:verdana; }
+  TD.maintableRight { background-color:#916262; }
+  TD.maintableRight { font-family:verdana; }
+  TD.maintableRight { font-size:11px; }
+  TD.maintableRight { padding:12px; }
+  TD.maintableRight { color:white; }
+  TD.maintableRight { vertical-align:top; }
+  TD.maintableTopMain { height:126px; }
+  TD.maintableTopMain { background-color:#580101; }
+  TD.maintableTopMain { color:white; }
+  TD.maintableTopMain { text-decoration:none; }
+  TD.maintableTopMain { font-size:11px; }
+  TD.maintableTopMain { text-align:center; }
+  TR, TH, TD, TABLE { border:0px; }
+  TR, TH, TD, TABLE { border-collapse:collapse; }
+  TR, TH, TD, TABLE { margin:0px; }
+  TR, TH, TD, TABLE { text-align:left; }
+  TR, TH, TD, TABLE { border-spacing:0px; }
+  TR, TH, TD, TABLE { padding:0px; }
+  TD.maintableTopLeft { text-align:center; }
+  TD.maintableTopLeft { color:white; }
+  TD.maintableTopLeft { text-decoration:none; }
+  TD.maintableTopLeft { height:126px; }
+  TD.maintableTopLeft { font-size:11px; }
+  TD.maintableTopLeft { background-color:#580101; }
+

@@ -1,0 +1,818 @@
+# Webalizer V2.01-10 Incremental Data - 01/24/2012 21:51:18
+2012 1 24 21 51 18
+9460 6802 18 217 81 21 38944666 4648 82 0 0 0
+4 155 612 3 24
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+4 3 1289 1 3 2 0 0
+0 0 0 0 0 0 0 0
+2 2 502 2 2 2 0 0
+6 4 2726 2 4 4 0 0
+0 0 0 0 0 0 0 0
+2 1 777 1 1 1 0 0
+660 644 6846738 2 572 7 0 0
+777 549 2206451 4 386 7 0 0
+77 73 76968 1 44 3 0 0
+77 69 83866 3 51 4 0 0
+4 2 3040 2 2 2 0 0
+0 0 0 0 0 0 0 0
+13 2 19306 3 11 2 0 0
+418 355 1408878 2 216 3 0 0
+111 99 146507 2 55 3 0 0
+646 611 1045160 5 342 9 0 0
+2234 1374 5687527 4 875 11 0 0
+1561 810 8807184 3 528 7 0 0
+4 3 3566 2 1 1 0 0
+4 2 4674 3 2 2 0 0
+1459 923 4499866 3 604 5 0 0
+1401 1276 8099641 4 949 8 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+48 47 188215 45 0 0
+12 7 9064 8 0 0
+13 10 12251 11 0 0
+3 3 6194 2 0 0
+1 1 256 1 0 0
+0 0 0 0 0 0
+4 3 3566 1 0 0
+0 0 0 0 0 0
+194 170 1599785 93 0 0
+1157 716 3727559 487 0 0
+1128 740 3172648 483 0 0
+1237 752 3110878 519 0 0
+793 640 1853186 429 0 0
+462 395 1172770 255 0 0
+765 629 4976257 390 0 0
+628 454 3133514 278 0 0
+135 122 950301 75 0 0
+407 386 1287726 263 0 0
+765 417 3324457 236 0 0
+702 361 2663086 267 0 0
+185 162 4541768 123 0 0
+157 149 603609 105 0 0
+55 43 579400 28 0 0
+609 595 2028176 549 0 0
+0
+0
+0
+6802
+0
+0
+0
+0
+0
+10
+0
+16
+528
+0
+2059
+0
+0
+0
+0
+0
+1
+44
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+# -urls- 
+/CMS/listMappings.php
+0 36 0 20268 0 0 0 0
+/CMS/ckeditor/skins/kama/dialog.css
+0 7 0 79488 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/16x16/actions/1rightarrow.png
+1 1 0 331 0 0 0 0
+/dk/page
+0 1 0 95 0 0 0 0
+/images/corner/bottomLeftCorner.jpg
+1 88 0 2766 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/64x64/mimetypes/unknown.png
+1 1 0 4033 0 0 0 0
+/CMS/kfm/admin/settings.js
+0 2 0 792 0 0 0 0
+/CMS/kfm-1.4.7/plugins/cropper/img/crop.png
+1 1 0 624 0 0 0 0
+/CMS/kfm/uploads/.files/thumbs/347.jpg
+1 1 0 1850 0 0 0 0
+/
+0 9 0 2294 25 3 0 0
+/CMS/kfm-1.4.7/plugins/file_details/file_details.png
+1 1 0 3562 0 0 0 0
+/CMS/kfm/admin/user_new.php
+0 1 0 350 0 0 0 0
+/layout/schemes/basic1/basic1.css
+0 1127 0 5821691 0 0 0 0
+/CMS/kfm/get.php
+0 393 0 2395780 3 3 0 0
+/CMS/kfm-1.4.7/themes/default/css.php
+0 1 0 3383 0 0 0 0
+/CMS/kfm/j/browser-specific.ie.js
+0 3 0 154 0 0 0 0
+/uploads/DSC01693 lille.jpg
+1 30 0 38202 0 0 0 0
+/CMS/kfm/themes/default/bitsandpieces/XPButtonNoText_61x22.png
+1 3 0 1438 0 0 0 0
+/CMS/kfm-1.4.7/third-party/swfupload/swfupload.js
+0 1 0 5568 0 0 0 0
+/CMS/kfm-1.4.7/plugins/image_rotate/rotate_cw.png
+1 1 0 1080 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/add_tags.png
+1 1 0 707 0 0 0 0
+/layout/schemes/4WayBasic/menu-left.png
+1 90 0 2278238 0 0 0 0
+/CMS/ckeditor/plugins/image/dialogs/image.js
+0 6 0 120120 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/edit.png
+1 1 0 613 0 0 0 0
+/CMS/kfm-1.4.7/
+0 46 0 94506 0 1 0 0
+/CMS/editDocs.php
+0 480 0 1047528 3 0 0 0
+/CMS/docModuleHandler.php
+0 99 0 53626 0 1 0 0
+/layout/schemes/basic1/arrow.gif
+1 187 0 884 0 0 0 0
+/CMS/listTypes.php
+0 43 0 26531 0 0 0 0
+/CMS/
+0 68 0 15298 4 0 0 0
+/CMS/kfm/themes/default/icons/64x64/mimetypes/pdf.png
+1 6 0 18208 0 0 0 0
+/CMS/kfm/uploads/.files/thumbs/368.jpg
+1 1 0 3561 0 0 0 0
+/CMS/kfm-1.4.7/plugins/css.php
+0 1 0 249 0 0 0 0
+/uploads/Balance hånd mod hånd.jpg
+1 2 0 13946 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/invert_selection.png
+1 1 0 551 0 0 0 0
+/dk/page110
+0 2 0 2790 0 0 0 0
+/dk/page0_uk
+0 1 0 2049 0 0 0 0
+/dk/page0
+0 163 0 249389 1 3 0 0
+/dk/page1
+0 3 0 2650 1 0 0 0
+/dk/page3
+0 2 0 1255 1 0 0 0
+/CMS/kfm/admin/associations.php
+0 1 0 972 0 0 0 0
+/CMS/kfm-1.4.7/plugins/image_rotate/rotate_ccw.png
+1 1 0 1095 0 0 0 0
+/CMS/kfm-1.4.7/admin/themeswitchertool.js
+0 1 0 2726 0 0 0 0
+/CMS/kfm/admin/users.php
+0 3 0 4127 0 1 0 0
+/CMS/kfm-1.4.7/get.php
+0 410 0 1179166 2 2 0 0
+/uk/page-1_dk
+0 1 70368760954880 1592 0 0 0 0
+/en/page-5
+0 1 0 1095 0 0 0 0
+/CMS/kfm-1.4.7/widgets/trash/trash.png
+1 1 0 8091 0 0 0 0
+/CMS/kfm/third-party/swfupload/swfupload.js
+0 7 0 22272 0 0 0 0
+/images/green-colette.jpg
+1 152 0 270495 0 0 0 0
+/CMS/kfm/plugins/image_rotate/rotate_cw.png
+1 1 0 1080 0 0 0 0
+/CMS/kfm/themes/default/icons/add_tags.png
+1 1 0 707 0 0 0 0
+/dk/page150
+0 3 0 4185 0 0 0 0
+/uk/page-1_fr
+0 1 70368760954880 1371 0 0 0 0
+/layout/schemes/basic1/logo.png
+1 9 0 34573 0 0 0 0
+/CMS/ckeditor/skins/kama/editor.css
+0 49 0 213264 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/small_loader.gif
+1 1 0 1513 0 0 0 0
+/CMS/kfm/admin/settings.php
+0 3 0 7084 0 0 0 0
+/CMS/kfm/themes/default/small_loader.gif
+1 3 0 3026 0 0 0 0
+/CMS/kfm/themes/default/tableicons/desc.gif
+1 1 58769 71 0 0 0 0
+/uk/
+0 32 0 42740 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/select_none.png
+1 1 0 150 0 0 0 0
+/layout/schemes/4WayBasic/menu-right.png
+1 66 0 2742988 0 0 0 0
+/CMS/kfm/themes/default/icons/select_none.png
+1 1 0 150 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/bitsandpieces/panelheader-bg.png
+1 1 0 227 0 0 0 0
+/dk/
+0 598 0 1118540 13 7 0 0
+/CMS/ckeditor/skins/kama/images/noimage.png
+1 4 0 6345 0 0 0 0
+/CMS/ckeditor/skins/kama/images/sprites.png
+1 8 0 49602 0 0 0 0
+/CMS/kfm/themes/default/icons/64x64/mimetypes/doc.png
+1 6 0 29208 0 0 0 0
+/CMS/kfm/widgets/clipboard/clipboard_empty.png
+1 7 0 12460 0 0 0 0
+/CMS/editTheme.php
+0 60 0 44721 0 1 0 0
+/CMS/kfm-1.4.7/themes/default/bitsandpieces/panelheader.png
+1 1 0 6259 0 0 0 0
+/uk/page-1000
+0 1 0 995 0 0 0 0
+/CMS/kfm/plugins/file_details/file_details.png
+1 1 0 3562 0 0 0 0
+/images/side-menu-colorfaint.jpg
+1 88 0 2544 0 0 0 0
+/uploads/Galschiøt nedbøjet mand.jpg
+1 1 0 23957 0 0 0 0
+/CMS/navigator.php
+0 46 0 23046 0 0 0 0
+/CMS/editLangs.php
+0 1 0 823 0 0 0 0
+/CMS/kfm/plugins/image_rotate/rotate_ccw.png
+1 1 0 1095 0 0 0 0
+/uk/page-1
+0 40 0 63004 1 1 0 0
+/uk/page-2
+0 11 0 134577 0 0 0 0
+/uk/page-3
+0 1 70368760954880 994 0 0 0 0
+/uk/page-4
+0 8 0 10260 0 0 0 0
+/uk/page-6
+0 6 0 15908 0 0 0 0
+/dk/page38-1
+0 2 0 3580 0 0 0 0
+/CMS/kfm-1.4.7/plugins/image_resize/resize_image.png
+1 1 0 678 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/filenew.png
+1 1 0 380 0 0 0 0
+/CMS/kfm/themes/default/icons/16x16/actions/1rightarrow.png
+1 1 0 331 0 0 0 0
+/CMS/kfm-1.4.7/admin/settings.php
+0 1 0 3487 0 0 0 0
+/images/leftsidefade.jpg
+1 89 0 2142 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/large_loader.gif
+1 1 0 5626 0 0 0 0
+/CMS/kfm/plugins/css.php
+0 4 0 996 0 0 0 0
+/CMS/kfm/themes/default/large_loader.gif
+1 1 0 5626 0 0 0 0
+/uploads/DSC01683 lille.jpg
+1 1 0 42485 0 0 0 0
+/dk/page48_uk
+0 1 0 1248 1 0 0 0
+/CMS/kfm/third-party/swfupload/Flash/swfupload.swf
+0 3 0 38742 0 0 0 0
+/CMS/kfm/plugins/cropper/img/crop.png
+1 1 0 624 0 0 0 0
+/images/corner/topRightCorner.jpg
+1 89 0 2700 0 0 0 0
+/CMS/kfm-1.4.7/lang/en.js
+0 1 0 2322 0 0 0 0
+/CMS/ckeditor/config.js
+0 57 0 12888 0 0 0 0
+/CSS
+0 1 0 85 1 0 0 0
+/CMS/kfm/themes/default/folders.gif
+1 6 0 5880 0 0 0 0
+/images/kontakt-linje.jpg
+1 16 0 1388 0 0 0 0
+/layout/schemes/4WayBasic/top-bg.png
+1 124 0 3355906 0 0 0 0
+/CMS/editMappings.php
+0 6 0 4437 0 0 0 0
+/CMS/ckeditor/contents.css
+0 58 0 5392 0 0 0 0
+/CMS/ckeditor/skins/kama/images/sprites_ie6.png
+1 8 0 8172 0 0 0 0
+/uk/page30
+0 1 0 993 0 0 0 0
+/uk/page38
+0 6 0 5652 0 0 0 0
+/uk/page39
+0 15 0 14132 0 0 0 0
+/uk/page40
+0 1 0 994 0 0 0 0
+/uk/page43
+0 8 0 7535 0 0 0 0
+/uk/page48
+0 3 0 2799 0 0 0 0
+/dk/page38_uk
+0 2 0 4214 0 0 0 0
+/dk/page-1
+0 40 0 68721 1 1 0 0
+/dk/page-2
+0 9 0 14219 0 0 0 0
+/dk/page-3
+0 1 70368760954880 1396 0 0 0 0
+/CMS/kfm/themes/default/icons/64x64/mimetypes/unknown.png
+1 6 0 16132 0 0 0 0
+/CMS/kfm/uploads/.files/thumbs/424.jpg
+1 1 0 1850 0 0 0 0
+/dk/page-4
+0 6 70368760954880 10586 0 0 0 0
+/uk/page50
+0 2 0 1988 0 0 0 0
+/uk/page51
+0 1 0 994 0 0 0 0
+/uk/page52
+0 2 0 1988 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/64x64/mimetypes/pdf.png
+1 1 0 4552 0 0 0 0
+/CMS/kfm/themes/default/icons/ark_selectall.png
+1 1 0 807 0 0 0 0
+/uk/page0
+0 1 0 1797 0 0 0 0
+/CMS/kfm/j/all.php/can-minify
+0 4 0 123738 0 0 0 0
+/uploads/DK-Concept.pdf
+0 5 0 1189149 0 0 0 0
+/CMS/ckeditor/skins/kama/images/mini.gif
+1 6 0 1098 0 0 0 0
+/CMS/listDefaultLangs.php
+0 33 0 20343 0 0 0 0
+/favicon.ico
+0 11 0 35882 0 0 0 0
+/dk/page17
+0 113 0 134655 1 2 0 0
+/CMS/kfm/uploads/noarrow.gif
+1 1 0 553 0 0 0 0
+/dk/page19
+0 3 0 2645 0 0 0 0
+/CMS/kfm/admin/password.php
+0 1 0 392 0 0 0 0
+/CMS/login.php
+0 41 0 15816 1 1 0 0
+/CMS/kfm-1.4.7/admin/
+0 1 0 1489 0 0 0 0
+/dk/page20
+0 3 0 1511 3 1 0 0
+/dk/page21
+0 2 0 1255 0 0 0 0
+/dk/page22
+0 2 0 1255 0 1 0 0
+/dk/page27
+0 2 0 1255 1 0 0 0
+/CMS/kfm/themes/default/icons/filenew.png
+1 1 0 380 0 0 0 0
+/dk/page37
+0 3 0 1511 2 0 0 0
+/dk/page38
+0 122 0 202591 2 1 0 0
+/dk/page39
+0 76 0 111593 1 2 0 0
+/CMS/kfm-1.4.7/themes/default/icons/ark_selectall.png
+1 1 0 807 0 0 0 0
+/CMS/css/general.css
+0 1209 0 2460020 0 0 0 0
+/CMS/ckeditor/lang/da.js
+0 46 0 71790 0 0 0 0
+/uploads/Survival of the fatest.jpg
+1 1 0 13547 0 0 0 0
+/dk/page40
+0 2 0 7034 0 0 0 0
+/dk/page43
+0 30 0 46684 1 0 0 0
+/dk/page48
+0 11 0 15492 1 0 0 0
+/CMS/kfm-1.4.7/j/browser-specific.konqueror.js
+0 1 0 46 0 0 0 0
+/dk/CMS
+0 1 0 97 0 0 0 0
+/CMS/kfm/j/browser-specific.konqueror.js
+0 4 0 138 0 0 0 0
+/dk/page53
+0 6 70368760954880 9502 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/downloadicon.gif
+1 1 0 631 0 0 0 0
+/CMS/kfm/lang/da.js
+0 5 0 5208 0 0 0 0
+/CMS/ckeditor/skins/kama/icons.png
+1 16 0 34920 0 0 0 0
+/CMS/ckeditor/lang/en.js
+0 3 0 40767 0 0 0 0
+/CMS/kfm/themes/default/icons/invert_selection.png
+1 1 0 551 0 0 0 0
+/CMS/editTypes.php
+0 2 0 1492 0 0 0 0
+/CMS/kfm/j/all.php
+0 3 0 30671 1 0 0 0
+/CMS/kfm/admin/themeswitchertool.js
+0 2 0 5452 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/64x64/mimetypes/doc.png
+1 1 0 7302 0 0 0 0
+/CMS/ckeditor/plugins/link/dialogs/link.js
+0 3 0 50421 0 0 0 0
+/images/bottomsidefade.jpg
+1 88 0 2172 0 0 0 0
+/CMS/kfm/lang/en.js
+0 2 0 4644 0 0 0 0
+/CMS/kfm/plugins/image_resize/resize_image.png
+1 1 0 678 0 0 0 0
+/images/s_1265647480.gif
+1 151 0 3110 0 0 0 0
+/test
+0 1 0 86 0 0 0 0
+/dk/page43_uk
+0 1 0 1809 0 0 0 0
+/images/corner/topLeftCorner.jpg
+1 89 0 2838 0 0 0 0
+/CMS/kfm-1.4.7/admin/settings.js
+0 1 0 396 0 0 0 0
+/uploads/katalysator ydersider feb.2009.doc
+0 1 0 4068352 0 0 0 0
+/layout/images/IMG_7735.JPG
+1 103 0 950394 0 0 0 0
+/CMS/kfm-1.4.7/maintenance.php
+0 1 0 444 0 0 0 0
+/layout/schemes/basic1/spacer1.gif
+1 12 0 256 0 0 0 0
+/CMS/kfm/admin/password_change.php
+0 1 0 99 0 0 0 0
+/CMS/editCss.php
+0 244 0 470073 4 0 0 0
+/CMS/kfm/themes/default/css.php
+0 4 0 13532 0 0 0 0
+/CMS/kfm-1.4.7/j/all.php/can-minify
+0 1 0 30631 0 0 0 0
+/CMS/kfm/themes/default/tableicons/bg.gif
+1 1 0 81 0 0 0 0
+/CMS/kfm-1.4.7/upload.php
+0 7 0 1109 0 0 0 0
+/CMS/kfm-1.4.7/plugins/lightbox/slideshow_icon.jpg
+1 1 0 1331 0 0 0 0
+/CMS/functions/jquery.js
+0 58 0 649566 0 0 0 0
+/CMS/kfm/uploads/Photo on 11-8-11 at 10.10 PM.jpg
+1 1 0 55334 0 0 0 0
+/CMS/kfm/themes/default/icons/16x16/mimetypes/unknown.png
+1 1 0 1856 0 0 0 0
+/CMS/kfm/
+0 165 0 362466 1 2 0 0
+/uploads/DSC01700 lille.jpg
+1 1 0 37400 0 0 0 0
+/CMS/kfm/widgets/trash/trash.png
+1 7 0 32364 0 0 0 0
+/CMS/listLangs.php
+0 44 0 24893 0 0 0 0
+/cms
+0 5 0 5360 0 0 0 0
+/images/s_1265647330.gif
+1 150 0 5211 0 0 0 0
+/images/topsidefade.jpg
+1 89 0 2148 0 0 0 0
+/CMS/kfm/themes/default/icons/downloadicon.gif
+1 1 0 631 0 0 0 0
+/uploads/2011 2012 astrologisk set 14. november.pdf
+0 1 0 188589 0 0 0 0
+/CMS/ckeditor/ckeditor.js
+0 58 0 2600352 0 0 0 0
+/CMS/kfm-1.4.7/admin/users.php
+0 1 0 1501 0 0 0 0
+/images/rightsidefade.jpg
+1 88 0 2166 0 0 0 0
+/test.php
+0 155 70368760954880 1232171 2 1 0 0
+/CMS/kfm/themes/default/bitsandpieces/panelheader.png
+1 7 0 25036 0 0 0 0
+/CMS/listDocs.php
+0 259 0 251292 3 1 0 0
+/CMS/kfm-1.4.7/themes/default/folders.gif
+1 1 0 1470 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/64x64/loader.gif
+1 1 0 6306 0 0 0 0
+/CMS/kfm/maintenance.php
+0 4 0 1776 0 0 0 0
+/CMS/kfm/admin/
+0 2 0 2950 0 0 0 0
+/CMS/main.php
+0 45 0 13140 0 1 0 0
+/uploads/DSC06620 mindre.jpg
+1 5 0 141302 0 0 0 0
+/CMS/kfm/plugins/lightbox/slideshow_icon.jpg
+1 1 0 1331 0 0 0 0
+/images/corner/bottomRightCorner.jpg
+1 88 0 2562 0 0 0 0
+/CMS/kfm/upload.php
+0 2 0 116 0 0 0 0
+/CMS/kfm-1.4.7/widgets/clipboard/clipboard_empty.png
+1 1 0 3115 0 0 0 0
+/CMS/kfm-1.4.7/themes/default/icons/remove.png
+1 1 0 326 0 0 0 0
+/CMS/kfm/themes/default/icons/remove.png
+1 1 0 326 0 0 0 0
+/CMS/kfm/themes/default/bitsandpieces/panelheader-bg.png
+1 7 0 908 0 0 0 0
+/CMS/kfm/themes/default/icons/edit.png
+1 1 0 613 0 0 0 0
+# End Of Table - urls
+# -sites- (monthly)
+sextans.dreamhost.com
+0 1 1 502 1 1325727474
+- 0 0
+crawl-66-249-71-148.googlebot.com
+0 2 1 2676 1 1327237856
+- 0 0
+crawl-66-249-66-16.googlebot.com
+0 7 5 8126 4 1327281570
+- 0 0
+loft1361.serverloft.eu
+0 2 1 0 2 1326917403
+- 0 0
+static.29.130.4.46.clients.your-server.de
+0 11 1 17838 1 1326665758
+- 0 0
+crawl-66-249-72-2.googlebot.com
+0 6 4 2066 4 1326057605
+- 0 0
+160-62.104-92.cust.bluewin.ch
+0 719 700 3166814 6 1327441878
+/CMS/docModuleHandler.php 0 0
+crawl-66-249-71-229.googlebot.com
+0 11 10 10789 2 1326339864
+- 0 0
+crawl-66-249-71-165.googlebot.com
+0 2 1 1520 1 1326416489
+- 0 0
+crawl-66-249-72-87.googlebot.com
+0 5 4 4990 3 1327278361
+- 0 0
+crawl-66-249-66-102.googlebot.com
+0 1 0 521 0 0
+- 0 0
+crawl-66-249-71-180.googlebot.com
+0 11 10 4259510 2 1326139232
+- 0 0
+crawl-66-249-72-69.googlebot.com
+0 7 4 10055 3 1326855397
+- 0 0
+0x5da0d38e.cpe.ge-1-3-0-1109.odnqu1.customer.tele.dk
+0 5528 3729 19559090 24 1327414496
+/test.php 0 0
+www.whois.sc
+0 5 2 4746 2 1326851821
+- 0 0
+41-40.194-178.cust.bluewin.ch
+0 1259 597 4096266 10 1327428845
+/CMS/docModuleHandler.php 0 0
+0x57350ac8.odnxx12.dynamic.dsl.tele.dk
+0 1879 1739 7797868 14 1327441519
+/CMS/docModuleHandler.php 0 0
+crawl-66-249-72-37.googlebot.com
+0 4 3 1289 2 1325630618
+- 0 0
+# End Of Table - sites (monthly)
+# -sites- (daily)
+160-62.104-92.cust.bluewin.ch
+0 23 20 392657 1 1327441878
+/CMS/docModuleHandler.php 0 0
+0x5da0d38e.cpe.ge-1-3-0-1109.odnqu1.customer.tele.dk
+0 17 15 852412 1 1327414496
+/test.php 0 0
+41-40.194-178.cust.bluewin.ch
+0 64 59 1300757 2 1327428845
+/CMS/docModuleHandler.php 0 0
+0x57350ac8.odnxx12.dynamic.dsl.tele.dk
+0 1297 1186 5553815 4 1327441519
+/CMS/docModuleHandler.php 0 0
+# End Of Table - sites (daily)
+# -referrers- 
+http://www.fundamentalism.dk/uk/page40
+1 1
+http://www.fundamentalism.dk/uk/page43
+1 13
+http://www.fundamentalism.dk/uk/page48
+1 5
+http://netnationen.dk/fundamentalism.dk/
+0 2
+http://www.fundamentalism.dk/dk/page-1
+1 84
+http://www.fundamentalism.dk/dk/page-2
+1 10
+http://www.fundamentalism.dk/dk/page-3
+1 1
+http://www.fundamentalism.dk/dk/page-4
+1 7
+http://www.fundamentalism.dk/layout/schemes/basic1/basic1.css
+1 12
+http://www.fundamentalism.dk/uk/page50
+1 2
+http://www.fundamentalism.dk/uk/page51
+1 1
+http://www.fundamentalism.dk/uk/page52
+1 3
+- (Direct Request)
+0 1003
+http://fundamentalism.dk/CMS/editTheme.php
+0 9
+http://www.fundamentalism.dk/dk/page38_uk
+1 4
+http://www.fundamentalism.dk/dk/page17
+1 221
+http://www.fundamentalism.dk/dk/page19
+1 2
+http://www.fundamentalism.dk/CMS/editTheme.php
+1 58
+http://www.fundamentalism.dk/uk/
+1 67
+http://www.fundamentalism.dk/dk/page38
+1 238
+http://www.fundamentalism.dk/dk/page39
+1 162
+http://www.fundamentalism.dk/dk/
+1 2167
+http://fundamentalism.dk/CMS/navigator.php
+0 40
+http://www.fundamentalism.dk/dk/page40
+1 3
+http://www.fundamentalism.dk/dk/page43
+1 55
+http://www.fundamentalism.dk/dk/page48
+1 21
+http://www.fundamentalism.dk/CMS/kfm-1.4.7/
+1 483
+http://www.fundamentalism.dk/dk/page53
+1 16
+http://www.fundamentalism.dk/CMS/navigator.php
+1 467
+http://www.fundamentalism.dk/CMS/editLangs.php
+1 1
+http://fundamentalism.dk/CMS/editCss.php
+0 7
+http://www.fundamentalism.dk/CMS/kfm/third-party/swfupload/Flash/swfupload.swf
+1 3
+http://www.fundamentalism.dk/CMS/login.php
+1 68
+http://www.fundamentalism.dk/uk/page0
+1 2
+http://fundamentalism.dk/CMS/index.php
+0 24
+http://www.fundamentalism.dk/dk/page0_uk
+1 2
+http://www.fundamentalism.dk/dk/page43_uk
+1 1
+http://www.fundamentalism.dk/dk/page110
+1 2
+http://www.fundamentalism.dk/uploads/DK-Concept.pdf
+1 4
+http://www.fundamentalism.dk/CMS/listMappings.php
+1 32
+http://www.fundamentalism.dk/dk/page150
+1 3
+http://www.fundamentalism.dk/CMS/listDocs.php
+1 442
+http://www.fundamentalism.dk/CMS/editTypes.php
+1 1
+http://www.fundamentalism.dk/dk/page38-1
+1 2
+http://www.fundamentalism.dk/CMS/kfm/
+1 366
+http://www.fundamentalism.dk/CMS/main.php
+1 12
+http://www.fundamentalism.dk/CMS/kfm-1.4.7/index.php
+1 11
+http://fundamentalism.dk/CMS/listDocs.php
+0 11
+http://www.fundamentalism.dk/CMS/editDocs.php
+1 1634
+http://fundamentalism.dk/CMS/listLangs.php
+0 4
+http://fundamentalism.dk/CMS/login.php
+0 11
+http://www.fundamentalism.dk/CMS/listLangs.php
+1 37
+http://www.fundamentalism.dk/test.php
+1 58
+http://www.fundamentalism.dk/cms
+1 10
+http://www.fundamentalism.dk/en/page-5
+1 1
+http://fundamentalism.dk/CMS/editDocs.php
+0 4
+http://www.fundamentalism.dk/CMS/listDefaultLangs.php
+1 31
+http://www.fundamentalism.dk/uk/page-1_dk
+1 1
+http://www.fundamentalism.dk/CMS/editMappings.php
+1 12
+http://www.fundamentalism.dk/uk/page-1_fr
+1 1
+http://fundamentalism.dk/CMS/
+0 2
+http://www.fundamentalism.dk/CMS/index.php
+1 82
+http://www.fundamentalism.dk/CMS/kfm/index.php
+1 271
+http://www.fundamentalism.dk/dk/page0
+1 317
+http://www.fundamentalism.dk/CMS/kfm-1.4.7/admin/
+1 6
+http://fundamentalism.dk/CMS/listTypes.php
+0 5
+http://www.fundamentalism.dk/uk/page-1000
+1 1
+http://www.fundamentalism.dk/uk/page-1
+1 89
+http://www.fundamentalism.dk/uk/page-2
+1 11
+http://www.fundamentalism.dk/uk/page-3
+1 1
+http://www.fundamentalism.dk/uk/page-4
+1 9
+http://www.fundamentalism.dk/uk/page-6
+1 9
+http://www.fundamentalism.dk/CMS/listTypes.php
+1 36
+http://www.fundamentalism.dk/CMS/editCss.php
+1 570
+http://fundamentalism.dk/CMS/listMappings.php
+0 3
+http://www.fundamentalism.dk/CMS/
+1 35
+http://whois.domaintools.com/fundamentalism.dk
+0 3
+http://www.fundamentalism.dk/CMS/kfm/admin/
+1 16
+http://www.fundamentalism.dk/uk/page30
+1 2
+http://www.fundamentalism.dk/uk/page38
+1 12
+http://www.fundamentalism.dk/uk/page39
+1 25
+# End Of Table - referrers
+# -agents- 
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.3) Gecko/20100423 Ubuntu/10.04 (lucid) Firefox/3.6.3
+0 1
+Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.2.13) Gecko/20110103 Fedora/3.6.13-1.fc14 Firefox/3.6.13
+0 1
+Mozilla/5.0 (Windows; U; Windows NT 5.1; en; rv:1.9.0.13) Gecko/2009073022 Firefox/3.5.2 (.NET CLR 3.5.30729) SurveyBot/2.3 (
+0 5
+Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; MAMD)
+0 8
+Googlebot-Image/1.0
+0 4
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.1 (KHTML, like Gecko) Ubuntu/11.04 Chromium/14.0.835.202 Chrome/14.0.835.202 
+0 1
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.24) Gecko/20111107 Ubuntu/10.10 (maverick) Firefox/3.6.24
+0 2
+Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CL
+0 1509
+Mozilla/5.0 (X11; U; Linux x86_64; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.204 Safari/534.16
+0 1
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_2) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7
+0 1978
+Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.1 (KHTML, like Gecko) Ubuntu/11.10 Chromium/14.0.835.202 Chrome/14.0.835.202 Sa
+0 1
+Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+0 52
+Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; GTB7.2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; .NE
+0 17
+Mozilla/5.0 (X11; U; Linux i686; de; rv:1.9.1.16) Gecko/20101206 SeaMonkey/2.0.11
+0 1
+Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.75 Safari/535.7
+0 5819
+Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 2.0.50727)
+0 2
+Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.2 (KHTML, like Gecko) Ubuntu/11.10 Chromium/15.0.874.106 Chrome/15.0.874.106 Sa
+0 1
+Mozilla/5.0 (Linux; U; Android 2.3.7; en-ie; GT-I5500 Build/GINGERBREAD) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mo
+0 1
+Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.2.10) Gecko/20100922 Ubuntu/10.10 (maverick) Firefox/3.6.10
+0 1
+Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.2.25) Gecko/20111212 Firefox/3.6.25
+0 52
+Shockwave Flash
+0 2
+# End Of Table - agents
+# -search strings- 
+# End Of Table - search strings
+# -usernames- 
+# End Of Table - usernames

@@ -1,0 +1,14 @@
+body { 
+    background-color:grey;
+
+ }
+
+th { 
+     text-align: left;
+     text-valing:top;
+}
+
+td.threespan { 
+    colspan:3;
+
+ }
