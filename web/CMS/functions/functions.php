@@ -19,7 +19,7 @@ function getTranslation($query) {
 }
 
 function queryDocLink($did, $linktext) {
-	$query = "SELECT doc_v.did, doc_v.linktext, doc_v.format, doc_v.fid, doc_v.link, lang.langid, lang.flagtext, lang.flagpath, lang.priority ";
+	$query = "SELECT doc_v.did, doc_v.linktext, doc_v.module_signature, doc_v.fid, doc_v.link, lang.langid, lang.flagtext, lang.flagpath, lang.priority ";
 	$query .= "FROM doc_v, lang WHERE did='$did' AND lang.langid = doc_v.langid ORDER BY priority DESC";
 	$result = mysql_query($query);
 	return createDocLink($result, $linktext); 
@@ -31,13 +31,13 @@ function createDocLink($result, $linktext) {
 	$means = null;
 	while ($row = mysql_fetch_assoc($result)) {
 		//fix link address:
-		if ($row['format'] == "regular") {
+		if ($row['module_signature'] == "regular") {
 			$linkaddress = "'".xidlidPath("did", $did, $row['langid'])."'";
-		} else if ($row['format'] == "file") {
+		} else if ($row['module_signature'] == "file") {
 			$r = mysql_query("SELECT path FROM file WHERE fid = '".$row['fid']."'");
 			$r = mysql_fetch_row($r);
 			$linkaddress = "'".$r[0]."' TARGET='_blank'";
-		} else if ($row['format'] == "link") {
+		} else if ($row['module_signature'] == "link") {
 			$linkaddress = "'".$row['link']."'";
 		}
 		//create link (if needed)

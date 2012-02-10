@@ -17,7 +17,7 @@ function leftMenu() {
 	global $publicRoot;
 	$types = getTypes();
 
-	$query .= "SELECT doc.did, lang.shorthand, doc_v.linktext, doc_v.fid, doc_v.link, doc_v.format FROM doc, doc_v, lang, hierarchy ";
+	$query .= "SELECT doc.did, lang.shorthand, doc_v.linktext, doc_v.fid, doc_v.link, doc_v.module_signature FROM doc, doc_v, lang, hierarchy ";
 	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_v.did AND lang.langid = doc_v.langid ";
 	$query .= "AND lang.shorthand = '".$_GET['lang']."' ";
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
@@ -27,11 +27,11 @@ function leftMenu() {
 		if ($link != null) {
 			$out .= "<TR><TD CLASS='leftmenu-links'>".$link."</TD></TR>\n";
 		}
-		if ($row['format'] == 'file') {
+		if ($row['module_signature'] == 'file') {
 			$r = mysql_fetch_row(mysql_query("SELECT path FROM file WHERE fid = '".$row['fid']."'"));
 			$linkaddress = "<A HREF='$publicRoot".$r[0]."' TARGET='_blank'>";
 		} else {
-			if ($row['format'] == 'link') {
+			if ($row['module_signature'] == 'link') {
 				$linkaddress = $row['link'];
 			} else {
 				$linkaddress = pageLink($row['did'], null, null);
@@ -50,7 +50,7 @@ function indexTypeFlags1($did) {
 	global $publicRoot;
 	$types = getTypes();
 
-	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_v.linktext, dtype.tid, images.small, doc_v.fid, doc_v.link, doc_v.format ";
+	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_v.linktext, dtype.tid, images.small, doc_v.fid, doc_v.link, doc_v.module_signature ";
 	$query .= "FROM doc, doc_v, dtype, lang, hierarchy, images ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND doc.did = doc_v.did AND dtype.tid = doc.typeid ";
 	$query .= "AND lang.langid = doc_v.langid AND images.iid = lang.iid ";
@@ -78,12 +78,12 @@ function indexTypeFlags1($did) {
 				$typeoutput = null;
 			}
 		}
-		if ($row['format'] == 'file') {
+		if ($row['module_signature'] == 'file') {
 			$query = "SELECT path FROM file WHERE fid = '".$row['fid']."'";
 			$r = mysql_fetch_row(mysql_query($query));
 			$linkaddress = "<A HREF='".$r[0]."' TARGET='_blank'";
 		} else {
-			if ($row['format'] == 'link') {
+			if ($row['module_signature'] == 'link') {
 				$linkaddress = $row['link'];
 			} else {
 				$linkaddress = pageLink($row['did'], null, $row['shorthand']);
@@ -115,7 +115,7 @@ function indexTypeFlags1($did) {
 
 function indexFlags1($did) {
 	global $publicRoot;
-	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_v.linktext, doc_v.description, doc.description_img, images.small, doc_v.fid, doc_v.link, doc_v.format ";
+	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_v.linktext, doc_v.description, doc.description_img, images.small, doc_v.fid, doc_v.link, doc_v.module_signature ";
 	$query .= "FROM doc, doc_v, lang, hierarchy, images ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND doc.did = doc_v.did ";
 	$query .= "AND lang.langid = doc_v.langid AND images.iid = lang.iid ";
@@ -130,12 +130,12 @@ function indexFlags1($did) {
 			$link = null;
 			$means = null;
 		}
-		if ($row['format'] == 'file') {
+		if ($row['module_signature'] == 'file') {
 			$query = "SELECT path FROM file WHERE fid = '".$row['fid']."'";
 			$r = mysql_fetch_row(mysql_query($query));
 			$linkaddress = "<A HREF='".$r[0]."' TARGET='_blank'";
 		} else {
-			if ($row['format'] == 'link') {
+			if ($row['module_signature'] == 'link') {
 				$linkaddress = $row['link'];
 			} else {
 				$linkaddress = pageLink($row['did'], null, $row['shorthand']);
@@ -162,7 +162,7 @@ function indexFlags1($did) {
 
 function indexDescriptionFlags($did) {
 	global $publicRoot;
-	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_v.linktext, doc_v.description, doc.description_img, images.small, doc_v.fid, doc_v.link, doc_v.format ";
+	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_v.linktext, doc_v.description, doc.description_img, images.small, doc_v.fid, doc_v.link, doc_v.module_signature ";
 	$query .= "FROM doc, doc_v, lang, hierarchy, images ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND doc.did = doc_v.did ";
 	$query .= "AND lang.langid = doc_v.langid AND images.iid = lang.iid ";
@@ -189,12 +189,12 @@ function indexDescriptionFlags($did) {
 			$description = null;
 			$description_img = null;
 		}
-		if ($row['format'] == 'file') {
+		if ($row['module_signature'] == 'file') {
 			$query = "SELECT path FROM file WHERE fid = '".$row['fid']."'";
 			$r = mysql_fetch_row(mysql_query($query));
 			$linkaddress = "<A HREF='".$r[0]."' TARGET='_blank'";
 		} else {
-			if ($row['format'] == 'link') {
+			if ($row['module_signature'] == 'link') {
 				$linkaddress = $row['link'];
 			} else {
 				$linkaddress = pageLink($row['did'], null, $row['shorthand']);

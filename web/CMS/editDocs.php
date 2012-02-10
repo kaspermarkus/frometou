@@ -34,7 +34,7 @@ function showRegularDocForm() {
  	if (isset($_POST[$id])) {
 		$query = "SELECT pagetitle, header, postheader, body ";
 		$query .= "FROM doc_regular_v WHERE did=".$_POST['did']." AND langid=".$_SESSION['langid'];
-		//echo $query;
+		echo $query;
 		$result = mysql_query($query);
 		if (mysql_num_rows($result) > 0) {
 			foreach (mysql_fetch_assoc($result) as $var=>$value) {
@@ -61,12 +61,17 @@ function showRegularDocForm() {
 	</TABLE>
 	<?php
 }
+
+function fix_html_field($arr, $fieldname) {
+        $arr[$fieldname] = rmNewlines($arr[$fieldname]);
+        $arr[$fieldname] = fixQuotes($arr[$fieldname]);
+        $arr[$fieldname] = saveImages($arr[$fieldname]);
+}
+
 //handles the part of the form specific to a regular document
 function handleRegularDocForm() {
 	global $id;
-	$_POST['bodyEditor'] = rmNewlines($_POST['bodyEditor']);
-	$_POST['bodyEditor'] = fixQuotes($_POST['bodyEditor']);
-	$_POST['bodyEditor'] = saveImages($_POST['bodyEditor']);
+	fix_html_field($_POST, 'bodyEditor');
 
 	$query = "REPLACE doc_regular_v ( did, langid, pagetitle, header, postheader, body ) VALUES ";
 	$query .= "( ".$_POST[$id].", ".$_SESSION['langid'].", \"".$_POST['pagetitle']."\", \"".$_POST['header']."\", \"".$_POST['postheader']."\", \"".$_POST['bodyEditor']."\" )";
@@ -100,23 +105,44 @@ function gotoAvailableLang($query) {
 if (isset($_POST['saveDoc'])) {
 	//first update the general properties:
 	//if we have a valid id
-	$query = "UPDATE doc SET priority = ".$_POST['priority'].", typeid=".$_POST['typeid'].", description_img=\"".$_POST['description_img']."\", ident=\"".$_POST['ident']."\" WHERE $id='".$_POST[$id]."'";
+	echo "KAPER222";
+	$query = "UPDATE doc SET priority = ".$_POST['priority'].", typeid=".$_POST['typeid'].", ident=\"".$_POST['ident']."\" WHERE $id='".$_POST[$id]."'";
+	echo $query;
 	mysql_query($query);
 	//update translation specific general properties
-	$query = "REPLACE doc_general_v ( did, langid, linktext, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['langid'].", \"".$_POST['linktext']."\", \"".$_POST['description']."\")";
+	$query = "REPLACE doc_general_v ( did, langid, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['langid'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
+
 	mysql_query($query);
-	//now take care of the rest of the form based on the format:
-	if ($_POST['format'] == "regular") {
+	//now take care of the rest of the form based on the module_signature:
+	if ($_POST['module_signature'] == "regular") {
 		//if regular document:
 		handleRegularDocForm();
+	} else {
+	        //take care of generic module text fields
+		$sql = "SELECT * FROM module_text WHERE `module_signature` LIKE \"".$_POST['module_signature']."\" ORDER BY priority DESC";
+                $result=mysql_query($sql);
+                if (mysql_num_rows($result) != null) {
+                   while ($row = mysql_fetch_assoc($result)) {
+			if ($_row['input_type'] == "html") 
+				fix_html_field($_POST, $row['signature']);
+			print_r($row);
+                	$versionsql = "REPLACE module_text_v ( `did` , `text_signature` , `lang_id` , `value`) VALUES ( '".$_POST['did']."', '".$row['signature']."', '".$_SESSION['langid']."', '".$_POST[$row['signature']]."')";
+			mysql_query($versionsql);
+			echo $versionsql;
+                   }
+                }
+//require_once("modules/".$_POST['module_signature'].".php");
+		//saveModuleForm();	
 	}
+	header("location:$filename?$id=".$_POST[$id]);
+
  } else if (isset($_POST['delete'])) {
 	//Delete general language specific properties
 	$query = "DELETE FROM doc_general_v WHERE $id=".$_POST[$id]." AND langid=".$_SESSION['langid'];
 	mysql_query($query);
 	//echo $query;
-	//Handle the rest of the deletion based on the format:
-	if ($_POST['format'] == "regular") {
+	//Handle the rest of the deletion based on the module_signature:
+	if ($_POST['module_signature'] == "regular") {
 		//if regular document
 		deleteRegularDoc();
 	}
@@ -148,16 +174,16 @@ if (isset($_POST['saveDoc'])) {
 	header("location:$filename?$id=".$_POST[$id]);	
 /* ----------------- if no form is submitted ------------------------------------ */
  } else	if (isset($_POST[$id])) {
-	$query = "SELECT doc.did, doc.format, doc.description_img, doc.priority, doc.typeid, doc.ident, linktext, description ";
+	$query = "SELECT doc.did, doc.module_signature, doc.description_img, doc.priority, doc.typeid, doc.ident, linktext, description, pagetitle ";
 	$query .= "FROM doc, doc_general_v WHERE doc.did=".$_POST['did']." AND langid=".$_SESSION['langid']." AND doc.did = doc_general_v.did";
-	//echo $query;
+	echo $query;
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {
 		$prop = mysql_fetch_assoc($result);
 	//	$prop['body'] = fixQuotes($prop['body']);
 	//	$prop['body'] = readImages($prop['body']);
 	} else {
-		$query = "SELECT did, priority, typeid, format, description_img, ident ";
+		$query = "SELECT did, priority, typeid, module_signature, description_img, ident ";
 		$query .= "FROM doc WHERE did=".$_POST['did'];
 		$result = mysql_query($query);
 		$prop = mysql_fetch_assoc($result);
@@ -169,19 +195,7 @@ if (isset($_POST['saveDoc'])) {
 <HTML>
 <HEAD>
 <script type="text/javascript" src="functions/jquery.js"></script>	
-<script type="text/javascript" src="/CMS/ckeditor/ckeditor.js"></script>
-<script type="text/javascript">
-$().ready(function() {
-	var did=<?php echo "'$did'"; ?>;
-	//comment
-	$('#moduleTablePlaceholder').load("docModuleHandler.php?did="+did, function() {
-		$('.visibilityToggler').click(function(o){
-			$("#inputfield"+$(this).val()).toggle();
-		});
-				
-	});
-});
-</script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <SCRIPT LANGUAGE='javascript'>
 function showhide(id) {
 	if (document.getElementById(id).style.display == 'none') {
@@ -214,6 +228,9 @@ while ($r = mysql_fetch_row($result)) {
 	}
  }
 /* ------------------------------------------------------------ */
+function display_prop($arr, $val) {
+	return (isset($arr[$val])) ? $arr[$val] : "Undefined";
+}
 ?> 
 </TD></TR></TABLE>
 <BR><A HREF='listDocs.php'>Back to list of documents</A>
@@ -227,8 +244,9 @@ while ($r = mysql_fetch_row($result)) {
 	<A HREF="#" onClick="showhide('documentInfoSub'); showhide('cke_bodyEdit'); return false;">
 		Document properties <font id="documentInfoSubPlus" style="display:none;">+</font>
 	</A></B></LEGEND>
-	<input type='hidden' name="<?php echo $id; ?>" value="<?php echo $_POST[$id]; ?>">
-	<input type='hidden' name="format" value="<?php echo $prop['format']; ?>">
+	<?php echo "KASPER"; print_r($prop); ?>
+	<input type='hidden' name="did" value="<?php echo $_POST['did']; ?>">
+	<input type='hidden' name="module_signature" value="<?php echo $prop['module_signature']; ?>">
 	<TABLE BORDER=0 id="standardInfo" WIDTH=100%>
 		<TR><TH>identifier: </TH><TD><input TYPE='text' size="50" name="ident" value="<?php echo $prop['ident']; ?>"></TD>
 	   	    <TH STYLE="width:0; text-align:right;">priority:&nbsp; </TH><TD WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php echo $prop['priority']; ?>"></TD>
@@ -238,21 +256,56 @@ while ($r = mysql_fetch_row($result)) {
 	   	    <TH style="text-align:right; vertical-align:top">image:&nbsp; </TH><TD ROWSPAN=3 STYLE="vertical-align:top; text-align:left;"><A HREF="#" style="font-size:11px;">select image</A></TD>
 	   	    <TD style="text-align:right"><INPUT TYPE="submit" value="delete" onSubmit="return confirm('Really delete document?');" name="delete"></TD>
 		</TR>
+		<TR><TH>page title:</TH><TD><input size="50" name="pagetitle" value="<?php echo display_prop($prop, 'pagetitle'); ?>"</TD>
+	   	    <TD></TD><TD></TD>
 	
-		<TR><TH>linktext:</TH><TD><input size="50" name="linktext" value="<?php echo $prop['linktext']; ?>"></TD>
+		<TR><TH>linktext:</TH><TD><input size="50" name="linktext" value="<?php echo display_prop($prop, 'linktext'); ?>"</TD>
 	   	    <TD></TD><TD></TD>
 		</TR>
-		<TR><TH>description: </TH><TD><TEXTAREA COLS=50 ROWS=3 NAME='description'><?php echo $prop['description'] ?></TEXTAREA></TD>
+		<TR><TH>description: </TH><TD><TEXTAREA COLS=50 ROWS=3 NAME='description'><?php echo display_prop($prop, 'description'); ?></TEXTAREA></TD>
 		    <TD></TD><TD></TD>
 		</TR>
 	</TABLE>
 	<?php
 	//all the common stuff has been printed above .. now for the specific stuff for language and document type:
 	//chech if it's a regular document:
-	if ($prop['format'] == "regular") {
+	if ($prop['module_signature'] == "regular") {
 		showRegularDocForm();
-	} else if ($prop['format'] == "module") {
-		echo "<DIV id='moduleTablePlaceholder'>Loading information...</DIV>";
+	} else {
+		//first create fields for the regular module text:
+		$sql = "SELECT * FROM module_text WHERE `module_signature` LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
+		echo $sql;
+	   	$result=mysql_query($sql);
+	   	if (mysql_num_rows($result) != null) {
+		   while ($row = mysql_fetch_assoc($result)) {
+			//get value:
+			$val_sql = "SELECT value FROM module_text_v WHERE text_signature=\"".$row['signature']."\" AND did=".$_POST['did']." AND lang_id=".$_SESSION['langid'];
+			$val_res = mysql_query($val_sql);
+			$val_row = null;
+			if (mysql_num_rows($val_res) != null) {
+				$val_row = mysql_fetch_assoc($val_res);
+			}
+			echo $val_sql;
+			echo "<p>".$row['property_name'].":";
+			if ($row['input_type'] == 'text') {
+				echo "<input size='50' name=\"".$row['signature']."\" value=\"".display_prop($val_row, 'value')."\" />";
+			} else if ($row['input_type'] == 'html') {
+				if (isset($val_row['value'])) {
+					$val_row['value'] = fixQuotes($val_row['value']);
+					$val_row['value'] = readImages($val_row['value']);
+				}
+				?>
+				<textarea name="<?php echo $row['signature']; ?>"><?php echo display_prop($val_row, 'value'); ?></textarea>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+				<script language="JavaScript" type="text/javascript">
+				CKEDITOR.replace( "<?php echo $row['signature']; ?>" , {toolbar : 'MyToolbar', filebrowserBrowseUrl: "CMS/kfm/"});
+				</script>
+<?php
+			}
+		   }
+	   	}
+		//require_once("modules/".$prop['cms_path'].".php");
+		//showCMSModuleForm();	
 	}
 	?>
 	</FIELDSET>

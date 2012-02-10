@@ -1,0 +1,26 @@
+\section{Creating a new module:}
+
+\subsection{Registering the Module}
+
+To register a new module, we have to add an entry to the table 'module': 
+
+INSERT INTO frometou_db.module ( mid, module_signature, module_name, display_path, cms_path)
+VALUES (
+NULL , 'normal_page', 'Normal Page', 'modules/normal_page.php', 'modules/normal_page.php')
+
+\subsection{Defining User editable fields of the module}
+A user editable field is either a full WYSIWYG editor or a simple text field. There can be as many as desired in the module. User editable fields are fields that can be used by the module to allow the CMS user to edit text/variables to later display on the page. This is defined in the module_text table and the language specific versions will be held in module_text_v table. 
+
+The advantage of using these fields is that they provide a generic form of allowing CMS user to edit multi-language fields. The code for this is in modules/general.php, so it simplifies writing the code for both display and CMS edit of the module.
+
+For this module, we will only create one field that the CMS user can edit, namely the body of the document.
+
+signature: 'body' - the identifier we can use to refer to it when displaying
+input_type: 'html' - the input type. html will give a WYSIWYG
+propertye_name: An easy readable name shown in the CMS system
+
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'normal_page', 'header', Header', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'normal_page', 'postHeader', 'Post Header', 'text', '1', '200');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'normal_page', 'body', 'Body', 'html', '1', '100');
+
+

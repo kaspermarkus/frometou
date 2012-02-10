@@ -56,7 +56,7 @@ function fixBody($did, $body) {
 	/** FIX LINKS **/
 	$regexp = "<a href='(\-?[0-9]+)'>";
 	while (eregi($regexp, $body, $values)) {
-		$query = "SELECT doc.did, doc.format, lang.shorthand ";
+		$query = "SELECT doc.did, doc.module_signature, lang.shorthand ";
 		$query .= "FROM doc, lang, doc_general_v ";
 		$query .= "WHERE doc.did = '".$values[1]."' AND doc.did = doc_general_v.did ";
 		$query .= "AND lang.langid = doc_general_v.langid ";
@@ -64,12 +64,12 @@ function fixBody($did, $body) {
 		//echo $query;
 		$result = mysql_query($query);
 		while ($row = mysql_fetch_assoc($result)) {
-			if ($row['format'] == 'file') {
+			if ($row['module_signature'] == 'file') {
 				$query = "SELECT path FROM file WHERE fid = '".$row['fid']."'";
 				$r = mysql_fetch_row(mysql_query($query));
 				$linkaddress = "<A HREF='".$publicRoot.$r[0]."' TARGET='_blank'";
 			} else {
-				if ($row['format'] == 'link') {
+				if ($row['module_signature'] == 'link') {
 					$linkaddress = $row['link'];
 				} else {
 					$linkaddress = pageLink($row['did'], null, $row['shorthand']);

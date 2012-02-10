@@ -5,25 +5,25 @@ require_once("../functions/functions.php");
 /* if user decided to create a new document */
 if (isset($_POST['new'])) {
 	//if it is a document module (starts with m_)
-	if (preg_match("/^m_([0-9]+)/", $_POST['format'], $mid_match)) {
+	/*if (preg_match("/^m_([0-9]+)/", $_POST['module_signature'], $mid_match)) {
 		$mid = $mid_match[1];
-		$_POST['format'] = "module";
-	}
+		$_POST['module_signature'] = "module";
+	}*/
 	/* get random type */
 	$type = mysql_fetch_row(mysql_query("SELECT tid FROM dtype ORDER BY priority DESC"));
 	//echo "SELECT tid FROM dtype ORDER BY priority DESC";
-	$query = "INSERT INTO doc (did, format, typeid, description_img, ident, priority) VALUES ";
-	$query .= "( '', '".$_POST['format']."', '".$type[0]."', '', 'new document', '100')";
+	$query = "INSERT INTO doc (did, module_signature, typeid, description_img, ident, priority) VALUES ";
+	$query .= "( '', '".$_POST['module_signature']."', '".$type[0]."', '', 'new document', '100')";
 	//echo $query;
 	mysql_query($query);
 	//get new id:
-	$result = mysql_query("SELECT did FROM doc WHERE format='".$_POST['format']."' AND typeid='".$type[0]."' AND ident='new document' AND priority='100' ORDER BY did DESC LIMIT 1");
-	//echo "SELECT did FROM doc WHERE format='".$_POST['format']."' AND typeid='".$type[0]."' AND ident='new document' AND priority='100' ORDER BY did DESC LIMIT 1";
+	$result = mysql_query("SELECT did FROM doc WHERE module_signature='".$_POST['module_signature']."' AND typeid='".$type[0]."' AND ident='new document' AND priority='100' ORDER BY did DESC LIMIT 1");
+	//echo "SELECT did FROM doc WHERE module_signature='".$_POST['module_signature']."' AND typeid='".$type[0]."' AND ident='new document' AND priority='100' ORDER BY did DESC LIMIT 1";
 	$row = mysql_fetch_row($result); 
 	$newID = $row[0];
 	//echo "new id: $newID;";
 	//if the document is a module, copy all the default properties
-	if (isset($mid)) {
+	/*if (isset($mid)) {
 		//check if we have a version in the current language
 	//	echo $_SESSION['langid'];	
 		$query = "SELECT p.prop_id, value FROM doc_module_v as m_v, doc_module_property as p WHERE p.prop_id=m_v.prop_id AND m_v.did=-1 AND p.module_id=$mid AND m_v.lang_id=".$_SESSION['langid'];
@@ -43,7 +43,7 @@ if (isset($_POST['new'])) {
 	//		echo $query."<BR>";
 			mysql_query($query);
 		}
-	}
+	}*/
 	//lastly edit the new document in editDoc.php
 	header("location:editDocs.php?did=$newID");
 }
@@ -104,15 +104,15 @@ function edits(s) {
 </FORM>
 <FORM method="POST" NAME="newDoc" ACTION="listDocs.php">
 <FIELDSET><LEGEND><B>New Document</B></LEGEND>
-<SELECT NAME="format">
+<SELECT NAME="module_signature">
 <OPTION VALUE="regular">Normal document</OPTION>
 <OPTION VALUE="reference">Reference</OPTION>
 <?php 
 //show all document modules and prefix with a m_ before name
-$query = "SELECT mid, module_name FROM doc_module";
+$query = "SELECT module_signature, module_name FROM module";
 $result = mysql_query($query); 
 while ($row = mysql_fetch_assoc($result)) {
-	echo "<OPTION VALUE='m_".$row['mid']."'>".$row['module_name']."</OPTION>";
+	echo "<OPTION VALUE=\"".$row['module_signature']."\"'>".$row['module_name']."</OPTION>";
 }
 ?>
 </SELECT>
@@ -120,5 +120,6 @@ while ($row = mysql_fetch_assoc($result)) {
 </FIELDSET>
 </FORM>
 </TD></TR></TABLE>
+<?php echo $query; ?>
 </BODY>
 </HTML>
