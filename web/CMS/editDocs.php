@@ -5,6 +5,7 @@ require_once("authorize.php");
 require_once("../functions/functions.php");
 require_once("../functions/siteInfo.php");
 require_once("../functions/parsing.php");
+require_once("../functions/cmsgeneral.php");
 
 $filename = "editDocs.php";
 $id = "did";
@@ -236,20 +237,7 @@ function showhide(id) {
 </HEAD>
 	<BODY>
 	<TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Documents</H1></TD><TD ALIGN='right'><?php
-/* -------------- fix flags ------------------------------------ */
-$mysql = "SELECT langid, thumbnail_path FROM lang ORDER BY priority DESC";
-$result = mysql_query($mysql);
-while ($r = mysql_fetch_assoc($result)) {
-	if ($r['langid'] == $_SESSION['langid']) {
-		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r['thumbnail_path']."' WIDTH='44' HEIGHT='30'>&nbsp;";
-	} else {
-		echo "<A HREF='$filename?";
-		if (isset($_POST[$id])) {
-			echo "$id=".$_POST[$id]."&";
-		}
-		echo "langid=".$r['langid']."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r['thumbnail_path']."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
-	}
- }
+cms_insert_flags($id, $_POST[$id]);
 /* ------------------------------------------------------------ */
 ?>
 </TD></TR></TABLE>

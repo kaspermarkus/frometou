@@ -1,12 +1,14 @@
 <?php
 require_once("authorize.php");
 require_once("../functions/siteInfo.php");
+require_once("../functions/cmsgeneral.php");
 
 $filename = "editTypes.php";
 $id = "tid";
 
 /* ------------ if new language chosen ------------ */
 if (isset($_GET['langid'])) {
+	echo "AAAA";
 	$_SESSION['langid'] = $_GET['langid'];
 	if (isset($_GET[$id])) {
 		$params = "?$id=".$_GET[$id];
@@ -43,10 +45,11 @@ if (isset($_GET['singlesave'])) {
 	//if no we have a valid id
 	if ($_GET[$id] > 0) {
 		$query = "UPDATE dtype SET priority = ".$_GET['priority'].", ident = '".$_GET['ident']."' WHERE $id='".$_GET[$id]."'";
+	//	echo $query;
 		mysql_query($query);
 		header("location:$filename?$id=".$_GET[$id]);
 	} 
- } else if (isset($_GET['delete'])) {
+} else if (isset($_GET['delete'])) {
 	if (!isset($_GET[$id]) || $_GET[$id] <= 0) {
 		header("location:$filename");
 	}
@@ -87,20 +90,7 @@ if (isset($_GET['singlesave'])) {
 </head>
 <body>
 <TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Types</H1></TD><TD ALIGN='right'><?php
-/* -------------- fix flags ------------------------------------ */
-$result = mysql_query("SELECT langid, small FROM lang, images WHERE lang.iid = images.iid ORDER BY priority DESC");
-while ($r = mysql_fetch_row($result)) {
-	if ($r[0] == $_SESSION['langid']) {
-		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
-	} else {
-		echo "<A HREF='$filename?";
-		if (isset($_GET[$id])) {
-			echo "$id=".$_GET[$id]."&";
-		}
-		echo "langid=".$r[0]."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
-	}
- }
-/* ------------------------------------------------------------ */
+cms_insert_flags($id, isset($_GET[$id])?$_GET[$id]:null);
 ?>
 </TD></TR></TABLE>
 <BR><A HREF='listTypes.php'>Back to list of types</A>
@@ -108,16 +98,21 @@ while ($r = mysql_fetch_row($result)) {
 <BR>
 	<FORM target="_self" method="get" action="<?php echo $filename; ?>" name="f2">
 	<FIELDSET><LEGEND><B>General for all language-versions</B></LEGEND>
-	<input type='hidden' name="<?php echo $id; ?>" value="<?php echo $_GET[$id]; ?>">
+	<input type='hidden' name="<?php echo $id; ?>" value="<?php echo  isset($_GET[$id])?$_GET[$id]:""; ?>">
 	<TABLE BORDER=0>
-	<TR><TH>identifier: </TH><TD><input size="80" name="ident" value="<?php echo $row['ident'] ?>"></TD></TR>
-	<TR><TH>priority: </TH><TD><input size="3" name="priority" value="<?php echo $row['priority'] ?>"></TD></TR>
-	<TR><TD></TD><TD><INPUT TYPE="submit" value="save" name="multisave"></TD></TR>
+	<TR><TH>identifier: </TH><TD><input size="80" name="ident" value="<?php echo isset($row['ident'])?$row['ident']:""; ?>"></TD></TR>
+	<TR><TH>priority: </TH><TD><input size="3" name="priority" value="<?php echo isset($row['priority'])?$row['priority']:""; ?>"></TD></TR>
+	<?php 
+	//first save has to involve language fields as well.. so multisave button isn't shown
+	if (isset($_GET[$id])) echo "<TR><TD></TD><TD><INPUT TYPE='submit' value='save' name='multisave'></TD></TR>"; 
+
+
+	?>
 	</TABLE>
 	</FIELDSET>
 	<BR>
 	<FIELDSET><LEGEND><B>Language specific</B></LEGEND>
-	<B>name: </B><input size="80" name="tname" value="<?php echo $row['tname'] ?>">
+	<B>name: </B><input size="80" name="tname" value="<?php echo isset($row['tname'])?$row['tname']:""; ?>">
 	<INPUT TYPE="submit" value="save" name="singlesave">
 	<BR>
 	<B>delete language version: </B><INPUT TYPE="submit" value="delete" name="delete">
