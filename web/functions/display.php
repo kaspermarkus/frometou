@@ -63,7 +63,7 @@ function getDocumentProperties($did) {
 	$props["parents"] = $parents;
 
 	//$main_trans['body'] = fixBody($did, $main_trans['body']);
-	return array ( $module_signature=>$module_props, "main"=>$main_trans, "langnames"=>$translationNames, "langpaths"=>$translationPaths, "usedlang"=>$usedlang, "parents"=>$parents );
+	return array ( $module_signature=>$module_props, "module_signature"=>$module_signature, "main"=>$main_trans, "langnames"=>$translationNames, "langpaths"=>$translationPaths, "usedlang"=>$usedlang, "parents"=>$parents );
 }
 
 function fixBody($did, $body) {
@@ -139,6 +139,7 @@ function getParents($did) {
 	$query .= " ORDER BY doc.priority DESC, doc.did ASC,  lang.priority DESC";
 	$result = mysql_query($query);
 	$flags = "";
+	$link = "";
 	while ($row = mysql_fetch_assoc($result)) {
 		if (isset($prevRow) && $row['did'] != $prevRow['did']) {
 			$parents[] = $link . $flags;

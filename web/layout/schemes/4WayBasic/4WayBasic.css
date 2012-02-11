@@ -6,7 +6,7 @@ require_once("/var/www/web26/web/functions/connect.php");
 <?php 
 //Get info from database
 $query = "SELECT element, property, value FROM layout_properties WHERE layoutID='-1' ORDER BY priority DESC, element ASC";
-//echo $query;
+echo $query;
 $result = mysql_query($query);
 while ($row = mysql_fetch_assoc($result)) {
 	echo $row['element']." { ".$row['property'].":".$row['value']."; }\n";
