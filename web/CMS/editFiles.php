@@ -1,7 +1,6 @@
 <?php
 require_once("authorize.php");
-require_once("../functions/documentBase.php");
-
+require_once("../functions/siteInfo.php");
 $filename = "editFiles.php";
 $id = "fid";
 
@@ -16,7 +15,7 @@ if (isset($_POST['save'])) {
 			$file = $_FILES['file'];
 			$ext = substr($file['name'], strpos($file['name'], "."));
 			$newname = $relativeFileDir.time().$ext;
-			if (move_uploaded_file($file['tmp_name'], $localRoot.$newname)) {
+			if (move_uploaded_file($file['tmp_name'], $SITE_INFO_LOCALROOT.$newname)) {
 				$query = "UPDATE file SET path = \"$newname\", ident = \"".$_POST['ident']."\" WHERE fid='".$_POST[$id]."'";
 				mysql_query($query);
 				echo "<SCRIPT LANGUAGE='javascript'>";
@@ -32,7 +31,7 @@ if (isset($_POST['save'])) {
 		$file = $_FILES['file'];
 		$ext = substr($file['name'], strpos($file['name'], "."));
 		$newname = $relativeFileDir.time().$ext;
-		if(move_uploaded_file($file['tmp_name'], $localRoot.$newname)) {
+		if(move_uploaded_file($file['tmp_name'], $SITE_INFO_LOCALROOT.$newname)) {
 			$query = "INSERT INTO file ( path, ident ) VALUES (\"$newname\", \"".$_POST['ident']."\")";
 			mysql_query($query);
 			$query = "SELECT fid FROM file ORDER BY fid DESC";
@@ -68,7 +67,7 @@ if (isset($_POST['save'])) {
 	<FIELDSET><LEGEND><B>Properties</B></LEGEND>
 	<input type='hidden' name="<?php echo $id; ?>" value="<?php echo $_GET[$id]; ?>">
 	<TABLE>
-	<?php if ($row['path'] != "") echo "<TR><TH>current file: </TH><TD><A HREF='".$publicRoot.$row['path']."' TARGET='_blank'>open in new window</A></TD></TR>"; ?>
+	<?php if ($row['path'] != "") echo "<TR><TH>current file: </TH><TD><A HREF='".$SITE_INFO_PUBLIC_ROOT.$row['path']."' TARGET='_blank'>open in new window</A></TD></TR>"; ?>
 	<TR><TH>path: </TH><TD><input size="80" name="file" type='file' value="<?php echo $row['path']; ?>"></TD></TR>
 	<TR><TH>ident: </TH><TD><input size="80" name="ident" type='text' value="<?php echo $row['ident'] ?>"></TD></TR>
 	</TABLE>

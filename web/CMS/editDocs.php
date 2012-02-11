@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=iso-8859-1');
 
 require_once("authorize.php");
 require_once("../functions/functions.php");
-require_once("../functions/documentBase.php");
+require_once("../functions/siteInfo.php");
 require_once("../functions/parsing.php");
 
 $filename = "editDocs.php";
@@ -76,7 +76,7 @@ function save_module_text() {
 }
 
 function display_prop($arr, $val) {
-	return (isset($arr[$val])) ? $arr[$val] : "Undefined";
+	return (isset($arr[$val])) ? $arr[$val] : "";
 }
 
 function insert_mandatory_fields() {
@@ -137,9 +137,8 @@ function insert_module_fields() {
 <?php
 			}
 			echo "</TR>";
-		   }
-	   	}
-
+		}
+   	}
 }
 
 function delete_general_text() {
@@ -191,6 +190,12 @@ if (isset($_POST['saveDoc'])) {
  } else if (isset($_POST['delChild']) && $_POST['delc'] != '-1') {
 	mysql_query("DELETE FROM hierarchy WHERE did='".$_POST['delc']."' and parent='".$_POST[$id]."'");
 	header("location:$filename?$id=".$_POST[$id]);	
+
+
+
+
+
+
 /* ----------------- if no form is submitted ------------------------------------ */
  } else	if (isset($_POST[$id])) {
 	$query = "SELECT doc.did, doc.module_signature, doc.description_img, doc.priority, doc.typeid, doc.ident, linktext, description, pagetitle ";
@@ -199,8 +204,6 @@ if (isset($_POST['saveDoc'])) {
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {
 		$prop = mysql_fetch_assoc($result);
-	//	$prop['body'] = fixQuotes($prop['body']);
-	//	$prop['body'] = readImages($prop['body']);
 	} else {
 		$query = "SELECT did, priority, typeid, module_signature, description_img, ident ";
 		$query .= "FROM doc WHERE did=".$_POST['did'];
@@ -237,13 +240,13 @@ function showhide(id) {
 $result = mysql_query("SELECT langid, small FROM lang, images WHERE lang.iid = images.iid ORDER BY priority DESC");
 while ($r = mysql_fetch_row($result)) {
 	if ($r[0] == $_SESSION['langid']) {
-		echo "<IMG SRC='".$publicRoot.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
+		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
 	} else {
 		echo "<A HREF='$filename?";
 		if (isset($_POST[$id])) {
 			echo "$id=".$_POST[$id]."&";
 		}
-		echo "langid=".$r[0]."'><IMG SRC='".$publicRoot.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
+		echo "langid=".$r[0]."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
 	}
  }
 /* ------------------------------------------------------------ */
@@ -278,8 +281,8 @@ while ($r = mysql_fetch_row($result)) {
 	</FIELDSET>
 	</form>
 	<BR>
-		//require_once("modules/".$prop['cms_path'].".php");
-		//showCMSModuleForm();	
+		<?//require_once("modules/".$prop['cms_path'].".php");
+		//showCMSModuleForm();?>	
 	
 <?php
 	if (isset($_POST[$id])) {

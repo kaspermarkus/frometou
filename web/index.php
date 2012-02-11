@@ -1,6 +1,6 @@
 <?php
 header('Content-type: text/html; charset=iso-8859-1');
-require_once("functions/documentBase.php");
+require_once("functions/siteInfo.php");
 require_once("functions/connect.php");
 require_once("functions/listings.php");
 require_once("functions/path.php");
@@ -25,7 +25,7 @@ if (!isset($_GET['lang'])) {
 			$link .= "_".$_GET['tmplang'];
 		}
 	}
-	header("location:".$publicRoot.$row[0]."/".$link);
+	header("location:".$SITE_INFO_PUBLIC_ROOT.$row[0]."/".$link);
  }
 
 /* If no document is selected, go to front */
@@ -34,30 +34,36 @@ if (!isset($_GET['did'])) {
 }
 
 $tmp = getDocumentProperties($_GET['did']);
-$main_trans = $tmp['main'];
+//print_r($tmp);
 
-foreach ($tmp['tnames'] as $tid=>$tname) {
-	$tmpimg = "<IMG SRC='".$publicRoot.$tmp['tpaths'][$tid]."'";	
+$props = $tmp;
+
+$main_trans = $tmp['main'];
+$translations = "";
+//Create flag to other versions of the document
+foreach ($props['langnames'] as $shorthand=>$langname) {
+	$tmpimg = "<IMG SRC='brokenlink'"; //".$SITE_INFO_PUBLIC_ROOT.$props['langtpath'][$langid]."'";	
 	
-	if ($tmp['usedlang'] != $tid) {
-		$translations .= "<A HREF='".pageLink(null, null, $tid)."'>$tmpimg CLASS='translationflags'></A>";
+	if ($props['usedlang'] != $shorthand) {
+		$translations .= "<A HREF='".pageLink(null, null, $shorthand)."'>$tmpimg CLASS='translationflags'></A>";
 	} 
 	$translations .= "&nbsp;";
 }
 $parents = $tmp['parents'];
 unset($tmp);
 $pagetitle = $main_trans['pagetitle'];
-$header = $main_trans['header'];
-$postheader = $main_trans['postheader'];
-$body .= $main_trans['body'];
+//$header = $main_trans['header'];
+//$postheader = $main_trans['postheader'];
+//$body .= $main_trans['body'];
 
 /* --------------------------------------- fix default language flags ------------------------------------------------ */
 $query = "SELECT lang.langid, lang.shorthand, images.iid, images.small, lang.lname FROM lang, defaultlangs, images WHERE defaultlangs.langid = lang.langid AND";
 $query .= " images.iid = lang.iid ORDER BY lang.priority DESC";
 $result = mysql_query($query);
+$defaultflags="";
 while ($row = mysql_fetch_assoc($result)) {
 
-	/*$img = "<IMG SRC='".$publicRoot.$row['small']."'";	
+	/*$img = "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."'";	
 	
 	if ($_GET['lang'] != $row['shorthand']) {
 		$defaultflags .= "<A HREF='".pageLink(null, $row['shorthand'], null)."'>$img CLASS='defaultflags-regular'></A>";

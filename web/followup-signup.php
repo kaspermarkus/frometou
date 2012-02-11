@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
 	  $message = "Hello ".$_POST['projectname']."<P>\r\n\r\n";
 	  $message .= "\t<BLOCKQUOTE>";
 	  
-	  $message .= "\tThank you for showing your support for the Color Orange. Please confirm that you want your follow up project posted on the ColorOrange website by clicking <A HREF='$publicRoot".$_GET['lang']."/page-8?id=".$row['sid']."&code=".$row['time']."'>this link</A><BR>\r\n";
+	  $message .= "\tThank you for showing your support for the Color Orange. Please confirm that you want your follow up project posted on the ColorOrange website by clicking <A HREF='$SITE_INFO_PUBLIC_ROOT".$_GET['lang']."/page-8?id=".$row['sid']."&code=".$row['time']."'>this link</A><BR>\r\n";
 	  $message .= "\t(The mail, and confirmation is done to avoid spam on the follow up list)";
 	  $message .= "\t</BLOCKQUOTE>";
 	  $message .= "Thank you again for your support,\r\n\r\n<BR><BR>Sincerely, TheColorOrange\r\n<BR>";
@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
 	  mail($to, $subject, $message, $headers); //Sender mailen 
 	  $successmsg .= "<H2>Thank you for showing your support</H2>";
 	  $successmsg .= "A mail has been sent to you, with a link to follow to confirm you want to post your project to the list. It will arrive in a few minutes<P>";
-	  $successmsg .= "See a list of current projects: <A HREF='$publicRoot".$_GET['lang']."/page-8'>Follow up projects</A>";			
+	  $successmsg .= "See a list of current projects: <A HREF='$SITE_INFO_PUBLIC_ROOT".$_GET['lang']."/page-8'>Follow up projects</A>";			
 	}
 	if ($successmsg != "") { 
 	  echo $successmsg;			

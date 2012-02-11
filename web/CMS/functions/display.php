@@ -1,7 +1,7 @@
 <?php
 require_once("functions.php");
 require_once("path.php");
-require_once("documentBase.php");
+require_once("siteInfo.php");
 require_once("listing.php");
 
 function getDocumentProperties($did) {
@@ -47,7 +47,7 @@ function fixBody($did, $body) {
 }
 
 function getParents($did) {
-	global $publicRoot;
+	global $SITE_INFO_PUBLIC_ROOT;
 	$query = "SELECT doc.did, lang.langid, lang.shorthand, images.small, lang.lname, doc_v.linktext ";
 	$query .= "FROM doc_v, lang, images, doc, hierarchy ";
 	$query .= "WHERE doc_v.langid = lang.langid AND images.iid = lang.iid AND doc_v.did = doc.did AND hierarchy.parent = doc.did ";
@@ -68,7 +68,7 @@ function getParents($did) {
 			$link = "<A HREF='".pageLink($row['did'], null, $row['shorthand'])."'>".$row['linktext']."</A>";
 			$means = 'default';
 		}
-		$flags .= "<A HREF='".pageLink($row['did'], null, $row['shorthand'])."'><IMG SRC='".$publicRoot.$row['small']."' CLASS='linkflags'></A>";
+		$flags .= "<A HREF='".pageLink($row['did'], null, $row['shorthand'])."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags'></A>";
 		$prevRow = $row;
 	}
 	$parents[] = $link . $flags;

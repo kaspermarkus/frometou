@@ -1,6 +1,6 @@
 <?php
 require_once("authorize.php");
-require_once("../functions/documentBase.php");
+require_once("../functions/siteInfo.php");
 
 $filename = "editCss.php";
 $id = "pid";

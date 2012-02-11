@@ -1,7 +1,7 @@
 <?php
 require_once("authorize.php");
 require_once("../functions/functions.php");
-require_once("../functions/documentBase.php");
+require_once("../functions/siteInfo.php");
 $filename = "editImgs.php";
 $id = "iid";
 if (!isset($_POST[$id])) {
@@ -45,7 +45,7 @@ if (isset($_POST['singlesave'])) {
 				$small_ext = substr($small['name'], strpos($small['name'], "."));
 				$smallname = $relativeImageDir."s_".time().$small_ext;
 				$extras .= ", small=\"$smallname\"";
-				if (!move_uploaded_file($small['tmp_name'], $localRoot.$smallname)) {
+				if (!move_uploaded_file($small['tmp_name'], $SITE_INFO_LOCALROOT.$smallname)) {
 					echo 'An error orccured when trying to upload Images! Upload aborted.<br>';
 					echo "<a href='?$id=".$_POST[$id]."'>please try again</a>";
 					exit(0);
@@ -56,7 +56,7 @@ if (isset($_POST['singlesave'])) {
 				$big_ext = substr($big['name'], strpos($big['name'], "."));
 				$bigname = $relativeImageDir.time().$big_ext;
 				$extras .= ", big=\"$bigname\"";
-				if (!move_uploaded_file($big['tmp_name'], $localRoot.$bigname)) {
+				if (!move_uploaded_file($big['tmp_name'], $SITE_INFO_LOCALROOT.$bigname)) {
 					echo 'An error orccured when trying to upload Images! Upload aborted.<br>';
 					echo "<a href='?$id=".$_POST[$id]."'>please try again</a>";
 					exit(0);
@@ -85,7 +85,7 @@ if (isset($_POST['singlesave'])) {
 			$small = $_FILES['small'];
 			$small_ext = substr($small['name'], strpos($small['name'], "."));
 			$smallname = $relativeImageDir."s_".time().$small_ext;
-			if (!move_uploaded_file($small['tmp_name'], $localRoot.$smallname)) {
+			if (!move_uploaded_file($small['tmp_name'], $SITE_INFO_LOCALROOT.$smallname)) {
 				echo 'An error orccured when trying to upload small image! Upload aborted.<br>';
 				echo "<a href='?$id=".$_POST[$id]."'>please try again</a>";
 			}
@@ -94,7 +94,7 @@ if (isset($_POST['singlesave'])) {
 			$big = $_FILES['big'];
 			$big_ext = substr($big['name'], strpos($big['name'], "."));
 			$bigname = $relativeImageDir.time().$big_ext;
-			if (!move_uploaded_file($big['tmp_name'], $localRoot.$bigname)) {
+			if (!move_uploaded_file($big['tmp_name'], $SITE_INFO_LOCALROOT.$bigname)) {
 				echo 'An error orccured when trying to upload big Image! Upload aborted.<br>';
 				echo "<a href='?$id=".$_POST[$id]."'>please try again</a>";
 			}
@@ -147,13 +147,13 @@ if (isset($_POST['singlesave'])) {
 $result = mysql_query("SELECT langid, small FROM lang, images WHERE lang.iid = images.iid ORDER BY priority DESC");
 while ($r = mysql_fetch_row($result)) {
 	if ($r[0] == $_SESSION['langid']) {
-		echo "<IMG SRC='".$publicRoot.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
+		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
 	} else {
 		echo "<A HREF='$filename?";
 		if (isset($_GET[$id])) {
 			echo "$id=".$_GET[$id]."&";
 		}
-		echo "langid=".$r[0]."'><IMG SRC='".$publicRoot.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
+		echo "langid=".$r[0]."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
 	}
  }
 /* ------------------------------------------------------------ */
@@ -169,7 +169,7 @@ while ($r = mysql_fetch_row($result)) {
 	<?php 
 	echo "<TR><TH>current small: </TH><TD>";
 if ($row['small'] != "") 
-	echo "<A HREF='".$publicRoot.$row['small']."' TARGET='_blank'><IMG SRC='".$publicRoot.$row['small']."' BORDER=0 WIDTH=50 HEIGHT=50></A>";
+	echo "<A HREF='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' TARGET='_blank'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' BORDER=0 WIDTH=50 HEIGHT=50></A>";
  else 
 	 echo "NONE";
 echo "</TD></TR>"; 
@@ -178,7 +178,7 @@ echo "</TD></TR>";
 	<?php 
 	echo "<TR><TH>current big: </TH><TD>";
 if ($row['big'] != "") 
-	echo "<A HREF='".$publicRoot.$row['big']."' TARGET='_blank'><IMG SRC='".$publicRoot.$row['big']."' BORDER=0 WIDTH=50 HEIGHT=50></A>";
+	echo "<A HREF='".$SITE_INFO_PUBLIC_ROOT.$row['big']."' TARGET='_blank'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['big']."' BORDER=0 WIDTH=50 HEIGHT=50></A>";
  else 
 	 echo "NONE";
 echo "</TD></TR>"; 

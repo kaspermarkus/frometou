@@ -13,9 +13,9 @@ if (isset($_GET['code']) && isset($_GET['id'])) {
 		mysql_query($query);
 		echo "You have successfully confirmed you support for the ideas of The Color Orange! Thank You.<BR><BR>";
 		echo "<BR>";
-		echo "To see the list of supporters <A HREF='$publicRoot".$_GET['lang']."/page-2'>this link</A>";
+		echo "To see the list of supporters <A HREF='$SITE_INFO_PUBLIC_ROOT".$_GET['lang']."/page-2'>this link</A>";
 	} else {
-		echo "An error occured.. Could not confirm the code for supporting the ideas of TheColorOrange.. Please goto <A HREF='$publicRoot".$_GET['lang']."/page-1'>this page</A> and try again...<BR><BR>";
+		echo "An error occured.. Could not confirm the code for supporting the ideas of TheColorOrange.. Please goto <A HREF='$SITE_INFO_PUBLIC_ROOT".$_GET['lang']."/page-1'>this page</A> and try again...<BR><BR>";
 		echo "Sorry for the inconvenience!<BR>";
 		echo "<BR";
 		echo "Sincerely, The Color Orange";

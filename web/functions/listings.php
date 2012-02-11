@@ -1,5 +1,5 @@
 <?php
-require_once("documentBase.php");
+require_once("siteInfo.php");
 require_once("functions.php");
 require_once("path.php");
 
@@ -14,7 +14,7 @@ function documentIndex($did, $description, $types, $flags, $levels) {
 }
 
 function indexTypeFlags1($did) {
-	global $publicRoot;
+	global $SITE_INFO_PUBLIC_ROOT;
 	$types = getTypes();
 
 	$query = "SELECT doc.did, lang.shorthand, lang.flagtext, doc_general_v.linktext, dtype.tid, doc.module_signature, images.small ";
@@ -26,7 +26,8 @@ function indexTypeFlags1($did) {
 	$result = mysql_query($query);
 	$typeid = null;
 	$output = "<UL CLASS='indexTypeFlags1'>\n";
-	$prevRow;
+	$prevRow="";
+	$typeoutput = "";
 	while ($row = mysql_fetch_assoc($result)) {
 		if ($prevRow != null && $prevRow['did'] != $row['did']) {
 			if ($flags != "") {
@@ -50,7 +51,7 @@ function indexTypeFlags1($did) {
 		if ($row['module_signature'] == 'file') {
 			$query = "SELECT path FROM file WHERE fid = '".$row['fid']."'";
 			$r = mysql_fetch_row(mysql_query($query));
-			$linkaddress = "<A HREF='".$publicRoot . $r[0]."' TARGET='_blank'";
+			$linkaddress = "<A HREF='".$SITE_INFO_PUBLIC_ROOT . $r[0]."' TARGET='_blank'";
 		} else {
 			if ($row['module_signature'] == 'link') {
 				$linkaddress = $row['link'];
@@ -65,7 +66,7 @@ function indexTypeFlags1($did) {
 			if ($row['shorthand'] == $_GET['tmplang']) $means = "final";
 			$link = $linkaddress.$row['linktext']."</A>";
 		}
-		$flags .= $linkaddress."<IMG SRC='".$publicRoot.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
+		$flags .= $linkaddress."<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
 		$prevRow = $row;
 	}
 	if ($typeoutput != null) {
@@ -92,7 +93,7 @@ function indexTypeFlags1($did) {
 }
 
 function indexFlags1($did) {
-	global $publicRoot;
+	global $SITE_INFO_PUBLIC_ROOT;
 	$query = "SELECT doc.did, lang.shorthand, lang.flagtext, doc_general_v.linktext, doc_general_v.description, doc.description_img, images.small, doc.module_signature ";
 	$query .= "FROM doc, doc_general_v, lang, hierarchy, images ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND doc_general_v.did = doc.did ";
@@ -100,7 +101,7 @@ function indexFlags1($did) {
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	$result = mysql_query($query);
 	$output = "<UL CLASS='listingFlags'>";
-	$prevRow;
+	$prevRow="";
 	while ($row = mysql_fetch_assoc($result)) {
 		if ($prevRow != null && $prevRow['did'] != $row['did']) {
 			$output .= "<LI CLASS='listingFlags'>".$link." ".$flags."</LI>\n";
@@ -111,7 +112,7 @@ function indexFlags1($did) {
 		if ($row['module_signature'] == 'file') {
 			$query = "SELECT path FROM file WHERE fid = '".$row['fid']."'";
 			$r = mysql_fetch_row(mysql_query($query));
-			$linkaddress = "<A HREF='".$publicRoot . $r[0]."' TARGET='_blank'";
+			$linkaddress = "<A HREF='".$SITE_INFO_PUBLIC_ROOT . $r[0]."' TARGET='_blank'";
 		} else {
 			if ($row['module_signature'] == 'link') {
 				$linkaddress = $row['link'];
@@ -129,7 +130,7 @@ function indexFlags1($did) {
 			$description = $row['description'];
 			$description_img = $row['description_img'];
 		}
-		$flags .= $linkaddress."<IMG SRC='".$publicRoot.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
+		$flags .= $linkaddress."<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
 		$prevRow = $row;
 	}
 	if ($prevRow != null) {
@@ -140,7 +141,7 @@ function indexFlags1($did) {
 
 
 function indexDescriptionFlags($did) {
-	global $publicRoot;
+	global $SITE_INFO_PUBLIC_ROOT;
 	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_general_v.linktext, doc_general_v.description, doc.description_img, images.small, doc.module_signature ";
 	$query .= "FROM doc, doc_general_v, lang, hierarchy, images ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did ";
@@ -148,7 +149,7 @@ function indexDescriptionFlags($did) {
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	$result = mysql_query($query);
 	$output = "<TABLE CLASS='listingDescriptionFlags'>";
-	$prevRow;
+	$prevRow="";
 	while ($row = mysql_fetch_assoc($result)) {
 		if ($prevRow != null && $prevRow['did'] != $row['did']) {
 			$output .= "<TR><TH COLSPAN=2 ALIGN='left'>".$link." ".$flags."</TH></TR>\n";
@@ -157,7 +158,7 @@ function indexDescriptionFlags($did) {
 				$query = "SELECT small FROM images WHERE iid=".$description_img;
 				$r = mysql_query($query);
 				if ($r = mysql_fetch_row($r)) {
-					$output .= "<IMG SRC='".$publicRoot.$r[0]."' CLASS='listingDescriptionFlagsImg'>";
+					$output .= "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[0]."' CLASS='listingDescriptionFlagsImg'>";
 				}
 			}
 			$output .= "</TD></TR>\n";
@@ -171,7 +172,7 @@ function indexDescriptionFlags($did) {
 		if ($row['module_signature'] == 'file') {
 			$query = "SELECT path FROM file WHERE fid = '".$row['fid']."'";
 			$r = mysql_fetch_row(mysql_query($query));
-			$linkaddress = "<A HREF='".$publicRoot . $r[0]."' TARGET='_blank'";
+			$linkaddress = "<A HREF='".$SITE_INFO_PUBLIC_ROOT . $r[0]."' TARGET='_blank'";
 		} else {
 			if ($row['module_signature'] == 'link') {
 				$linkaddress = $row['link'];
@@ -189,7 +190,7 @@ function indexDescriptionFlags($did) {
 			$description = $row['description'];
 			$description_img = $row['description_img'];
 		}
-		$flags .= $linkaddress."<IMG SRC='".$publicRoot.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
+		$flags .= $linkaddress."<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
 		$prevRow = $row;
 	}
 	if ($prevRow != null) {
@@ -199,7 +200,7 @@ function indexDescriptionFlags($did) {
 			$query = "SELECT small FROM images WHERE iid=".$description_img;
 			$r = mysql_query($query);
 			if ($r = mysql_fetch_row($r)) {
-				$output .= "<IMG SRC='".$publicRoot.$r[0]."' CLASS='listingDescriptionFlagsImg'>";
+				$output .= "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[0]."' CLASS='listingDescriptionFlagsImg'>";
 			}
 		}
 		$output .= "</TD></TR>\n";
@@ -211,12 +212,13 @@ function indexDescriptionFlags($did) {
 
 function getTypes() {
 	$query = "SELECT dtype.tid, dtype_v.tname, lang.shorthand FROM dtype, dtype_v, lang WHERE dtype_v.tid = dtype.tid AND lang.langid = dtype_v.langid";
+	//echo $query;
 	$result = mysql_query($query);
 	while ($row = mysql_fetch_assoc($result)) {
 		if ($row['shorthand'] == $_GET['lang']) {
 			$types[$row['tid']] = $row['tname'];
 			continue;
-		} else if ($types[$row['tid']] == null) {
+		} else if (!isset($types[$row['tid']])) {
 			$types[$row['tid']] = $row['tname'];
 		}
 	}

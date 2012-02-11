@@ -462,7 +462,7 @@ function addInternalImage(rte, selectname) {
 	// First one is always a label
 	if (idx != 0) {
 		var selected = document.getElementById(selectname).options[idx].value;
-		selected = <?php echo "'".$publicRoot."'"; ?>+selected;
+		selected = <?php echo "'".$SITE_INFO_PUBLIC_ROOT."'"; ?>+selected;
 		rteCommand(rte, 'InsertImage', selected);
 		document.getElementById(selectname).selectedIndex = 0;
 	}

@@ -1,9 +1,9 @@
 <?php
-require_once("documentBase.php");
+require_once("siteInfo.php");
 
 function pageLink($did, $lang, $tmplang) {
-	global $publicRoot;
-	$path = $publicRoot;
+	global $SITE_INFO_PUBLIC_ROOT;
+	$path = $SITE_INFO_PUBLIC_ROOT;
 	
 	if ($lang != null) {
 		$path .= $lang."/";

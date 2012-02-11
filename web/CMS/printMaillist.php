@@ -1,7 +1,7 @@
 <?php
 require_once("authorize.php");
 require_once("../functions/functions.php");
-require_once("../functions/documentBase.php");
+require_once("../functions/siteInfo.php");
 require_once("../functions/parsing.php");
 
 /* --------- if delete button has been pushed --------- */

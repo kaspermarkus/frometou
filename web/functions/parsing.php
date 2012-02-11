@@ -31,8 +31,8 @@ function fixQuotes($str) {
 }
 
 function saveImages($str) {
-	global $publicRoot;
-	$regexp = "\\'($publicRoot(images/s_[0-9]+\.[a-z][a-z][a-z][a-z]?))";
+	global $SITE_INFO_PUBLIC_ROOT;
+	$regexp = "\\'($SITE_INFO_PUBLIC_ROOT(images/s_[0-9]+\.[a-z][a-z][a-z][a-z]?))";
 	while (eregi($regexp, $str, $values)) {
 		/* find entry in database */
 		$result = mysql_query("SELECT iid FROM images WHERE small='".$values[2]."'");
@@ -44,12 +44,12 @@ function saveImages($str) {
 }
 
 function readImages($str) {
-	global $publicRoot;
+	global $SITE_INFO_PUBLIC_ROOT;
 	$regexp = "<img src='([0-9]+)'";
 	while (eregi($regexp, $str, $values)) {
 		$result = mysql_query("SELECT small FROM images WHERE iid='".$values[1]."'");
 		if ($row = mysql_fetch_row($result)) {
-			$str = str_replace($values[0], "<img src='$publicRoot$row[0]'", $str);
+			$str = str_replace($values[0], "<img src='$SITE_INFO_PUBLIC_ROOT$row[0]'", $str);
 		}
 	} 
 	return $str;

@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
 			$message = "Hello ".$_POST['fullname']."<P>\r\n\r\n";
 			$message .= "\t<BLOCKQUOTE>";
 
-			$message .= "\tThank you for showing your support for the Funamentalism art installation. Please confirm that you want to have your name on the list of supporters by clicking <A HREF='$publicRoot".$_GET['lang']."/page-2?id=".$row['sid']."&code=".$row['time']."'>this link</A><BR>\r\n";
+			$message .= "\tThank you for showing your support for the Funamentalism art installation. Please confirm that you want to have your name on the list of supporters by clicking <A HREF='$SITE_INFO_PUBLIC_ROOT".$_GET['lang']."/page-2?id=".$row['sid']."&code=".$row['time']."'>this link</A><BR>\r\n";
 			$message .= "\t(The mail, and confirmation is done to avoid spam on the support list)";
 			$message .= "\t</BLOCKQUOTE>";
 			$message .= "Thank you again for your support,\r\n\r\n<BR><BR>Sincerely, Jens Galschiøt - Fundamentalism\r\n<BR>";
@@ -108,7 +108,7 @@ if (isset($_POST['submit'])) {
 			mail($to, $subject, $message, $headers); //Sender mailen 
 			$successmsg .= "<H2>Thank you for supporting this project</H2>";
 			$successmsg .= "A mail has been sent to you, with a link to follow to confirm you want to join the list of supporters. It will arrive in a few minutes<P>";
-			$successmsg .= "See a list of current supporters: <A HREF='$publicRoot".$_GET['lang']."/page-2'>List of supporters</A>";			
+			$successmsg .= "See a list of current supporters: <A HREF='$SITE_INFO_PUBLIC_ROOT".$_GET['lang']."/page-2'>List of supporters</A>";			
 		}
 		if ($successmsg != "") { 
 			echo $successmsg;			

@@ -1,9 +1,13 @@
-RewriteEngine on
-rewriteBase /
+Options +FollowSymLinks
 
-RewriteRule ^([a-z][a-z]?[a-z]?)/page(\-?[0-9]+)_([a-z]+)/?$ index.php?lang=$1&did=$2&tmplang=$3 [L]
-RewriteRule ^([a-z][a-z]?[a-z]?)/page(\-?[0-9]+)/? index.php?lang=$1&did=$2 [QSA,L]
+RewriteEngine on
+rewriteBase /frometou/web
+
+#RewriteRule (.*) http://www.inprose.com
+#RewriteRule ^([a-z][a-z]?[a-z]?)/?$ index.php?lang=$1 [L]
 RewriteRule ^([a-z][a-z]?[a-z]?)/?$ index.php?lang=$1 [L]
+RewriteRule ^([a-z][a-z]?[a-z]?)/page(\-?[0-9]+)_([a-z]+)/?$ index.php?lang=$1&did=$2&tmplang=$3 [L]
+RewriteRule ^([a-z][a-z]?[a-z]?)/page(\-?[0-9]+)/?$ index.php?lang=$1&did=$2 [QSA,L]
 
 #to redirect
 RewriteRule ^([a-zA-Z0-9]+)$ redirect.php?page=$1 [L]

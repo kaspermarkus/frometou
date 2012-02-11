@@ -1,7 +1,7 @@
 <?php
 require_once("authorize.php");
 require_once("../functions/functions.php");
-require_once("../functions/documentBase.php");
+require_once("../functions/siteInfo.php");
 
 $filename = "editSpecialText.php";
 $id = "stid";
@@ -91,10 +91,10 @@ function del() {
 $tmpresult = mysql_query("SELECT langid, small FROM lang, images WHERE lang.iid = images.iid ORDER BY priority DESC");
 while ($r = mysql_fetch_row($tmpresult)) {
 	if ($r[0] == $_SESSION['langid']) {
-		echo "<IMG SRC='".$publicRoot.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
+		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
 	} else {
 		echo "<A HREF='$filename?categ=".$_POST['categ']."&";
-		echo "langid=".$r[0]."'><IMG SRC='".$publicRoot.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
+		echo "langid=".$r[0]."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
 	}
  }
 /* ------------------------------------------------------------ */
