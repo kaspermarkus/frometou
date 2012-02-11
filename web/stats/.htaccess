@@ -1,6 +1,0 @@
-AuthType Basic
-AuthName "Members Only"
-AuthUserFile /var/www/web30/.htpasswd
-<limit GET PUT POST>
-require valid-user
-</limit>
