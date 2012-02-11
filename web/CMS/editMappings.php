@@ -41,10 +41,10 @@ if (isset($_GET['save'])) {
 	<BR>
 	<FORM target="_self" method="get" action="<?php echo $filename; ?>" name="f1">
 	<FIELDSET><LEGEND><B>Properties</B></LEGEND>
-	<input type='hidden' name='<?php echo $id; ?>' value="<?php echo $_GET[$id]; ?>">
+	<input type='hidden' name='<?php echo $id; ?>' value="<?php echo isset($_GET[$id])?$_GET[$id]:""; ?>">
 	<TABLE>
-	<TR><TH>path: </TH><TD><input size="80" name="path" value="<?php echo $row['path'] ?>"></TD></TR>
-	<TR><TH>document: </TH><TD><?php echo selectDocument(null, "did", 1, $row['did']); ?></TD></TR>
+	<TR><TH>path: </TH><TD><input size="80" name="path" value="<?php echo isset($row['path'])?$row['path']:""; ?>"></TD></TR>
+	<TR><TH>document: </TH><TD><?php echo selectDocument(null, "did", 1, isset($row['did'])?$row['did']:null); ?></TD></TR>
 	</TABLE>
 	<INPUT TYPE="submit" value="save" name="save">
 	</FIELDSET>
