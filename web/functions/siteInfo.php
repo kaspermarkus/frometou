@@ -29,8 +29,4 @@ $publicImageDir = $SITE_INFO_PUBLIC_ROOT.$relativeImageDir;
 $localFileDir = $SITE_INFO_LOCALROOT.$relativeFileDir;
 $publicFileDir = $SITE_INFO_PUBLIC_ROOT.$relativeFileDir;
 
-/* KFM database properties */
-$SITE_INFO_KFM_DB_NAME     = 'frometou_kfm';
-$SITE_INFO_KFM_DB_USERNAME = 'frometou_kfm_u';
-$SITE_INFO_KFM_DB_PASSWORD = 'frometou_kfm_p';
 ?>

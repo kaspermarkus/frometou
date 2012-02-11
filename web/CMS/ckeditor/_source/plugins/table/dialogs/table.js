@@ -1,11 +1,12 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
 (function()
 {
-	var defaultToPixel = CKEDITOR.tools.cssLength;
+	var widthPattern = /^(\d+(?:\.\d+)?)(px|%)$/,
+		heightPattern = /^(\d+(?:\.\d+)?)px$/;
 
 	var commitValue = function( data )
 	{
@@ -15,63 +16,14 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		data.info[id] = this.getValue();
 	};
 
-	function tableColumns( table )
-	{
-		var cols = 0, maxCols = 0;
-		for ( var i = 0, row, rows = table.$.rows.length; i < rows; i++ )
-		{
-			row = table.$.rows[ i ], cols = 0;
-			for ( var j = 0, cell, cells = row.cells.length; j < cells; j++ )
-			{
-				cell = row.cells[ j ];
-				cols += cell.colSpan;
-			}
-
-			cols > maxCols && ( maxCols = cols );
-		}
-
-		return maxCols;
-	}
-
 	function tableDialog( editor, command )
 	{
-		var makeElement = function( name )
-			{
-				return new CKEDITOR.dom.element( name, editor.document );
-			};
-
-		var dialogadvtab = editor.plugins.dialogadvtab;
+		var makeElement = function( name ){ return new CKEDITOR.dom.element( name, editor.document ); };
 
 		return {
 			title : editor.lang.table.title,
 			minWidth : 310,
 			minHeight : CKEDITOR.env.ie ? 310 : 280,
-
-			onLoad : function()
-			{
-				var dialog = this;
-
-				var styles = dialog.getContentElement( 'advanced', 'advStyles' );
-
-				if ( styles )
-				{
-					styles.on( 'change', function( evt )
-						{
-							// Synchronize width value.
-							var width = this.getStyle( 'width', '' ),
-								txtWidth = dialog.getContentElement( 'info', 'txtWidth' );
-
-							txtWidth && txtWidth.setValue( width, true );
-
-							// Synchronize height value.
-							var height = this.getStyle( 'height', '' ),
-								txtHeight = dialog.getContentElement( 'info', 'txtHeight' );
-
-							txtHeight && txtHeight.setValue( height, true );
-						});
-				}
-			},
-
 			onShow : function()
 			{
 				// Detect if there's a selected table.
@@ -81,20 +33,16 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				var rowsInput = this.getContentElement( 'info', 'txtRows' ),
 					colsInput = this.getContentElement( 'info', 'txtCols' ),
-					widthInput = this.getContentElement( 'info', 'txtWidth' ),
-					heightInput = this.getContentElement( 'info', 'txtHeight' );
-
+					widthInput = this.getContentElement( 'info', 'txtWidth' );
 				if ( command == 'tableProperties' )
 				{
-					if ( ( selectedTable = selection.getSelectedElement() ) )
-						selectedTable = selectedTable.getAscendant( 'table', true );
+					if ( ( selectedTable = editor.getSelection().getSelectedElement() ) )
+					{
+						if ( selectedTable.getName() != 'table' )
+							selectedTable = null;
+					}
 					else if ( ranges.length > 0 )
 					{
-						// Webkit could report the following range on cell selection (#4948):
-						// <table><tr><td>[&nbsp;</td></tr></table>]
-						if ( CKEDITOR.env.webkit )
-							ranges[ 0 ].shrink( CKEDITOR.NODE_ELEMENT );
-
 						var rangeRoot = ranges[0].getCommonAncestor( true );
 						selectedTable = rangeRoot.getAscendant( 'table', true );
 					}
@@ -103,28 +51,28 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					this._.selectedElement = selectedTable;
 				}
 
-				// Enable or disable the row, cols, width fields.
+				// Enable, disable and select the row, cols, width fields.
 				if ( selectedTable )
 				{
 					this.setupContent( selectedTable );
 					rowsInput && rowsInput.disable();
 					colsInput && colsInput.disable();
+					widthInput && widthInput.select();
 				}
 				else
 				{
 					rowsInput && rowsInput.enable();
 					colsInput && colsInput.enable();
+					rowsInput && rowsInput.select();
 				}
-
-				// Call the onChange method for the widht and height fields so
-				// they get reflected into the Advanced tab.
-				widthInput && widthInput.onChange();
-				heightInput && heightInput.onChange();
 			},
 			onOk : function()
 			{
-				var selection = editor.getSelection(),
-					bms = this._.selectedElement && selection.createBookmarks();
+				if ( this._.selectedElement )
+				{
+					var selection = editor.getSelection(),
+						bms = editor.getSelection().createBookmarks();
+				}
 
 				var table = this._.selectedElement || makeElement( 'table' ),
 					me = this,
@@ -170,8 +118,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						for ( i = 0 ; i < theRow.getChildCount() ; i++ )
 						{
 							var th = theRow.getChild( i );
-							// Skip bookmark nodes. (#6155)
-							if ( th.type == CKEDITOR.NODE_ELEMENT && !th.data( 'cke-bookmark' ) )
+							if ( th.type == CKEDITOR.NODE_ELEMENT )
 							{
 								th.renameNode( 'th' );
 								th.setAttribute( 'scope', 'col' );
@@ -207,7 +154,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Should we make all first cells in a row TH?
 					if ( !this.hasColumnHeaders && ( headers == 'col' || headers == 'both' ) )
 					{
-						for ( row = 0 ; row < table.$.rows.length ; row++ )
+						for( row = 0 ; row < table.$.rows.length ; row++ )
 						{
 							newCell = new CKEDITOR.dom.element( table.$.rows[ row ].cells[ 0 ] );
 							newCell.renameNode( 'th' );
@@ -218,7 +165,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					// Should we make all first TH-cells in a row make TD? If 'yes' we do it the other way round :-)
 					if ( ( this.hasColumnHeaders ) && !( headers == 'col' || headers == 'both' ) )
 					{
-						for ( i = 0 ; i < table.$.rows.length ; i++ )
+						for( i = 0 ; i < table.$.rows.length ; i++ )
 						{
 							row = new CKEDITOR.dom.element( table.$.rows[i] );
 							if ( row.getParent().getName() == 'tbody' )
@@ -231,31 +178,32 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 					}
 
 					// Set the width and height.
-					info.txtHeight ? table.setStyle( 'height', info.txtHeight ) : table.removeStyle( 'height' );
-					info.txtWidth ? table.setStyle( 'width', info.txtWidth ) : table.removeStyle( 'width' );
+					var styles = [];
+					if ( info.txtHeight )
+						table.setStyle( 'height', CKEDITOR.tools.cssLength( info.txtHeight ) );
+					else
+						table.removeStyle( 'height' );
 
-					if ( !table.getAttribute( 'style' ) )
+					if ( info.txtWidth )
+					{
+						var type = info.cmbWidthType || 'pixels';
+						table.setStyle( 'width', info.txtWidth + ( type == 'pixels' ? 'px' : '%' ) );
+					}
+					else
+						table.removeStyle( 'width' );
+
+					if( !table.getAttribute( 'style' ) )
 						table.removeAttribute( 'style' );
 				}
 
 				// Insert the table element if we're creating one.
 				if ( !this._.selectedElement )
-				{
 					editor.insertElement( table );
-					// Override the default cursor position after insertElement to place
-					// cursor inside the first cell (#7959), IE needs a while.
-					setTimeout( function()
-						{
-							var firstCell = new CKEDITOR.dom.element( table.$.rows[ 0 ].cells[ 0 ] );
-							var range = new CKEDITOR.dom.range( editor.document );
-							range.moveToPosition( firstCell, CKEDITOR.POSITION_AFTER_START );
-							range.select( 1 );
-						}, 0 );
-				}
-				// Properly restore the selection, (#4822) but don't break
-				// because of this, e.g. updated table caption.
+				// Properly restore the selection inside table. (#4822)
 				else
-					try { selection.selectBookmarks( bms ); } catch( er ){}
+					selection.selectBookmarks( bms );
+
+				return true;
 			},
 			contents : [
 				{
@@ -279,8 +227,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											id : 'txtRows',
 											'default' : 3,
 											label : editor.lang.table.rows,
-											required : true,
-											controlStyle : 'width:5em',
+											style : 'width:5em',
 											validate : function()
 											{
 												var pass = true,
@@ -305,8 +252,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											id : 'txtCols',
 											'default' : 2,
 											label : editor.lang.table.columns,
-											required : true,
-											controlStyle : 'width:5em',
+											style : 'width:5em',
 											validate : function()
 											{
 												var pass = true,
@@ -322,7 +268,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											},
 											setup : function( selectedTable )
 											{
-												this.setValue( tableColumns( selectedTable ) );
+												this.setValue( selectedTable.$.rows[0].cells.length);
 											},
 											commit : commitValue
 										},
@@ -352,8 +298,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												for ( var row = 0 ; row < selectedTable.$.rows.length ; row++ )
 												{
 													// If just one cell isn't a TH then it isn't a header column
-													var headCell = selectedTable.$.rows[row].cells[0];
-													if ( headCell && headCell.nodeName.toLowerCase() != 'th' )
+													if ( selectedTable.$.rows[row].cells[0].nodeName.toLowerCase() != 'th' )
 													{
 														dialog.hasColumnHeaders = false;
 														break;
@@ -373,7 +318,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											id : 'txtBorder',
 											'default' : 1,
 											label : editor.lang.table.border,
-											controlStyle : 'width:3em',
+											style : 'width:3em',
 											validate : CKEDITOR.dialog.validate['number']( editor.lang.table.invalidBorder ),
 											setup : function( selectedTable )
 											{
@@ -391,13 +336,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 											id : 'cmbAlign',
 											type : 'select',
 											'default' : '',
-											label : editor.lang.common.align,
+											label : editor.lang.table.align,
 											items :
 											[
-												[ editor.lang.common.notSet , ''],
-												[ editor.lang.common.alignLeft , 'left'],
-												[ editor.lang.common.alignCenter , 'center'],
-												[ editor.lang.common.alignRight , 'right']
+												[ editor.lang.table.alignNotSet , ''],
+												[ editor.lang.table.alignLeft , 'left'],
+												[ editor.lang.table.alignCenter , 'center'],
+												[ editor.lang.table.alignRight , 'right']
 											],
 											setup : function( selectedTable )
 											{
@@ -426,21 +371,33 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												{
 													type : 'text',
 													id : 'txtWidth',
-													controlStyle : 'width:5em',
-													label : editor.lang.common.width,
-													title : editor.lang.common.cssLengthTooltip,
-													'default' : 500,
-													getValue : defaultToPixel,
-													validate : CKEDITOR.dialog.validate.cssLength( editor.lang.common.invalidCssLength.replace( '%1', editor.lang.common.width ) ),
-													onChange : function()
-													{
-														var styles = this.getDialog().getContentElement( 'advanced', 'advStyles' );
-														styles && styles.updateStyle( 'width', this.getValue() );
-													},
+													style : 'width:5em',
+													label : editor.lang.table.width,
+													'default' : 200,
+													validate : CKEDITOR.dialog.validate['number']( editor.lang.table.invalidWidth ),
 													setup : function( selectedTable )
 													{
-														var val = selectedTable.getStyle( 'width' );
-														val && this.setValue( val );
+														var widthMatch = widthPattern.exec( selectedTable.$.style.width );
+														if ( widthMatch )
+															this.setValue( widthMatch[1] );
+													},
+													commit : commitValue
+												},
+												{
+													id : 'cmbWidthType',
+													type : 'select',
+													label : '&nbsp;',
+													'default' : 'pixels',
+													items :
+													[
+														[ editor.lang.table.widthPx , 'pixels'],
+														[ editor.lang.table.widthPc , 'percents']
+													],
+													setup : function( selectedTable )
+													{
+														var widthMatch = widthPattern.exec( selectedTable.$.style.width );
+														if ( widthMatch )
+															this.setValue( widthMatch[2] == 'px' ? 'pixels' : 'percents' );
 													},
 													commit : commitValue
 												}
@@ -454,24 +411,21 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 												{
 													type : 'text',
 													id : 'txtHeight',
-													controlStyle : 'width:5em',
-													label : editor.lang.common.height,
-													title : editor.lang.common.cssLengthTooltip,
+													style : 'width:5em',
+													label : editor.lang.table.height,
 													'default' : '',
-													getValue : defaultToPixel,
-													validate : CKEDITOR.dialog.validate.cssLength( editor.lang.common.invalidCssLength.replace( '%1', editor.lang.common.height ) ),
-													onChange : function()
-													{
-														var styles = this.getDialog().getContentElement( 'advanced', 'advStyles' );
-														styles && styles.updateStyle( 'height', this.getValue() );
-													},
-
+													validate : CKEDITOR.dialog.validate['number']( editor.lang.table.invalidHeight ),
 													setup : function( selectedTable )
 													{
-														var val = selectedTable.getStyle( 'width' );
-														val && this.setValue( val );
+														var heightMatch = heightPattern.exec( selectedTable.$.style.height );
+														if ( heightMatch )
+															this.setValue( heightMatch[1] );
 													},
 													commit : commitValue
+												},
+												{
+													type : 'html',
+													html : '<br />' + editor.lang.table.widthPx
 												}
 											]
 										},
@@ -482,10 +436,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										{
 											type : 'text',
 											id : 'txtCellSpace',
-											controlStyle : 'width:3em',
+											style : 'width:3em',
 											label : editor.lang.table.cellSpace,
 											'default' : 1,
-											validate : CKEDITOR.dialog.validate.number( editor.lang.table.invalidCellSpacing ),
+											validate : CKEDITOR.dialog.validate['number']( editor.lang.table.invalidCellSpacing ),
 											setup : function( selectedTable )
 											{
 												this.setValue( selectedTable.getAttribute( 'cellSpacing' ) || '' );
@@ -501,10 +455,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 										{
 											type : 'text',
 											id : 'txtCellPad',
-											controlStyle : 'width:3em',
+											style : 'width:3em',
 											label : editor.lang.table.cellPad,
 											'default' : 1,
-											validate : CKEDITOR.dialog.validate.number( editor.lang.table.invalidCellPadding ),
+											validate : CKEDITOR.dialog.validate['number']( editor.lang.table.invalidCellPadding ),
 											setup : function( selectedTable )
 											{
 												this.setValue( selectedTable.getAttribute( 'cellPadding' ) || '' );
@@ -537,30 +491,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									label : editor.lang.table.caption,
 									setup : function( selectedTable )
 									{
-										this.enable();
-
 										var nodeList = selectedTable.getElementsByTag( 'caption' );
 										if ( nodeList.count() > 0 )
 										{
 											var caption = nodeList.getItem( 0 );
-											var firstElementChild = caption.getFirst( CKEDITOR.dom.walker.nodeType( CKEDITOR.NODE_ELEMENT ) );
-
-											if ( firstElementChild && !firstElementChild.equals( caption.getBogus() ) )
-											{
-												this.disable();
-												this.setValue( caption.getText() );
-												return;
-											}
-
-											caption = CKEDITOR.tools.trim( caption.getText() );
+											caption = ( caption.getChild( 0 ) && caption.getChild( 0 ).getText() ) || '';
+											caption = CKEDITOR.tools.trim( caption );
 											this.setValue( caption );
 										}
 									},
 									commit : function( data, table )
 									{
-										if ( !this.isEnabled() )
-											return;
-
 										var caption = this.getValue(),
 											captionElement = table.getElementsByTag( 'caption' );
 										if ( caption )
@@ -599,15 +540,12 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 									{
 										if ( this.getValue() )
 											selectedTable.setAttribute( 'summary', this.getValue() );
-										else
-											selectedTable.removeAttribute( 'summary' );
 									}
 								}
 							]
 						}
 					]
-				},
-				dialogadvtab && dialogadvtab.createAdvancedTab( editor )
+				}
 			]
 		};
 	}

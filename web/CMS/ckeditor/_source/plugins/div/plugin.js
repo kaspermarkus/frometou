@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -12,7 +12,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 {
 	CKEDITOR.plugins.add( 'div',
 	{
-		requires : [ 'editingblock', 'domiterator', 'styles' ],
+		requires : [ 'editingblock', 'domiterator' ],
 
 		init : function( editor )
 		{
@@ -37,17 +37,17 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 								blockLimit = path.blockLimit,
 								div = blockLimit.is( 'div' ) && blockLimit;
 
-							if ( div && !div.data( 'cke-div-added' ) )
+							if ( div && !div.getAttribute( '_cke_div_added' ) )
 							{
 								toRemove.push( div );
-								div.data( 'cke-div-added' );
+								div.setAttribute( '_cke_div_added' );
 							}
 						}
 
 						for ( var i = 0 ; i < ranges.length ; i++ )
 						{
 							range = ranges[ i ];
-							if ( range.collapsed )
+							if( range.collapsed )
 								findDiv( selection.getStartElement() );
 							else
 							{
@@ -95,7 +95,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					editor.contextMenu.addListener( function( element, selection )
 						{
-							if ( !element || element.isReadOnly() )
+							if ( !element )
 								return null;
 
 							var elementPath = new CKEDITOR.dom.elementPath( element ),

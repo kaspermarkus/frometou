@@ -1,5 +1,4 @@
 <?php
-require_once("../../functions/siteInfo.php");
 /**
  * KFM - Kae's File Manager
  *
@@ -23,10 +22,9 @@ $kfm_db_type = 'mysql';
 // the following options should only be filled if you are not using sqlitepdo as the database
 $kfm_db_prefix   = 'kfm_';
 $kfm_db_host     = 'localhost';
-$kfm_db_name     = $SITE_INFO_KFM_DB_NAME;
-$kfm_db_username = $SITE_INFO_KFM_DB_USERNAME;
-$kfm_db_password = $SITE_INFO_KFM_DB_PASSWORD;
-echo $kfm_db_password;
+$kfm_db_name     = 'web30db2';
+$kfm_db_username = 'web30u2';
+$kfm_db_password = 'FundA2011';
 $kfm_db_port     = '3306';
 
 /**

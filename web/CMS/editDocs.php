@@ -50,7 +50,7 @@ function save_general_text() {
 	global $_POST, $_SESSION, $id;
 	//first update the general properties:
 	$query = "UPDATE doc SET priority = ".$_POST['priority'].", typeid=".$_POST['typeid'].", ident=\"".$_POST['ident']."\" WHERE $id='".$_POST[$id]."'";
-	//echo $query;
+	echo $query;
 	mysql_query($query);
 	//update translation specific general properties
 	$query = "REPLACE doc_general_v ( did, langid, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['langid'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
@@ -66,10 +66,10 @@ function save_module_text() {
              	while ($row = mysql_fetch_assoc($result)) {
 			if ($row['input_type'] == "html") 
 				fix_html_field($_POST, $row['signature']);
-			//print_r($row);
+			print_r($row);
                		$versionsql = "REPLACE module_text_v ( `did` , `text_signature` , `lang_id` , `value`) VALUES ( '".$_POST['did']."', '".$row['signature']."', '".$_SESSION['langid']."', '".$_POST[$row['signature']]."')";
 			mysql_query($versionsql);
-			//echo $versionsql;
+			echo $versionsql;
             	}	
        }
 	
@@ -124,18 +124,16 @@ function insert_module_fields() {
 			if ($row['input_type'] == 'text') {
 				echo "<TD><input size='50' name=\"".$row['signature']."\" value=\"".display_prop($val_row, 'value')."\" /></TD>";
 			} else if ($row['input_type'] == 'html') {
-				if (isset($val_row['value'])) {
-					$val_row['value'] = fixQuotes($val_row['value']);
-					$val_row['value'] = readImages($val_row['value']);
-				}
-				?>
-				<tr><td colspan=4><textarea name="<?php echo $row['signature']; ?>"><?php echo display_prop($val_row, 'value'); ?></textarea>
-				<script type="txt/javascript" src="functions/jquery.js"></script>
-				<script type="txt/javascript" src="ckeditor/ckeditor_source.js"></script>
-				<script language="JavaScript" type="text/javascript">
-				//CKEDITOR.replace( "<?php echo $row['signature']; ?>" , {toolbar : 'Full', filebrowserBrowseUrl: "kfm/"});
-				CKEDITOR.replace( "<?php echo $row['signature']; ?>");
-				</script></td>
+			if (isset($val_row['value'])) {
+				$val_row['value'] = fixQuotes($val_row['value']);
+				$val_row['value'] = readImages($val_row['value']);
+			}
+			?>
+			<tr><td colspan=4><textarea name="<?php echo $row['signature']; ?>"><?php echo display_prop($val_row, 'value'); ?></textarea>
+<script type="txt/javascript" src="ckeditor/ckeditor.js"></script>
+			<script language="JavaScript" type="text/javascript">
+			CKEDITOR.replace( "<?php echo $row['signature']; ?>" , {toolbar : 'MyToolbar', filebrowserBrowseUrl: "CMS/kfm/"});
+			</script></td>
 <?php
 			}
 			echo "</TR>";
@@ -219,7 +217,7 @@ if (isset($_POST['saveDoc'])) {
 <HTML>
 <HEAD>
 <script type="text/javascript" src="functions/jquery.js"></script>	
-<script type="text/javascript" src="ckeditor/ckeditor_source.js"></script>
+<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 <SCRIPT LANGUAGE='javascript'>
 function showhide(id) {
 	if (document.getElementById(id).style.display == 'none') {

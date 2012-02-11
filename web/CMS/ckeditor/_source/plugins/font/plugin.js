@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -17,34 +17,27 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 		var styles = {};
 		for ( var i = 0 ; i < names.length ; i++ )
 		{
-			var parts = names[ i ];
+			var vars = {};
+			var parts = names[ i ].split( '/' );
 
-			if ( parts )
-			{
-				parts = parts.split( '/' );
+			var name = names[ i ] = parts[ 0 ];
+			vars[ styleType ] = values[ i ] = parts[ 1 ] || name;
 
-				var vars = {},
-					name = names[ i ] = parts[ 0 ];
-
-				vars[ styleType ] = values[ i ] = parts[ 1 ] || name;
-
-				styles[ name ] = new CKEDITOR.style( styleDefinition, vars );
-				styles[ name ]._.definition.name = name;
-			}
-			else
-				names.splice( i--, 1 );
+			styles[ name ] = new CKEDITOR.style( styleDefinition, vars );
 		}
 
 		editor.ui.addRichCombo( comboName,
 			{
 				label : lang.label,
 				title : lang.panelTitle,
+				voiceLabel : lang.voiceLabel,
 				className : 'cke_' + ( styleType == 'size' ? 'fontSize' : 'font' ),
+				multiSelect : false,
+
 				panel :
 				{
 					css : editor.skin.editor.css.concat( config.contentsCss ),
-					multiSelect : false,
-					attributes : { 'aria-label' : lang.panelTitle }
+					voiceLabel : lang.panelVoiceLabel
 				},
 
 				init : function()
@@ -56,7 +49,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						var name = names[ i ];
 
 						// Add the tag entry to the panel list.
-						this.add( name, styles[ name ].buildPreview(), name );
+						this.add( name, '<span style="font-' + styleType + ':' + values[ i ] + '">' + name + '</span>', name );
 					}
 				},
 

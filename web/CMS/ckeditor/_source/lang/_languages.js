@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -14,14 +14,13 @@ var CKEDITOR_LANGS = (function()
 		bs		: 'Bosnian',
 		ca		: 'Catalan',
 		cs		: 'Czech',
-		cy		: 'Welsh',
 		da		: 'Danish',
 		de		: 'German',
 		el		: 'Greek',
 		en		: 'English',
 		'en-au'	: 'English (Australia)',
 		'en-ca'	: 'English (Canadian)',
-		'en-gb'	: 'English (United Kingdom)',
+		'en-uk'	: 'English (United Kingdom)',
 		eo		: 'Esperanto',
 		es		: 'Spanish',
 		et		: 'Estonian',
@@ -40,7 +39,6 @@ var CKEDITOR_LANGS = (function()
 		is		: 'Icelandic',
 		it		: 'Italian',
 		ja		: 'Japanese',
-		ka		: 'Georgian',
 		km		: 'Khmer',
 		ko		: 'Korean',
 		lt		: 'Lithuanian',

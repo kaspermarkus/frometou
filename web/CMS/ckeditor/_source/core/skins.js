@@ -1,5 +1,5 @@
 ﻿/*
-Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2010, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
@@ -16,8 +16,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 CKEDITOR.skins = (function()
 {
 	// Holds the list of loaded skins.
-	var loaded = {},
-		paths = {};
+	var loaded = {};
+	var preloaded = {};
+	var paths = {};
 
 	var loadPart = function( editor, skinName, part, callback )
 	{
@@ -53,6 +54,25 @@ CKEDITOR.skins = (function()
 					} );
 		}
 
+		// Check if we need to preload images from it.
+		if ( !preloaded[ skinName ] )
+		{
+			var preload = skinDefinition.preload;
+			if ( preload && preload.length > 0 )
+			{
+				appendSkinPath( preload );
+				CKEDITOR.imageCacher.load( preload, function()
+					{
+						preloaded[ skinName ] = 1;
+						loadPart( editor, skinName, part, callback );
+					} );
+				return;
+			}
+
+			// Mark it as preloaded.
+			preloaded[ skinName ] = 1;
+		}
+
 		// Get the part definition.
 		part = skinDefinition[ part ];
 		var partIsLoaded = !part || !!part._isLoaded;
@@ -73,8 +93,8 @@ CKEDITOR.skins = (function()
 
 			// Check whether the "css" and "js" properties have been defined
 			// for that part.
-			var cssIsLoaded = !part.css || !part.css.length,
-				jsIsLoaded = !part.js || !part.js.length;
+			var cssIsLoaded = !part.css || !part.css.length;
+			var jsIsLoaded = !part.js || !part.js.length;
 
 			// This is the function that will trigger the callback calls on
 			// load.
@@ -174,7 +194,7 @@ CKEDITOR.skins = (function()
 			else
 			{
 				paths[ skinName ] = skinPath;
-				CKEDITOR.scriptLoader.load( CKEDITOR.getUrl( skinPath + 'skin.js' ), function()
+				CKEDITOR.scriptLoader.load( skinPath + 'skin.js', function()
 						{
 							 loadPart( editor, skinName, skinPart, callback );
 						});
