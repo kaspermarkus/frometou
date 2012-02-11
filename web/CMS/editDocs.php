@@ -237,16 +237,17 @@ function showhide(id) {
 	<BODY>
 	<TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Documents</H1></TD><TD ALIGN='right'><?php
 /* -------------- fix flags ------------------------------------ */
-$result = mysql_query("SELECT langid, small FROM lang, images WHERE lang.iid = images.iid ORDER BY priority DESC");
-while ($r = mysql_fetch_row($result)) {
-	if ($r[0] == $_SESSION['langid']) {
-		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
+$mysql = "SELECT langid, thumbnail_path FROM lang ORDER BY priority DESC";
+$result = mysql_query($mysql);
+while ($r = mysql_fetch_assoc($result)) {
+	if ($r['langid'] == $_SESSION['langid']) {
+		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r['thumbnail_path']."' WIDTH='44' HEIGHT='30'>&nbsp;";
 	} else {
 		echo "<A HREF='$filename?";
 		if (isset($_POST[$id])) {
 			echo "$id=".$_POST[$id]."&";
 		}
-		echo "langid=".$r[0]."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
+		echo "langid=".$r['langid']."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r['thumbnail_path']."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
 	}
  }
 /* ------------------------------------------------------------ */
