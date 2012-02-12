@@ -84,6 +84,7 @@ if (isset($_GET['singlesave'])) {
 <head>
 <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"/>
 <LINK REL="stylesheet" type="text/css" href="css/general.css">
+
 <title>Edit/add types</title>
 </head>
 <body>
