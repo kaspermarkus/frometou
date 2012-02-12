@@ -9,7 +9,7 @@ function getDocumentProperties($did) {
 	//get general properties:
 	//SELECT doc.did, lang.langid, doc.module_signature, lang.shorthand, lang.iid, lang.lname, pagetitle, description FROM doc, doc_general_v as general, lang WHERE general.langid = lang.langid AND doc.did='73' AND doc.did = general.did ORDER BY lang.priority DESC
 
-	$query = "SELECT doc.did, lang.langid, doc.module_signature, lang.shorthand, lang.iid, lang.lname, pagetitle, description, module.display_path ";
+	$query = "SELECT doc.did, lang.langid, doc.module_signature, lang.shorthand, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
 	$query .= "FROM doc, doc_general_v as general, lang, module ";
 	$query .= "WHERE general.langid = lang.langid AND doc.did='$did' AND doc.did = general.did AND doc.module_signature LIKE module.module_signature ";
 	$query .= " ORDER BY lang.priority DESC";
@@ -23,6 +23,7 @@ function getDocumentProperties($did) {
 	$module_signature;
 	$module_display_path;
 	$translationPaths = "";
+	$translationNames;
 	while ($row = mysql_fetch_assoc($result)) {
 		if (isset($_GET['tmplang']) && $row['shorthand'] == $_GET['tmplang']) {
 			$main_trans = $row;
@@ -139,6 +140,7 @@ function getParents($did) {
 	$query .= " ORDER BY doc.priority DESC, doc.did ASC,  lang.priority DESC";
 	$result = mysql_query($query);
 	$flags = "";
+	$link = "";
 	while ($row = mysql_fetch_assoc($result)) {
 		if (isset($prevRow) && $row['did'] != $prevRow['did']) {
 			$parents[] = $link . $flags;

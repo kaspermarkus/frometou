@@ -57,8 +57,7 @@ $pagetitle = $main_trans['pagetitle'];
 //$body .= $main_trans['body'];
 
 /* --------------------------------------- fix default language flags ------------------------------------------------ */
-$query = "SELECT lang.langid, lang.shorthand, images.iid, images.small, lang.lname FROM lang, defaultlangs, images WHERE defaultlangs.langid = lang.langid AND";
-$query .= " images.iid = lang.iid ORDER BY lang.priority DESC";
+$query = "SELECT lang.langid, lang.shorthand, lang.lname FROM lang, defaultlangs WHERE defaultlangs.langid = lang.langid ORDER BY lang.priority DESC";
 $result = mysql_query($query);
 $defaultflags="";
 while ($row = mysql_fetch_assoc($result)) {

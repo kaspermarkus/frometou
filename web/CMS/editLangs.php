@@ -9,13 +9,13 @@ if (isset($_GET['save'])) {
 	//if we have a valid id
 	if ($_GET[$id] > 0) {
 		$query = "UPDATE lang SET lname = \"".$_GET['lname']."\", shorthand = \"".strtolower($_GET['shorthand'])."\", ";
-		$query .= "iid = \"".$_GET['iid']."\", priority = \"".$_GET['priority']."\" WHERE langid='".$_GET[$id]."'";
+		$query .= "thumbnail_path = \"".$_GET['thumbnail_path']."\", priority = \"".$_GET['priority']."\" WHERE langid='".$_GET[$id]."'";
 		mysql_query($query);
 		header("location:$filename?$id=".$_GET[$id]);
 	} else {		
-		$query = "INSERT INTO lang ( lname, shorthand, iid, priority ) VALUES ";
+		$query = "INSERT INTO lang ( lname, shorthand, thumbnail_path, priority ) VALUES ";
 		$query .= "(\"".$_GET['lname']."\", \"".strtolower($_GET['shorthand'])."\", ";
-		$query .= "\"".$_GET['iid']."\", \"".$_GET['priority']."\")";
+		$query .= "\"".$_GET['thumbnail_path']."\", \"".$_GET['priority']."\")";
 		mysql_query($query);
 		$query = "SELECT langid FROM lang ORDER BY langid DESC";
 		$row = mysql_fetch_row(mysql_query($query));
@@ -45,7 +45,7 @@ if (isset($_GET['save'])) {
 	<TABLE>
 	<TR><TH>name: </TH><TD><input size="80" name="lname" value="<?php echo $row['lname'] ?>"></TD></TR>
 	<TR><TH>shorthand: </TH><TD><input size="80" name="shorthand" value="<?php echo $row['shorthand'] ?>"></TD></TR>
-	<TR><TH>flag: </TH><TD><?php echo selectImage("iid", "1", $row['iid']); ?></TD></TR>
+	<TR><TH>flag: </TH><TD><input size="80" name="thumbnail_path" value="<?php echo $row['thumbnail_path']; ?>"></TD></TR>
 	<TR><TH>priority: </TH><TD><input size="80" name="priority" value="<?php echo $row['priority'] ?>"></TD></TR>
 	</TABLE>
 	<INPUT TYPE="submit" value="save" name="save">

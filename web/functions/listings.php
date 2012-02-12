@@ -14,13 +14,13 @@ function documentIndex($did, $description, $types, $flags, $levels) {
 }
 
 function indexTypeFlags1($did) {
-	global $SITE_INFO_PUBLIC_ROOT;
+	global $SITE_INFO_PUBLIC_ROOT, $_GET;
 	$types = getTypes();
 
-	$query = "SELECT doc.did, lang.shorthand, lang.flagtext, doc_general_v.linktext, dtype.tid, doc.module_signature, images.small ";
-	$query .= "FROM doc, doc_general_v, dtype, lang, hierarchy, images ";
+	$query = "SELECT doc.did, lang.shorthand, lang.flagtext, doc_general_v.linktext, dtype.tid, doc.module_signature, thumbnail_path ";
+	$query .= "FROM doc, doc_general_v, dtype, lang, hierarchy ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND dtype.tid = doc.typeid ";
-	$query .= "AND images.iid = lang.iid AND doc_general_v.did = doc.did AND doc_general_v.langid = lang.langid ";
+	$query .= "AND doc_general_v.did = doc.did AND doc_general_v.langid = lang.langid ";
 	$query .= "ORDER BY dtype.priority DESC, doc.priority DESC, doc.did ASC, lang.priority DESC";
 	//echo $query;
 	$result = mysql_query($query);
@@ -66,7 +66,7 @@ function indexTypeFlags1($did) {
 			if ($row['shorthand'] == $_GET['tmplang']) $means = "final";
 			$link = $linkaddress.$row['linktext']."</A>";
 		}
-		$flags .= $linkaddress."<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
+		$flags .= $linkaddress."<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['thumbnail_path']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
 		$prevRow = $row;
 	}
 	if ($typeoutput != null) {
@@ -94,10 +94,10 @@ function indexTypeFlags1($did) {
 
 function indexFlags1($did) {
 	global $SITE_INFO_PUBLIC_ROOT;
-	$query = "SELECT doc.did, lang.shorthand, lang.flagtext, doc_general_v.linktext, doc_general_v.description, doc.description_img, images.small, doc.module_signature ";
-	$query .= "FROM doc, doc_general_v, lang, hierarchy, images ";
+	$query = "SELECT doc.did, lang.shorthand, lang.flagtext, doc_general_v.linktext, doc_general_v.description, doc.description_img, doc.module_signature, thumbnail_path ";
+	$query .= "FROM doc, doc_general_v, lang, hierarchy ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND doc_general_v.did = doc.did ";
-	$query .= "AND lang.langid = doc_general_v.langid AND images.iid = lang.iid ";
+	$query .= "AND lang.langid = doc_general_v.langid ";
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	$result = mysql_query($query);
 	$output = "<UL CLASS='listingFlags'>";
@@ -130,7 +130,7 @@ function indexFlags1($did) {
 			$description = $row['description'];
 			$description_img = $row['description_img'];
 		}
-		$flags .= $linkaddress."<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
+		$flags .= $linkaddress."<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['thumbnail_path']."' CLASS='linkflags' ALT=\"".$row['flagtext']."\"></A>";
 		$prevRow = $row;
 	}
 	if ($prevRow != null) {
@@ -142,10 +142,10 @@ function indexFlags1($did) {
 
 function indexDescriptionFlags($did) {
 	global $SITE_INFO_PUBLIC_ROOT;
-	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_general_v.linktext, doc_general_v.description, doc.description_img, images.small, doc.module_signature ";
-	$query .= "FROM doc, doc_general_v, lang, hierarchy, images ";
+	$query = "SELECT doc.did, lang.shorthand, lang.lname, doc_general_v.linktext, doc_general_v.description, doc.description_img, thumbnail_path, doc.module_signature ";
+	$query .= "FROM doc, doc_general_v, lang, hierarchy ";
 	$query .= "WHERE hierarchy.parent = '".$did."' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did ";
-	$query .= "AND lang.langid = doc_general_v.langid AND images.iid = lang.iid ";
+	$query .= "AND lang.langid = doc_general_v.langid ";
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	$result = mysql_query($query);
 	$output = "<TABLE CLASS='listingDescriptionFlags'>";
@@ -154,13 +154,13 @@ function indexDescriptionFlags($did) {
 		if ($prevRow != null && $prevRow['did'] != $row['did']) {
 			$output .= "<TR><TH COLSPAN=2 ALIGN='left'>".$link." ".$flags."</TH></TR>\n";
 			$output .= "<TR><TD WIDTH=100% VALIGN='top'>".$description."</TD><TD>";
-			if ($description_img != "" && $description_img != "-1") {
+			/*if ($description_img != "" && $description_img != "-1") {
 				$query = "SELECT small FROM images WHERE iid=".$description_img;
 				$r = mysql_query($query);
 				if ($r = mysql_fetch_row($r)) {
 					$output .= "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[0]."' CLASS='listingDescriptionFlagsImg'>";
 				}
-			}
+			}*/
 			$output .= "</TD></TR>\n";
 			$output .= "<TR><TD COLSPAN=2><HR></TD></TR>";
 			$flags = null;
@@ -196,13 +196,13 @@ function indexDescriptionFlags($did) {
 	if ($prevRow != null) {
 		$output .= "<TR><TH COLSPAN=2 ALIGN='left'>".$link." ".$flags."</TH></TR>\n";
 		$output .= "<TR><TD WIDTH=100% VALIGN='top'>".$description."</TD><TD>";
-		if ($description_img != "" && $description_img != "-1") {
+		/*if ($description_img != "" && $description_img != "-1") {
 			$query = "SELECT small FROM images WHERE iid=".$description_img;
 			$r = mysql_query($query);
 			if ($r = mysql_fetch_row($r)) {
 				$output .= "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[0]."' CLASS='listingDescriptionFlagsImg'>";
 			}
-		}
+		}*/
 		$output .= "</TD></TR>\n";
 	}
 	return $output."</TABLE>";

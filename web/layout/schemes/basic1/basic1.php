@@ -1,15 +1,16 @@
 <?php
 
 function leftMenu() {
-	return;
 	global $SITE_INFO_PUBLIC_ROOT;
 	$types = getTypes();
-	$query = "SELECT doc.did, lang.shorthand, doc_v.linktext, doc_v.fid, doc_v.link, doc.format FROM doc, doc_v, lang, hierarchy ";
-	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_v.did AND lang.langid = doc_v.langid ";
+	$query = "SELECT doc.did, lang.shorthand, doc_general_v.linktext FROM doc, doc_general_v, lang, hierarchy ";
+	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did AND lang.langid = doc_general_v.langid ";
 	$query .= "AND lang.shorthand = '".$_GET['lang']."' ";
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
+	//echo $query;
 	$result = mysql_query($query);
 	$prevRow;
+	$link = null;
 	$out = "<TABLE CLASS='leftmenu-table'>";
 	$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
 	while ($row = mysql_fetch_assoc($result)) {
@@ -17,17 +18,8 @@ function leftMenu() {
 			$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='/layout/schemes/basic1/arrow.gif'>".$link."</TD></TR>\n";
 			$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
 		}
-		if ($row['format'] == 'file') {
-			$r = mysql_fetch_row(mysql_query("SELECT path FROM file WHERE fid = '".$row['fid']."'"));
-			$linkaddress = "<A HREF='".$SITE_INFO_PUBLIC_ROOT.$r[0]."' TARGET='_blank' CLASS='leftmenu-links'>";
-		} else {
-			if ($row['format'] == 'link') {
-				$linkaddress = $row['link'];
-			} else {
-				$linkaddress = pageLink($row['did'], null, null);
-			}
-			$linkaddress = "<A HREF='$linkaddress' CLASS='leftmenu-links'>";
-		}
+		$linkaddress = pageLink($row['did'], null, null);
+		$linkaddress = "<A HREF='$linkaddress' CLASS='leftmenu-links'>";
 		$link = $linkaddress.$row['linktext']."</A>";
 	}
 	if ($link != null) {

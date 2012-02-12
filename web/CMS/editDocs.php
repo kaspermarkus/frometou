@@ -51,7 +51,7 @@ function save_general_text() {
 	global $_POST, $_SESSION, $id;
 	//first update the general properties:
 	$query = "UPDATE doc SET priority = ".$_POST['priority'].", typeid=".$_POST['typeid'].", ident=\"".$_POST['ident']."\" WHERE $id='".$_POST[$id]."'";
-	echo $query;
+	//echo $query;
 	mysql_query($query);
 	//update translation specific general properties
 	$query = "REPLACE doc_general_v ( did, langid, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['langid'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
@@ -67,10 +67,10 @@ function save_module_text() {
              	while ($row = mysql_fetch_assoc($result)) {
 			if ($row['input_type'] == "html") 
 				fix_html_field($_POST, $row['signature']);
-			print_r($row);
+			//print_r($row);
                		$versionsql = "REPLACE module_text_v ( `did` , `text_signature` , `lang_id` , `value`) VALUES ( '".$_POST['did']."', '".$row['signature']."', '".$_SESSION['langid']."', '".$_POST[$row['signature']]."')";
 			mysql_query($versionsql);
-			echo $versionsql;
+			//echo $versionsql;
             	}	
        }
 	
