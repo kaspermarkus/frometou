@@ -1,7 +1,5 @@
 <?php
-require_once("authorize.php");
-require_once("../functions/siteInfo.php");
-require_once("../functions/cmsgeneral.php");
+require_once("functions/cms_general.php");
 
 $filename = "editTypes.php";
 $id = "tid";

@@ -1,11 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=iso-8859-1');
 
-require_once("authorize.php");
-require_once("../functions/functions.php");
-require_once("../functions/siteInfo.php");
-require_once("../functions/parsing.php");
-require_once("../functions/cmsgeneral.php");
+require_once("functions/cms_general.php");
+require_once("functions/parsing.php");
 
 $filename = "editDocs.php";
 $id = "did";

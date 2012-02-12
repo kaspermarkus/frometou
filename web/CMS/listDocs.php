@@ -1,6 +1,5 @@
 <?php
-require_once("authorize.php");
-require_once("../functions/functions.php");
+require_once("functions/cms_general.php");
 
 /* if user decided to create a new document */
 if (isset($_POST['new'])) {

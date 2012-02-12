@@ -1,4 +1,8 @@
 <?php
+require_once("../functions/siteInfo.php");
+require_once("authorize.php");
+require_once("../functions/functions.php");
+
 
 function cms_insert_flags($id, $postid) {
 	global $SITE_INFO_PUBLIC_ROOT;

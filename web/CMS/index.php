@@ -1,5 +1,5 @@
 <?php 
-require_once("authorize.php");
+require_once("functions/authorize.php");
 ?>
 <html>
 <head>

@@ -1,6 +1,5 @@
 <?php
-require_once("authorize.php");
-require_once("functions/functions.php");
+require_once("functions/cms_general.php");
 
 if (isset($_GET['remove'])) {
 	/* check if any documents exists with this language */

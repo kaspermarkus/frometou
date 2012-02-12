@@ -121,6 +121,11 @@ function selectFile($name, $size, $default) {
 	return selectBox($query, $name, $size, $default);
 }
 
+function selectLayoutTemplate($name, $size, $default) {
+        $query = "SELECT lid, layoutname FROM layout_template ORDER BY layoutname";
+        return selectBox($query, $name, $size, $default);
+}
+
 /* ---------------------------------------- FUNCTIONS FOR PRINTING SELECTBOXES WITH SEVERAL LANGUAGE VERSIONS -------------------------------------------- */
 /* creates a select box with the result from the given query 
  * if $default == null first result will be selected
