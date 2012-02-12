@@ -1,10 +1,7 @@
-Options +FollowSymLinks
-
 RewriteEngine on
-rewriteBase /frometou/web
+rewriteBase /frometou/web/
 
-#RewriteRule (.*) http://www.inprose.com
-#RewriteRule ^([a-z][a-z]?[a-z]?)/?$ index.php?lang=$1 [L]
+RewriteRule ^([a-z][a-z]?[a-z]?)/?$ index.php?lang=$1 [L]
 RewriteRule ^([a-z][a-z]?[a-z]?)/?$ index.php?lang=$1 [L]
 RewriteRule ^([a-z][a-z]?[a-z]?)/page(\-?[0-9]+)_([a-z]+)/?$ index.php?lang=$1&did=$2&tmplang=$3 [L]
 RewriteRule ^([a-z][a-z]?[a-z]?)/page(\-?[0-9]+)/?$ index.php?lang=$1&did=$2 [QSA,L]
@@ -13,8 +10,8 @@ RewriteRule ^([a-z][a-z]?[a-z]?)/page(\-?[0-9]+)/?$ index.php?lang=$1&did=$2 [QS
 RewriteRule ^([a-zA-Z0-9]+)$ redirect.php?page=$1 [L]
 RewriteRule ^([a-z][a-z]?[a-z]?)/([a-zA-Z]+)$ redirect.php?lang=$1&page=$2 [L]
 
-RewriteRule ^([a-z]+)/image([0-9]+)_([a-z]+)/?$ index.php?lang=$1&iid=$2&tmplang=$3 [L]
-RewriteRule ^([a-z]+)/image([0-9]+)/?$ index.php?lang=$1&iid=$2 [L]
+#RewriteRule ^([a-z]+)/image([0-9]+)_([a-z]+)/?$ index.php?lang=$1&iid=$2&tmplang=$3 [L]
+#RewriteRule ^([a-z]+)/image([0-9]+)/?$ index.php?lang=$1&iid=$2 [L]
 
 # -FrontPage-
 IndexIgnore .htaccess */.??* *~ *# */HEADER* */README* */_vti*
@@ -28,8 +25,4 @@ allow from all
 order deny,allow
 deny from all
 </Limit>
-
-#Parse CSS files also
-AddType application/x-httpd-php .css
-
 

@@ -50,7 +50,8 @@ function leftMenu() {
 <?php echo $pagetitle; ?>
 </TITLE>
 <link rel="icon" href="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>favicon.ico" type="image/x-icon" />
-<LINK REL="stylesheet" type="text/css" href="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>layout/schemes/basic1/basic1.css" />
+<?php //<LINK REL="stylesheet" type="text/css" href="${SITE_INFO_PUBLIC_ROOT}layout/schemes/basic1/basic1.css" />
+?>
 </head>
 <body class="body">
 <center>

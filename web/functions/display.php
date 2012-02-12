@@ -56,8 +56,10 @@ function getDocumentProperties($did) {
 	$sql = "SELECT * FROM module_text_v as tv, module_text as t WHERE tv.text_signature LIKE t.signature AND t.module_signature LIKE '$module_signature' AND tv.did = '$did' AND lang_id=$usedlang_id";
 	//echo $sql;  
 	$result = mysql_query($sql); 
-	while ($row = mysql_fetch_assoc($result)) {
-		$module_props[$row['signature']] = $row['value'];
+	if ($result) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$module_props[$row['signature']] = $row['value'];
+		}
 	}
 	//parents:
 	$parents = getParents($did);

@@ -1,8 +1,4 @@
-<?php
-header("Content-type: text/css");
-require_once("../../../functions/connect.php"); 
-?>
-
+<style type="text/css">
 <?php 
 //Get info from database
 $query = "SELECT element, property, value FROM layout_properties WHERE layoutID='-1' ORDER BY priority DESC, element ASC";
@@ -14,7 +10,7 @@ while ($row = mysql_fetch_assoc($result)) {
 ?>
 
 
-/* ---------------------- LEFT MENU ----------------------- 
+/* ---------------------- LEFT MENU ----------------------- */
 
 A.leftmenu-links 
 { 
@@ -168,3 +164,5 @@ FONT.counter
 { 
   text-align:center;
  }
+
+</style>

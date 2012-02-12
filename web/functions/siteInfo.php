@@ -17,7 +17,4 @@ $SITE_INFO_DB_PASS="frometou_pass"; //database password
 /* Set whether languages should be enabled */
 $SITE_INFO_LANGS_ENABLED="0";    //set if multiple languages is enabled - can be changed later
 
-$localCMSRoot = $SITE_INFO_LOCALROOT."CMS/";
-$publicCMSRoot = $SITE_INFO_PUBLIC_ROOT."CMS/";
-
 ?>
