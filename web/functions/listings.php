@@ -215,7 +215,7 @@ function getTypes() {
 	//echo $query;
 	$result = mysql_query($query);
 	while ($row = mysql_fetch_assoc($result)) {
-		if ($row['shorthand'] == $_GET['lang']) {
+		if ($row['shorthand'] == $_SESSION['lang']) {
 			$types[$row['tid']] = $row['tname'];
 			continue;
 		} else if (!isset($types[$row['tid']])) {

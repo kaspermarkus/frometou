@@ -14,7 +14,6 @@ function parser($txt) {
 	$parsedtxt = eregi_replace("\n!([^\n]*)<BR>\n", "\n<H3>\\1</H3>\n", $parsedtxt); //H3
 	$parsedtxt = fixIndent($parsedtxt);
 	$parsedtxt = fixItemize($parsedtxt);
-	$parsedtxt = fixImages($parsedtxt);
 	$parsedtxt = fixLinks($parsedtxt);
 	echo $parsedtxt;
 
@@ -44,37 +43,6 @@ function fixLinks($txt) {
 				} else {
 					$ret .= "<A HREF=\"http://".$submatch[0]."\">".$linktext."</A>";
 				}
-			}
-			$line = $arr[1];
-		}
-		$ret .= $line."\n";
-	} while (($line = strtok("\n")) !== false);
-	return $ret;
-}
-
-function fixImages($txt) {
-	$line = strtok($txt, "\n");
-	$regex = "\#G[ ]([0-9]+)( [WHA]=[0-9LR]+)*\#";
-	do {
-		while (eregi($regex, $line, $match)) {
-			$arr = spliti($regex, $line, 2);
-			$ret .= $arr[0];
-			$result = mysql_query("SELECT small, big FROM images WHERE iid='$match[1]'");
-			if ($row = mysql_fetch_row($result)) {
-				$img = "";
-				//check if we need to link image to a bigger version: */
-				if ($row[1]!="") $img .= "<A HREF='".xidPath("iid", "$match[1]")."'>";
-				$img .= "<IMG SRC='".$row[0]."' BORDER=0".fixLinkParams($match[0]);
-				//check for alttext:
-				$alt = getTranslation("SELECT langid, alt FROM images_v WHERE iid = $match[1]");
-				if ($alt != null) {
-					$img .= " ALT='".$alt['alt']."'";
-				}
-				$img .= ">";
-				if ($row[1]!="") $img .= "</A>";
-				$ret .= $img;
-			} else {
-				$ret .= substr($line, 0, strlen($arr[0]));;
 			}
 			$line = $arr[1];
 		}

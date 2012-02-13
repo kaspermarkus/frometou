@@ -5,7 +5,7 @@ function leftMenu() {
 	$types = getTypes();
 	$query = "SELECT doc.did, lang.shorthand, doc_general_v.linktext FROM doc, doc_general_v, lang, hierarchy ";
 	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did AND lang.langid = doc_general_v.langid ";
-	$query .= "AND lang.shorthand = '".$_GET['lang']."' ";
+	$query .= "AND lang.shorthand = '".$_SESSION['lang']."' ";
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	//echo $query;
 	$result = mysql_query($query);
@@ -29,6 +29,29 @@ function leftMenu() {
 	$out .= "</TABLE>";
 	return $out;
 }
+function insert_page_translations($imgs = false) {
+	global $SITE_INFO_PUBLIC_ROOT;
+	$query = "SELECT thumbnail_path, lang.langid, shorthand, lname FROM lang, defaultlangs WHERE defaultlangs.langid = lang.langid ORDER BY lang.priority DESC";
+	$result = mysql_query($query);
+	while ($row = mysql_fetch_assoc($result)) {
+		$imgsrc = $SITE_INFO_PUBLIC_ROOT.$row['thumbnail_path'];
+        
+        	if ($_SESSION['lang'] != $row['shorthand']) {
+			if ($imgs) {
+                		echo "<A HREF='".pageLink(null, $row['shorthand'], null)."'><img src=\"$imgsrc\" CLASS='defaultflags-regular'></A>";
+			} else {
+		                echo "<A HREF='".pageLink(null, $row['shorthand'], null)."' CLASS='NE_FLAGS'>".$row['lname']."</A>";
+			}
+        	} else {
+			if ($imgs) {
+                		echo "<img src=\"$imgsrc\" CLASS='defaultflags-selected' />";
+			} else {
+		                echo "<B><A HREF='".pageLink(null, $row['shorthand'], null)."' CLASS='NE_FLAGS'>".$row['lname']."</A></B>";
+			}
+                }
+        }
+}
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <HTML>
@@ -52,6 +75,11 @@ include_once("basic1.css.php");
         <IMG CLASS='maintableTopLeft' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>layout/schemes/basic1/logo.png" /> 
 	</td>
        <td CLASS='maintableTopMain'>
+	<?php 
+	if ($SITE_INFO_LANGS_ENABLED) {
+		insert_page_translations();
+	}
+	?>
          <H1>frometou</H1>
 	 <H3>Simple website building</H3>
 	</td>
@@ -63,6 +91,23 @@ include_once("basic1.css.php");
 	 </td>
 	 <td CLASS='maintableMain'>
 <?php
+//if $SHOW_PAGE_TRANSLATION is true, show flags for the different translations of the document:
+if ($SITE_INFO_LANGS_ENABLED && $SHOW_PAGE_TRANSLATIONS) {
+//Create flag to other versions of the document
+        //print_r($props['translations']);
+	echo '<div class="translation_flags">';
+	foreach ($props['translations'] as $langid=>$trans) {
+        	if ($props['shorthand'] != $trans['shorthand']) {
+                	echo "<A HREF='".pageLink(null, null, $trans['shorthand'])."'>";
+			echo "<IMG CLASS='translation_flags' SRC=\"".$SITE_INFO_PUBLIC_ROOT.$trans['thumbnail_path']."\">";       
+			echo "</A>";
+        	}
+	}	 
+	echo '</div>';
+}
+?>
+<?php
+//fire up the modules part
 require_once($SITE_INFO_LOCALROOT.$props['normal_page']['display_path']);
 ?>
 	</td>
@@ -86,7 +131,7 @@ require_once($SITE_INFO_LOCALROOT.$props['normal_page']['display_path']);
 //	while ($row = mysql_fetch_assoc($result)) {
 //		$img = "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."'";	
 //		
-//		if ($_GET['lang'] != $row['shorthand']) {
+//		if ($_SESSION['lang'] != $row['shorthand']) {
 //			$defaultflags .= "<A HREF='".pageLink(null, $row['shorthand'], null)."'>$img CLASS='defaultflags-regular'></A>";
 //		} else {
 //			$defaultflags .= "$img CLASS='defaultflags-selected'>";
@@ -183,7 +228,7 @@ require_once($SITE_INFO_LOCALROOT.$props['normal_page']['display_path']);
 //<?php
 ////then the right frame, as can be edited by users
 //$query = "SELECT body FROM doc_v, lang ";
-//$query .= "WHERE doc_v.langid = lang.langid AND lang.shorthand = '".$_GET['lang']."' AND did=-5 ";
+//$query .= "WHERE doc_v.langid = lang.langid AND lang.shorthand = '".$_SESSION['lang']."' AND did=-5 ";
 //$rightframe = mysql_fetch_row(mysql_query($query));
 //echo fixBody($_GET['did'], $rightframe[0]);
 //

@@ -15,45 +15,32 @@ function getDocumentProperties($did) {
 	$query .= " ORDER BY lang.priority DESC";
 	//echo $query;
 	$result = mysql_query($query);
+
 	
-	$main_trans = null;
-	$means = null;
-	$usedlang;
-	$usedlang_id;
-	$module_signature;
-	$module_display_path;
-	$translationPaths = "";
-	$translationNames;
+	$props; //Save the row for language used in $props
+	$translations; //$translations[langname][id,shorthand,img] ordered list of available translations
+	$module_props; //holds properties of the module
+	
 	while ($row = mysql_fetch_assoc($result)) {
 		if (isset($_GET['tmplang']) && $row['shorthand'] == $_GET['tmplang']) {
-			$main_trans = $row;
-			$usedlang_id = $row['langid'];
-			$usedlang = $row['shorthand'];
+			$props = $row;
 			$means = "tmplang";
-		} else if ($row['shorthand'] == $_GET['lang'] && $means != 'tmplang') {
-			$main_trans = $row;
-			$usedlang_id = $row['langid'];
-			$usedlang = $row['shorthand'];
+		} else if ($row['shorthand'] == $_SESSION['lang'] && $means != 'tmplang') {
+			$props = $row;
 			$means = 'lang';
 		} else if ($means == null) {
-			$main_trans = $row;
-			$usedlang_id = $row['langid'];
-			$usedlang = $row['shorthand'];
+			$props = $row;
 			$means = 'default';
 		}
-		$translationNames[$row['shorthand']] = $row['lname'];
-		//$translationPaths[$row['shorthand']] = $row['small'];
+		$translations[$row['langid']]["shorthand"] = $row['shorthand'];
+		$translations[$row['langid']]["thumbnail_path"] = $row['thumbnail_path'];
+		$translations[$row['langid']]["lname"] = $row['lname'];
+		$module_props["display_path"] = $row['display_path'];
 		$module_signature = $row['module_signature'];
-		$module_display_path = $row['display_path'];
 	}
-	$props["lang_names"]=$translationNames;
-	$props["lang_paths"]=null;//translationPaths
-	$props["used_lang_shorthand"]=$usedlang;
-
+	
 	//Module properties:
-	$module_props;
-	$module_props["display_path"] = $module_display_path;
-	$sql = "SELECT * FROM module_text_v as tv, module_text as t WHERE tv.text_signature LIKE t.signature AND t.module_signature LIKE '$module_signature' AND tv.did = '$did' AND lang_id=$usedlang_id";
+	$sql = "SELECT * FROM module_text_v as tv, module_text as t WHERE tv.text_signature LIKE t.signature AND t.module_signature LIKE '$module_signature' AND tv.did = '$did' AND lang_id=".$props['langid'];
 	//echo $sql;  
 	$result = mysql_query($sql); 
 	if ($result) {
@@ -63,10 +50,12 @@ function getDocumentProperties($did) {
 	}
 	//parents:
 	$parents = getParents($did);
+	
+	//finally, add all to props array and return
 	$props["parents"] = $parents;
-
-	//$main_trans['body'] = fixBody($did, $main_trans['body']);
-	return array ( $module_signature=>$module_props, "main"=>$main_trans, "langnames"=>$translationNames, "langpaths"=>$translationPaths, "usedlang"=>$usedlang, "parents"=>$parents );
+	$props["translations"]=$translations;
+	$props[$module_signature] = $module_props;
+	return $props;
 }
 
 function fixBody($did, $body) {
@@ -109,7 +98,7 @@ function fixBody($did, $body) {
 				$linkaddress = "<A HREF='$linkaddress'";
 			}
 
-			if ($row['shorthand'] == $_GET['tmplang'] || ($row['shorthand'] == $_GET['lang'] && $means == "default") || $link == null) {
+			if ($row['shorthand'] == $_GET['tmplang'] || ($row['shorthand'] == $_SESSION['lang'] && $means == "default") || $link == null) {
 				if ($link == null) $means = "default";
 				$link = $linkaddress.">";
 			}
@@ -149,7 +138,7 @@ function getParents($did) {
 			$flags = null;
 			$means = null;
 		}
-		if ($row['shorthand'] == $_GET['lang']) {
+		if ($row['shorthand'] == $_SESSION['lang']) {
 			$link = "<A HREF='".pageLink($row['did'], null, null)."'>".$row['linktext']."</A>";
 			$means = "lang";
 		} else if ($means == null) {

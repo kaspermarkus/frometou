@@ -1,22 +1,6 @@
 <?php
 
 /* ---------------------------------- FOR GETTING TRANSLATION ----------------------------------------------------------------------------------------------*/
-  /* returns row with langid==$_GET['lid'], else langid==$_GET['langid'] else first row in resultset, else returns null */
-function getTranslation($query) {
-	$pref = null;
-	$result = mysql_query($query);
-	//echo $query;
-	while ($row = mysql_fetch_assoc($result)) {
-		if ($row['langid'] == $_GET['lid']) {
-			return $row;
-		} else if ($row['langid'] == $_GET['langid']) {
-			$pref = $row;
-		} else if ($pref == null) {
-			$pref = $row;
-		}
-	}
-	return $pref;
-}
 
 function queryDocLink($did, $linktext) {
 	$query = "SELECT doc_v.did, doc_v.linktext, doc_v.fid, doc_v.link, doc.module_signature, lang.langid, lang.flagtext, lang.flagpath, lang.priority ";
@@ -47,31 +31,6 @@ function createDocLink($result, $linktext) {
 		}
 		//add flag
 		$flags .= "<A HREF=$linkaddress><IMG SRC='".$row['flagpath']."' CLASS='flag' ALT=\"".$row['flagtext']."\"></A>";
-	}
-	return $link . " ".$flags;
-}
-
-function querySingleCatLink($cid, $linktext) {
-	$query = "SELECT cat_v.cid, cat_v.linktext, lang.langid, flagtext, lang.flagpath, lang.priority ";
-	$query .= "FROM cat_v, lang WHERE cid='$cid' AND lang.langid = cat_v.langid ORDER BY priority DESC";
-	$result = mysql_query($query);
-	return createSingleCatLink($result, $cid, $linktext);
-}
-
-function createSingleCatLink($result, $cid, $linktext) {
-	$flags = "";
-	$link = null;
-	$means = null;
-	while ($row = mysql_fetch_assoc($result)) {
-		if ($cid != $row['cid']) {
-			return $link." ".$flags;
-		}
-		$linkaddress = xidlidPath("cid", $cid, $row['langid']);
-		if ($row['langid'] == $_GET['lid'] || ($row['langid'] == $_GET['langid'] && $means == "default") || $link == null) {
-			if ($link == null) $means = "default";
-			$link = "<A HREF='".$linkaddress."'>".(($linktext == null)?$row['linktext']:$linktext)."</A>";
-		}
-		$flags .= "<A HREF='".$linkaddress."'><IMG SRC='".$row['flagpath']."' CLASS='flag' ALT=\"".$row['flagtext']."\"></A>";
 	}
 	return $link . " ".$flags;
 }
