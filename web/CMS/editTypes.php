@@ -5,9 +5,9 @@ $filename = "editTypes.php";
 $id = "tid";
 
 /* ------------ if new language chosen ------------ */
-if (isset($_GET['langid'])) {
+if (isset($_GET['lang'])) {
 	echo "AAAA";
-	$_SESSION['langid'] = $_GET['langid'];
+	$_SESSION['lang'] = $_GET['lang'];
 	if (isset($_GET[$id])) {
 		$params = "?$id=".$_GET[$id];
 	}
@@ -17,16 +17,16 @@ if (isset($_GET['langid'])) {
 /* ------------- if form is submitted -------------- */
 if (isset($_GET['singlesave'])) {
 	//if the id and the language version exists
-	if ($_GET[$id] > 0 && mysql_num_rows(mysql_query("SELECT * FROM dtype_v WHERE $id=".$_GET[$id]." AND langid=".$_SESSION['langid'])) > 0) {
+	if ($_GET[$id] > 0 && mysql_num_rows(mysql_query("SELECT * FROM dtype_v WHERE $id=".$_GET[$id]." AND lang=".$_SESSION['lang'])) > 0) {
 		$query = "UPDATE dtype_v SET ";
 		$query .= "tname = \"".$_GET['tname']."\"";
 		$query .= " WHERE $id = ".$_GET[$id];
-		$query .= " AND langid = ".$_SESSION['langid'];
+		$query .= " AND lang = ".$_SESSION['lang'];
 		mysql_query($query);
 		header("location:$filename?$id=".$_GET[$id]);
 	//if the id exist, but no language version exist
 	} else if ($_GET[$id] > 0) { 
-		$query = "INSERT INTO dtype_v ( tid, langid, tname ) VALUES ( '".$_GET[$id]."', '".$_SESSION['langid']."', '".$_GET['tname']."' )";
+		$query = "INSERT INTO dtype_v ( tid, lang, tname ) VALUES ( '".$_GET[$id]."', '".$_SESSION['lang']."', '".$_GET['tname']."' )";
 		mysql_query($query);
 		header("location:$filename?$id=".$_GET[$id]);
 	//if neither id, nor language exist .. create completely new
@@ -35,7 +35,7 @@ if (isset($_GET['singlesave'])) {
 		mysql_query($query);
 		$result = mysql_query("SELECT $id FROM dtype ORDER BY $id DESC");
 		$result = mysql_fetch_row($result);
-		$query = "INSERT INTO dtype_v ( tid, langid, tname ) VALUES ( '$result[0]', '".$_SESSION['langid']."', '".$_GET['tname']."' )";
+		$query = "INSERT INTO dtype_v ( tid, lang, tname ) VALUES ( '$result[0]', '".$_SESSION['lang']."', '".$_GET['tname']."' )";
 		mysql_query($query);
 		header("location:$filename?$id=$result[0]");
 	}
@@ -52,7 +52,7 @@ if (isset($_GET['singlesave'])) {
 		header("location:$filename");
 	}
 	//check how many versions we have:
-	$query = "SELECT langid FROM dtype_v WHERE $id=".$_GET[$id];
+	$query = "SELECT lang FROM dtype_v WHERE $id=".$_GET[$id];
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) <= 1) {
 		echo "<SCRIPT LANGUAGE='javascript'>";
@@ -61,10 +61,10 @@ if (isset($_GET['singlesave'])) {
 		echo "</SCRIPT>";
 	} else {
 		//if user chose to delete language version:
-		$query = "DELETE FROM dtype_v WHERE $id=".$_GET[$id]." AND langid=".$_SESSION['langid'];
+		$query = "DELETE FROM dtype_v WHERE $id=".$_GET[$id]." AND lang=".$_SESSION['lang'];
 		mysql_query($query);
 		$result = mysql_fetch_row($result);
-		$_SESSION['langid'] = $result[0];
+		$_SESSION['lang'] = $result[0];
 		header("location:".$filename."?$id=".$_GET[$id]);
 	}
 	/* ----------------- if no form is submitted --------------- */
@@ -72,7 +72,7 @@ if (isset($_GET['singlesave'])) {
 	$result = mysql_query("SELECT tid, priority, ident FROM dtype WHERE tid=".$_GET['tid']);
 	$tmprow = mysql_fetch_assoc($result);
 
-	$result = mysql_query("SELECT dtype.tid, dtype.priority, dtype_v.tname, dtype.ident FROM dtype, dtype_v WHERE dtype.tid=".$_GET['tid']." AND langid=".$_SESSION['langid']." AND dtype.tid = dtype_v.tid");
+	$result = mysql_query("SELECT dtype.tid, dtype.priority, dtype_v.tname, dtype.ident FROM dtype, dtype_v WHERE dtype.tid=".$_GET['tid']." AND lang=".$_SESSION['lang']." AND dtype.tid = dtype_v.tid");
 	$row = mysql_fetch_assoc($result);
 	$row['priority'] = $tmprow['priority'];
 	$row['ident'] = $tmprow['ident'];

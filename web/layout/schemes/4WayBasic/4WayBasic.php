@@ -5,9 +5,9 @@ function leftMenu() {
 	global $SITE_INFO_PUBLIC_ROOT;
 	$types = getTypes();
 
-	$query = "SELECT doc.did, lang.shorthand, doc_general_v.linktext, doc.format FROM doc, doc_general_v, lang, hierarchy ";
-	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did AND lang.langid = doc_general_v.langid ";
-	$query .= "AND lang.shorthand = '".$_SESSION['lang']."' ";
+	$query = "SELECT doc.did, doc_general_v.linktext, doc.format FROM doc, doc_general_v, lang, hierarchy ";
+	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did AND lang.lang = doc_general_v.lang ";
+	$query .= "AND lang.lang = '".$_SESSION['lang']."' ";
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	$result = mysql_query($query);
 	$prevRow;
@@ -125,7 +125,7 @@ function leftMenu() {
 			<?php
 			//then the right frame, as can be edited by users
 			$query = "SELECT body FROM doc_regular_v, lang ";
-			$query .= "WHERE doc_regular_v.langid = lang.langid AND lang.shorthand = '".$_SESSION['lang']."' AND did=-5 ";
+			$query .= "WHERE doc_regular_v.lang = lang.lang AND lang.lang = '".$_SESSION['lang']."' AND did=-5 ";
 			$rightframe = mysql_fetch_row(mysql_query($query));
 			echo fixBody(-5, $rightframe[0]);
 			//echo $rightframe[0];
@@ -155,15 +155,15 @@ function leftMenu() {
 //if (isset($postheader)) echo "<H2 CLASS='docheader'>$postheader</H2>";
 //echo "<HR>";
 //if ($_GET['did'] < 0) {
-//	$query = "SELECT lang.langid, lang.shorthand, images.iid, images.small, lang.lname FROM lang, defaultlangs, images WHERE defaultlangs.langid = lang.langid AND";
+//	$query = "SELECT lang.lang, images.iid, images.small, lang.lname FROM lang, defaultlangs, images WHERE defaultlangs.lang = lang.lang AND";
 //	$query .= " images.iid = lang.iid ORDER BY lang.priority DESC";
 //	$result = mysql_query($query);
 //	$defaultflags = "";
 //	while ($row = mysql_fetch_assoc($result)) {
 //		$img = "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."'";	
 //		
-//		if ($_SESSION['lang'] != $row['shorthand']) {
-//			$defaultflags .= "<A HREF='".pageLink(null, $row['shorthand'], null)."'>$img CLASS='defaultflags-regular'></A>";
+//		if ($_SESSION['lang'] != $row['lang']) {
+//			$defaultflags .= "<A HREF='".pageLink(null, $row['lang'], null)."'>$img CLASS='defaultflags-regular'></A>";
 //		} else {
 //			$defaultflags .= "$img CLASS='defaultflags-selected'>";
 //		}
@@ -238,7 +238,7 @@ function leftMenu() {
 //<?php
 ////then the right frame, as can be edited by users
 //$query = "SELECT body FROM doc_v, lang ";
-//$query .= "WHERE doc_v.langid = lang.langid AND lang.shorthand = '".$_SESSION['lang']."' AND did=-5 ";
+//$query .= "WHERE doc_v.lang = lang.lang AND lang.lang = '".$_SESSION['lang']."' AND did=-5 ";
 //$rightframe = mysql_fetch_row(mysql_query($query));
 //echo fixBody($_GET['did'], $rightframe[0]);
 //

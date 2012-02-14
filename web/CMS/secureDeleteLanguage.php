@@ -4,10 +4,10 @@ require_once("functions/functions.php");
 
 /* if we have chosen to remove one */
 if (isset($_GET['remove'])) {
-	mysql_query("DELETE FROM images_v WHERE langid=".$_GET['remove']);
-	mysql_query("DELETE FROM type_v WHERE langid=".$_GET['remove']);
-	mysql_query("DELETE FROM doc_v WHERE langid=".$_GET['remove']);
-	/* check if this is the last version of a document *
+	mysql_query("DELETE FROM images_v WHERE lang=".$_GET['remove']);
+	mysql_query("DELETE FROM type_v WHERE lang=".$_GET['remove']);
+	mysql_query("DELETE FROM doc_v WHERE lang=".$_GET['remove']);
+	/* check if this is the last version of a document */
 	header("location:listDocs.php");
 }
 ?>

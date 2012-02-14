@@ -16,8 +16,8 @@ if (!isset($_POST[$id]) || $_POST[$id] == "") {
 	header("location:listDocs.php");
 }
 /* -------------------------------- if new language chosen ----------------------------- */
-if (isset($_GET['langid'])) {
-	$_SESSION['langid'] = $_GET['langid'];
+if (isset($_GET['lang'])) {
+	$_SESSION['lang'] = $_GET['lang'];
 	if (isset($_POST[$id])) {
 		$params = "?$id=".$_POST[$id];
 	}
@@ -31,16 +31,16 @@ function fix_html_field($arr, $fieldname) {
 }
 
 function gotoAvailableLang() {
-	$query = "SELECT langid FROM doc_general_v WHERE did=".$_POST['did'];
+	$query = "SELECT lang FROM doc_general_v WHERE did=".$_POST['did'];
 	$result = mysql_query($query);
 	//if no translations available
 	if (mysql_num_rows($result) <= 0) {
 		//goto default language
-		$query = "SELECT langid FROM defaultLangs";
+		$query = "SELECT lang FROM defaultLangs";
 		$result = mysql_query($query);
 	}
 	$row = mysql_fetch_assoc($result);
-	$_SESSION['langid'] = $row['langid'];
+	$_SESSION['lang'] = $row['lang'];
 	header("location:".$filename."?did=".$_POST['did']);
 }
 
@@ -51,7 +51,7 @@ function save_general_text() {
 	//echo $query;
 	mysql_query($query);
 	//update translation specific general properties
-	$query = "REPLACE doc_general_v ( did, langid, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['langid'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
+	$query = "REPLACE doc_general_v ( did, lang, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['lang'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
 	mysql_query($query);
 }
 
@@ -65,7 +65,7 @@ function save_module_text() {
 			if ($row['input_type'] == "html") 
 				fix_html_field($_POST, $row['signature']);
 			//print_r($row);
-               		$versionsql = "REPLACE module_text_v ( `did` , `text_signature` , `lang_id` , `value`) VALUES ( '".$_POST['did']."', '".$row['signature']."', '".$_SESSION['langid']."', '".$_POST[$row['signature']]."')";
+               		$versionsql = "REPLACE module_text_v ( `did` , `text_signature` , `lang` , `value`) VALUES ( '".$_POST['did']."', '".$row['signature']."', '".$_SESSION['lang']."', '".$_POST[$row['signature']]."')";
 			mysql_query($versionsql);
 			//echo $versionsql;
             	}	
@@ -103,7 +103,7 @@ function insert_mandatory_fields() {
 function insert_module_fields() {
 	global $prop, $_POST, $id;
 	//get all fields in the module
-	//$sql = "SELECT * FROM module_text_v, module_text WHERE text_signature = signature AND did=".$_POST['did']." AND lang_id=".$_SESSION['langid']." AND module_signature LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
+	//$sql = "SELECT * FROM module_text_v, module_text WHERE text_signature = signature AND did=".$_POST['did']." AND lang=".$_SESSION['lang']." AND module_signature LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
 	$sql = "SELECT * FROM module_text WHERE `module_signature` LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
 	//echo $sql;
 	$result=mysql_query($sql);
@@ -111,7 +111,7 @@ function insert_module_fields() {
 		//for each field, get the value and print it:
 	  	 while ($row = mysql_fetch_assoc($result)) {
 			//get value:
-			$val_sql = "SELECT value FROM module_text_v WHERE text_signature=\"".$row['signature']."\" AND did=".$_POST['did']." AND lang_id=".$_SESSION['langid'];
+			$val_sql = "SELECT value FROM module_text_v WHERE text_signature=\"".$row['signature']."\" AND did=".$_POST['did']." AND lang='".$_SESSION['lang']."'";
 			$val_res = mysql_query($val_sql);
 			$val_row = null;
 			if (mysql_num_rows($val_res) != null) {
@@ -141,14 +141,14 @@ function insert_module_fields() {
 
 function delete_general_text() {
 	global $_POST, $_SESSION, $id;
-	$query = "DELETE FROM doc_general_v WHERE did=".$_POST[$id]." AND langid=".$_SESSION['langid']; 
+	$query = "DELETE FROM doc_general_v WHERE did=".$_POST[$id]." AND lang=".$_SESSION['lang']; 
 	mysql_query($query);
 }
 
 function delete_module_text() {
 	global $_POST, $_SESSION;
         //take care of generic module text fields
-        $sql = "DELETE module_text_v FROM module_text, module_text_v WHERE module_signature LIKE  \"".$_POST['module_signature']."\" AND signature LIKE text_signature AND did='".$_POST['did']."' AND lang_id='".$_SESSION['langid']."'";
+        $sql = "DELETE module_text_v FROM module_text, module_text_v WHERE module_signature LIKE  \"".$_POST['module_signature']."\" AND signature LIKE text_signature AND did='".$_POST['did']."' AND lang='".$_SESSION['lang']."'";
 	echo $sql;
         $result=mysql_query($sql);
 } 
@@ -197,7 +197,7 @@ if (isset($_POST['saveDoc'])) {
 /* ----------------- if no form is submitted ------------------------------------ */
  } else	if (isset($_POST[$id])) {
 	$query = "SELECT doc.did, doc.module_signature, doc.description_img, doc.priority, doc.typeid, doc.ident, linktext, description, pagetitle ";
-	$query .= "FROM doc, doc_general_v WHERE doc.did=".$_POST['did']." AND langid=".$_SESSION['langid']." AND doc.did = doc_general_v.did";
+	$query .= "FROM doc, doc_general_v WHERE doc.did=".$_POST['did']." AND lang='".$_SESSION['lang']."' AND doc.did = doc_general_v.did";
 	//echo $query;
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {

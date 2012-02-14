@@ -1,46 +1,40 @@
 <?php
 require_once("functions.php");
-require_once("path.php");
-require_once("siteInfo.php");
-require_once("listings.php");
+require_once("macros.php");
 
 function getDocumentProperties($did) {
 	$props;
 	//get general properties:
-	//SELECT doc.did, lang.langid, doc.module_signature, lang.shorthand, lang.iid, lang.lname, pagetitle, description FROM doc, doc_general_v as general, lang WHERE general.langid = lang.langid AND doc.did='73' AND doc.did = general.did ORDER BY lang.priority DESC
-
-	$query = "SELECT doc.did, lang.langid, doc.module_signature, lang.shorthand, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
+	$query = "SELECT doc.did, lang.lang, doc.module_signature, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
 	$query .= "FROM doc, doc_general_v as general, lang, module ";
-	$query .= "WHERE general.langid = lang.langid AND doc.did='$did' AND doc.did = general.did AND doc.module_signature LIKE module.module_signature ";
+	$query .= "WHERE general.lang = lang.lang AND doc.did='$did' AND doc.did = general.did AND doc.module_signature LIKE module.module_signature ";
 	$query .= " ORDER BY lang.priority DESC";
 	//echo $query;
 	$result = mysql_query($query);
-
 	
 	$props; //Save the row for language used in $props
-	$translations; //$translations[langname][id,shorthand,img] ordered list of available translations
+	$translations; //$translations[langname][id,lang,img] ordered list of available translations
 	$module_props; //holds properties of the module
 	
 	while ($row = mysql_fetch_assoc($result)) {
-		if (isset($_GET['tmplang']) && $row['shorthand'] == $_GET['tmplang']) {
+		if (isset($_GET['tmplang']) && $row['lang'] == $_GET['tmplang']) {
 			$props = $row;
 			$means = "tmplang";
-		} else if ($row['shorthand'] == $_SESSION['lang'] && $means != 'tmplang') {
+		} else if ($row['lang'] == $_SESSION['lang'] && $means != 'tmplang') {
 			$props = $row;
 			$means = 'lang';
 		} else if ($means == null) {
 			$props = $row;
 			$means = 'default';
 		}
-		$translations[$row['langid']]["shorthand"] = $row['shorthand'];
-		$translations[$row['langid']]["thumbnail_path"] = $row['thumbnail_path'];
-		$translations[$row['langid']]["lname"] = $row['lname'];
+		$translations[$row['lang']]["thumbnail_path"] = $row['thumbnail_path'];
+		$translations[$row['lang']]["lname"] = $row['lname'];
 		$module_props["display_path"] = $row['display_path'];
 		$module_signature = $row['module_signature'];
 	}
 	
 	//Module properties:
-	$sql = "SELECT * FROM module_text_v as tv, module_text as t WHERE tv.text_signature LIKE t.signature AND t.module_signature LIKE '$module_signature' AND tv.did = '$did' AND lang_id=".$props['langid'];
+	$sql = "SELECT * FROM module_text_v as tv, module_text as t WHERE tv.text_signature LIKE t.signature AND t.module_signature LIKE '$module_signature' AND tv.did = '$did' AND lang='".$props['lang']."'";
 	//echo $sql;  
 	$result = mysql_query($sql); 
 	if ($result) {
@@ -55,32 +49,34 @@ function getDocumentProperties($did) {
 	$props["parents"] = $parents;
 	$props["translations"]=$translations;
 	$props[$module_signature] = $module_props;
+	//print_r($props);
 	return $props;
 }
 
 function fixBody($did, $body) {
 	$body=stripslashes($body);
-	//echo "fixBody called";
 	//$pattern="/\\\\'/";
 	//$replacement="'";
 	//preg_replace($pattern, $replacement, $body);
 	/** FIX INDEXES **/
-	$regularType = documentIndex($did, false, true, true, 1);
-	$simple = documentIndex($did, false, false, true, 1);
-	$withDescription = documentIndex($did, true, false, true, 1);
-	$body = str_ireplace("##indexList::regularType##", $regularType, $body);
-	$body = str_ireplace("##indexList::simple##", $simple, $body);
-	$body = str_ireplace("##indexList::withDescription##", $withDescription, $body);
+	//echo "---body:$body---";
+	$body = run_html_macros($body);
+	//$regularType = documentIndex($did, false, true, true, 1);
+	//$simple = documentIndex($did, false, false, true, 1);
+	//$withDescription = documentIndex($did, true, false, true, 1);
+	//$body = str_ireplace("##indexList::regularType##", $regularType, $body);
+	//$body = str_ireplace("##indexList::simple##", $simple, $body);
+	//$body = str_ireplace("##indexList::withDescription##", $withDescription, $body);
 
 //echo $body;
 	global $SITE_INFO_PUBLIC_ROOT;
 	/** FIX LINKS **/
 	$regexp = "<a href='(\-?[0-9]+)'>";
 	while (eregi($regexp, $body, $values)) {
-		$query = "SELECT doc.did, doc.module_signature, lang.shorthand ";
+		$query = "SELECT doc.did, doc.module_signature ";
 		$query .= "FROM doc, lang, doc_general_v ";
 		$query .= "WHERE doc.did = '".$values[1]."' AND doc.did = doc_general_v.did ";
-		$query .= "AND lang.langid = doc_general_v.langid ";
+		$query .= "AND lang.lang = doc_general_v.lang ";
 		$query .= "ORDER BY lang.priority DESC";
 		//echo $query;
 		$result = mysql_query($query);
@@ -93,12 +89,12 @@ function fixBody($did, $body) {
 				if ($row['module_signature'] == 'link') {
 					$linkaddress = $row['link'];
 				} else {
-					$linkaddress = pageLink($row['did'], null, $row['shorthand']);
+					$linkaddress = pageLink($row['did'], null, $row['lang']);
 				}
 				$linkaddress = "<A HREF='$linkaddress'";
 			}
 
-			if ($row['shorthand'] == $_GET['tmplang'] || ($row['shorthand'] == $_SESSION['lang'] && $means == "default") || $link == null) {
+			if ($row['lang'] == $_GET['tmplang'] || ($row['lang'] == $_SESSION['lang'] && $means == "default") || $link == null) {
 				if ($link == null) $means = "default";
 				$link = $linkaddress.">";
 			}
@@ -124,9 +120,9 @@ function fixBody($did, $body) {
 
 function getParents($did) {
 	global $SITE_INFO_PUBLIC_ROOT;
-	$query = "SELECT doc.did, lang.langid, lang.shorthand, lang.lname, doc_general_v.linktext ";
+	$query = "SELECT doc.did, lang.lang, lang.lname, doc_general_v.linktext ";
 	$query .= "FROM doc_general_v, lang, doc, hierarchy ";
-	$query .= "WHERE doc_general_v.langid = lang.langid AND doc_general_v.did = doc.did AND hierarchy.parent = doc.did ";
+	$query .= "WHERE doc_general_v.lang = lang.lang AND doc_general_v.did = doc.did AND hierarchy.parent = doc.did ";
 	$query .= "AND hierarchy.did = '$did' ";
 	$query .= " ORDER BY doc.priority DESC, doc.did ASC,  lang.priority DESC";
 	$result = mysql_query($query);
@@ -138,14 +134,14 @@ function getParents($did) {
 			$flags = null;
 			$means = null;
 		}
-		if ($row['shorthand'] == $_SESSION['lang']) {
+		if ($row['lang'] == $_SESSION['lang']) {
 			$link = "<A HREF='".pageLink($row['did'], null, null)."'>".$row['linktext']."</A>";
 			$means = "lang";
 		} else if ($means == null) {
-			$link = "<A HREF='".pageLink($row['did'], null, $row['shorthand'])."'>".$row['linktext']."</A>";
+			$link = "<A HREF='".pageLink($row['did'], null, $row['lang'])."'>".$row['linktext']."</A>";
 			$means = 'default';
 		}
-		$flags .= "<A HREF='".pageLink($row['did'], null, $row['shorthand'])."'><IMG SRC='somepath'></A>"; //fixme .$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags'></A>";
+		$flags .= "<A HREF='".pageLink($row['did'], null, $row['lang'])."'><IMG SRC='somepath'></A>"; //fixme .$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags'></A>";
 		$prevRow = $row;
 	}
 	$parents[] = $link . $flags;

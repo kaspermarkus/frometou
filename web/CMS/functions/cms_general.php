@@ -9,18 +9,18 @@ function cms_insert_flags($id, $postid) {
 	//only show flags if we have multiple languages enabled for website. This is a setting in siteInfo.php
 	if ($SITE_INFO_LANGS_ENABLED) {
 		/* -------------- fix flags ------------------------------------ */
-		$mysql = "SELECT langid, thumbnail_path FROM lang ORDER BY priority DESC";
+		$mysql = "SELECT lang, thumbnail_path FROM lang ORDER BY priority DESC";
 		$result = mysql_query($mysql);
 	
 		while ($r = mysql_fetch_assoc($result)) {
-			if ($r['langid'] == $_SESSION['langid']) {
+			if ($r['lang'] == $_SESSION['lang']) {
 				echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r['thumbnail_path']."' WIDTH='44' HEIGHT='30'>&nbsp;";
 			} else {
 				echo "<A HREF='?";
 				if (isset($postid)) {
 					echo "$id=$postid&";
 				}
-				echo "langid=".$r['langid']."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r['thumbnail_path']."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
+				echo "lang=".$r['lang']."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r['thumbnail_path']."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
 			}
  		}
 	}

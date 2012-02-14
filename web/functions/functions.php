@@ -3,8 +3,8 @@
 /* ---------------------------------- FOR GETTING TRANSLATION ----------------------------------------------------------------------------------------------*/
 
 function queryDocLink($did, $linktext) {
-	$query = "SELECT doc_v.did, doc_v.linktext, doc_v.fid, doc_v.link, doc.module_signature, lang.langid, lang.flagtext, lang.flagpath, lang.priority ";
-	$query .= "FROM doc_v, doc, lang WHERE doc.did='$did' AND lang.langid = doc_v.langid AND doc_v.did=doc.did ORDER BY priority DESC";
+	$query = "SELECT doc_v.did, doc_v.linktext, doc_v.fid, doc_v.link, doc.module_signature, lang.lang, lang.flagtext, lang.flagpath, lang.priority ";
+	$query .= "FROM doc_v, doc, lang WHERE doc.did='$did' AND lang.lang = doc_v.lang AND doc_v.did=doc.did ORDER BY priority DESC";
 	$result = mysql_query($query);
 	return createDocLink($result, $linktext); 
 }
@@ -16,7 +16,7 @@ function createDocLink($result, $linktext) {
 	while ($row = mysql_fetch_assoc($result)) {
 		//fix link address:
 		if ($row['module_signature'] == "regular") {
-			$linkaddress = "'".xidlidPath("did", $did, $row['langid'])."'";
+			$linkaddress = "'".xidlidPath("did", $did, $row['lang'])."'";
 		} else if ($row['module_signature'] == "file") {
 			$r = mysql_query("SELECT path FROM file WHERE fid = '".$row['fid']."'");
 			$r = mysql_fetch_row($r);
@@ -25,7 +25,7 @@ function createDocLink($result, $linktext) {
 			$linkaddress = "'".$row['link']."'";
 		}
 		//create link (if needed)
-		if ($row['langid'] == $_GET['lid'] || ($row['langid'] == $_GET['langid'] && $means == "default") || $link == null) {
+		if ($row['lang'] == $_GET['lid'] || ($row['lang'] == $_GET['lang'] && $means == "default") || $link == null) {
 			if ($link == null) $means = "default";
 			$link = "<A HREF=$linkaddress>".(($linktext == null)?$row['linktext']:$linktext)."</A>";
 		}
@@ -71,7 +71,7 @@ function headerSelectBox($header, $query, $name, $size, $default) {
 }
 
 function selectLanguage($name, $size, $default) {
-	$query = "SELECT langid, lname FROM lang ORDER BY lname";
+	$query = "SELECT lang, lname FROM lang ORDER BY lname";
 	return selectBox($query, $name, $size, $default);
 }
 

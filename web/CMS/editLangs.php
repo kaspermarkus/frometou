@@ -7,21 +7,21 @@ $id = "lid";
 if (isset($_GET['save'])) {
 	//if we have a valid id
 	if ($_GET[$id] > 0) {
-		$query = "UPDATE lang SET lname = \"".$_GET['lname']."\", shorthand = \"".strtolower($_GET['shorthand'])."\", ";
-		$query .= "thumbnail_path = \"".$_GET['thumbnail_path']."\", priority = \"".$_GET['priority']."\" WHERE langid='".$_GET[$id]."'";
+		$query = "UPDATE lang SET lname = \"".$_GET['lname']."\", ";
+		$query .= "thumbnail_path = \"".$_GET['thumbnail_path']."\", priority = \"".$_GET['priority']."\" WHERE lang='".$_GET[$lang]."'";
 		mysql_query($query);
 		header("location:$filename?$id=".$_GET[$id]);
 	} else {		
-		$query = "INSERT INTO lang ( lname, shorthand, thumbnail_path, priority ) VALUES ";
-		$query .= "(\"".$_GET['lname']."\", \"".strtolower($_GET['shorthand'])."\", ";
+		$query = "INSERT INTO lang ( lang, lname, thumbnail_path, priority ) VALUES ";
+		$query .= "(\"".$_GET['lang']."\", \"".$_GET['lname']."\", ";
 		$query .= "\"".$_GET['thumbnail_path']."\", \"".$_GET['priority']."\")";
 		mysql_query($query);
-		$query = "SELECT langid FROM lang ORDER BY langid DESC";
+		$query = "SELECT lang FROM lang ORDER BY lang DESC";
 		$row = mysql_fetch_row(mysql_query($query));
 		header("location:$filename?$id=".$row[0]);
 	}
  } else	if (isset($_GET[$id])) {
-	$result = mysql_query("SELECT * FROM lang WHERE langid=".$_GET['lid']);;
+	$result = mysql_query("SELECT * FROM lang WHERE lang=".$_GET['lid']);;
 	$row = mysql_fetch_assoc($result);
  }
 ?>
@@ -43,7 +43,7 @@ if (isset($_GET['save'])) {
 	<input type='hidden' name='<?php echo $id; ?>' value="<?php echo $_GET[$id]; ?>">
 	<TABLE>
 	<TR><TH>name: </TH><TD><input size="80" name="lname" value="<?php echo $row['lname'] ?>"></TD></TR>
-	<TR><TH>shorthand: </TH><TD><input size="80" name="shorthand" value="<?php echo $row['shorthand'] ?>"></TD></TR>
+	<TR><TH>identifier: </TH><TD><?php echo $row['lang'] ?></TD></TR>
 	<TR><TH>flag: </TH><TD><input size="80" name="thumbnail_path" value="<?php echo $row['thumbnail_path']; ?>"></TD></TR>
 	<TR><TH>priority: </TH><TD><input size="80" name="priority" value="<?php echo $row['priority'] ?>"></TD></TR>
 	</TABLE>

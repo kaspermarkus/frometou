@@ -3,39 +3,39 @@ require_once("functions/cms_general.php");
 
 if (isset($_GET['remove'])) {
 	/* check if any documents exists with this language */
-	$query = "SELECT did FROM doc_v WHERE langid = '".$_GET['remove']."'";
+	$query = "SELECT did FROM doc_v WHERE lang = '".$_GET['remove']."'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0 && $row = mysql_fetch_row($result)) {
 		echo "<SCRIPT LANGUAGE='javascript'>\n";
 		echo "alert('A document still exists with translation to this language');\n";
-		echo "document.location = 'editDocs.php?did=".$row[0]."&langid=".$_GET['remove']."';";
+		echo "document.location = 'editDocs.php?did=".$row[0]."&lang=".$_GET['remove']."';";
 		echo "</SCRIPT>";
 		exit(0);
 	}
 	/* check if any type exists with this language */
-	$query = "SELECT tid FROM dtype_v WHERE langid = '".$_GET['remove']."'";
+	$query = "SELECT tid FROM dtype_v WHERE lang = '".$_GET['remove']."'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0 && $row = mysql_fetch_row($result)) {
 		echo "<SCRIPT LANGUAGE='javascript'>\n";
 		echo "alert('A type still exists with translation to this language');\n";
-		echo "document.location = 'editTypes.php?tid=".$row[0]."&langid=".$_GET['remove']."';";
+		echo "document.location = 'editTypes.php?tid=".$row[0]."&lang=".$_GET['remove']."';";
 		echo "</SCRIPT>";
 		exit(0);
 	}
 	/* check if any image exists with this language */
-	$query = "SELECT iid FROM images_v WHERE langid = '".$_GET['remove']."'";
+	$query = "SELECT iid FROM images_v WHERE lang = '".$_GET['remove']."'";
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0 && $row = mysql_fetch_row($result)) {
 		echo "<SCRIPT LANGUAGE='javascript'>\n";
 		echo "alert('A image still exists with translation to this language');\n";
-		echo "document.location = 'editImgs.php?iid=".$row[0]."&langid=".$_GET['remove']."';";
+		echo "document.location = 'editImgs.php?iid=".$row[0]."&lang=".$_GET['remove']."';";
 		echo "</SCRIPT>";
 		exit(0);
 	}
 	/* If no translations to this document exists, delete it */
-	$query = "DELETE FROM lang WHERE langid = ".$_GET['remove'];
+	$query = "DELETE FROM lang WHERE lang = ".$_GET['remove'];
 	mysql_query($query);
-	$query = "DELETE FROM defaultlangs WHERE langid = ".$_GET['remove'];
+	$query = "DELETE FROM defaultlangs WHERE lang = ".$_GET['remove'];
 	mysql_query($query);
 	header("location:listLangs.php");
  }

@@ -9,8 +9,8 @@ if (!isset($_POST[$id])) {
  }
 
 /* -------------------------------- if new language chosen ----------------------------- */
-if (isset($_GET['langid'])) {
-	$_SESSION['langid'] = $_GET['langid'];
+if (isset($_GET['lang'])) {
+	$_SESSION['lang'] = $_GET['lang'];
 	if (isset($_GET[$id])) {
 		$params = "?$id=".$_GET[$id];
 	}
@@ -20,17 +20,17 @@ if (isset($_GET['langid'])) {
 /* --------------------------------- if form is submitted ------------------------------ */
 if (isset($_POST['singlesave'])) {
 	//if the id and the language version exists------------------
-	if ($_POST[$id] > 0 && mysql_num_rows(mysql_query("SELECT * FROM images_v WHERE $id=".$_POST[$id]." AND langid=".$_SESSION['langid'])) > 0) {
+	if ($_POST[$id] > 0 && mysql_num_rows(mysql_query("SELECT * FROM images_v WHERE $id=".$_POST[$id]." AND lang=".$_SESSION['lang'])) > 0) {
 		$query = "UPDATE images_v SET ";
-		$query .= "$id=".$_POST[$id].", langid=".$_SESSION['langid'].", alt=\"".$_POST['alt']."\" ";
+		$query .= "$id=".$_POST[$id].", lang=".$_SESSION['lang'].", alt=\"".$_POST['alt']."\" ";
 		$query .= " WHERE $id = ".$_POST[$id];
-		$query .= " AND langid = ".$_SESSION['langid'];
+		$query .= " AND lang = ".$_SESSION['lang'];
 		mysql_query($query);
 		header("location:$filename?$id=".$_POST[$id]);
 	//if the id exist, but no language version exist-------------
 	} else if ($_POST[$id] != "") { 
-		$query = "INSERT INTO images_v ($id, langid, alt) VALUES ";
-		$query .= "( ".$_POST[$id].", ".$_SESSION['langid'].", \"".$_POST['alt']."\" )";
+		$query = "INSERT INTO images_v ($id, lang, alt) VALUES ";
+		$query .= "( ".$_POST[$id].", ".$_SESSION['lang'].", \"".$_POST['alt']."\" )";
 		mysql_query($query);
 		header("location:$filename?$id=".$_POST[$id]);
 	}
@@ -113,13 +113,13 @@ if (isset($_POST['singlesave'])) {
 		header("location:$filename");
 	}
 	//if user chose to delete language version:
-	$query = "DELETE FROM images_v WHERE $id=".$_POST[$id]." AND langid=".$_SESSION['langid'];
+	$query = "DELETE FROM images_v WHERE $id=".$_POST[$id]." AND lang=".$_SESSION['lang'];
 	mysql_query($query);
-	$query = "SELECT langid FROM images_v WHERE $id=".$_POST[$id];
+	$query = "SELECT lang FROM images_v WHERE $id=".$_POST[$id];
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) { //if we didn't delete every language version of this document, goto a valid one
 		$result = mysql_fetch_row($result);
-		$_SESSION['langid'] = $result[0];
+		$_SESSION['lang'] = $result[0];
 	}
 	header("location:".$filename."?$id=".$_POST[$id]);
  /* ----------------- if no form is submitted ------------------------------------ */
@@ -128,7 +128,7 @@ if (isset($_POST['singlesave'])) {
 	$row = mysql_fetch_assoc(mysql_query($query));
 
 	$query = "SELECT images_v.iid, images_v.alt ";
-	$query .= "FROM images, images_v WHERE images.iid=".$_GET['iid']." AND langid=".$_SESSION['langid']." AND images.iid = images_v.iid";	
+	$query .= "FROM images, images_v WHERE images.iid=".$_GET['iid']." AND lang=".$_SESSION['lang']." AND images.iid = images_v.iid";	
 	$result = mysql_query($query);
 	$row_v = mysql_fetch_assoc($result);
  }
@@ -144,16 +144,16 @@ if (isset($_POST['singlesave'])) {
 	<body>
 	<TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add images</H1></TD><TD ALIGN='right'><?php
 /* -------------- fix flags ------------------------------------ */
-$result = mysql_query("SELECT langid, small FROM lang, images WHERE lang.iid = images.iid ORDER BY priority DESC");
+$result = mysql_query("SELECT lang, small FROM lang, images WHERE lang.iid = images.iid ORDER BY priority DESC");
 while ($r = mysql_fetch_row($result)) {
-	if ($r[0] == $_SESSION['langid']) {
+	if ($r[0] == $_SESSION['lang']) {
 		echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='44' HEIGHT='30'>&nbsp;";
 	} else {
 		echo "<A HREF='$filename?";
 		if (isset($_GET[$id])) {
 			echo "$id=".$_GET[$id]."&";
 		}
-		echo "langid=".$r[0]."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
+		echo "lang=".$r[0]."'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$r[1]."' WIDTH='22' HEIGHT='15' BORDER=0></A>&nbsp;";
 	}
  }
 /* ------------------------------------------------------------ */

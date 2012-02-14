@@ -1,7 +1,6 @@
 <?php
 header('Content-type: text/html; charset=iso-8859-1');
 require_once("functions/general.php");
-require_once("functions/listings.php");
 require_once("functions/path.php");
 require_once("functions/display.php");
 

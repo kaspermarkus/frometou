@@ -8,10 +8,10 @@ if (!($_SESSION['uname'] == "vagn" && $_SESSION['pass'] == "tuborg08")) {
 	die();
  } else {
 	require_once("../functions/connect.php");
-	if (!isset($_SESSION['langid'])) {
-		$result = mysql_query("SELECT langid FROM lang ORDER BY priority DESC");
+	if (!isset($_SESSION['lang'])) {
+		$result = mysql_query("SELECT lang FROM lang ORDER BY priority DESC");
 		$row = mysql_fetch_row($result);
-		$_SESSION['langid'] = $row[0];
+		$_SESSION['lang'] = $row[0];
 	}
  }
 ?>
