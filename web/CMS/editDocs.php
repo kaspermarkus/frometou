@@ -274,6 +274,10 @@ cms_insert_flags($id, $_POST[$id]);
 	<input type='hidden' name="module_signature" value="<?php echo $prop['module_signature']; ?>">
 	<TABLE BORDER=0 id="standardInfo" WIDTH=100%>
 	<?php
+	echo "<tr><th>Public Url:</th><th colspan=3>";
+	$url = $SITE_INFO_PUBLIC_ROOT.$_SESSION['lang']."/page".$_POST['did'];
+	echo "<a href=\"$url\">$url</a>";
+	echo "</th></tr>";
 	//print the mandatory text
 	insert_mandatory_fields();
 	//insert module text fields
