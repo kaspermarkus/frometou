@@ -1,7 +1,9 @@
 <?php
 session_start();
-require_once("functions/siteInfo.php");
-require_once("functions/connect.php");
+require_once("siteInfo.php");
+require_once("connect.php");
+require_once("document_properties.php");
+
 //print_r($_SESSION);
 //If no session language is set, set it:
 if (!isset($_SESSION['lang'])) {

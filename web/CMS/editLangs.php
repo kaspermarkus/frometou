@@ -21,7 +21,7 @@ if (isset($_GET['save'])) {
 		header("location:$filename?$id=".$row[0]);
 	}
  } else	if (isset($_GET[$id])) {
-	$result = mysql_query("SELECT * FROM lang WHERE lang=".$_GET['lid']);;
+	$result = mysql_query("SELECT * FROM lang WHERE lang='".$_GET['lid']."'");
 	$row = mysql_fetch_assoc($result);
  }
 ?>

@@ -2,7 +2,7 @@
 	session_start();
     header("Cache-control: private"); // IE6 Fix. Why? Because it's rubbish
 
-require_once("../functions/siteInfo.php");
+require_once("../functions/system/siteInfo.php");
 
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">

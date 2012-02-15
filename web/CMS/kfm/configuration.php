@@ -1,10 +1,10 @@
 <?php
-if (file_exists('../../functions/siteInfo.php')) {
-	 require_once('../../functions/siteInfo.php');
-} else if (file_exists('../../../functions/siteInfo.php')) {
-	 require_once('../../../functions/siteInfo.php');
+if (file_exists('../../functions/system/siteInfo.php')) {
+	 require_once('../../functions/system/siteInfo.php');
+} else if (file_exists('../../../functions/system/siteInfo.php')) {
+	 require_once('../../../functions/system/siteInfo.php');
 } else {
-	$dir = "../../../functions";
+	$dir = "../../../system/functions";
 	if (file_exists($dir)) {
 		$handle = opendir($dir);
 		while (false !== ($entry = readdir($handle))) {

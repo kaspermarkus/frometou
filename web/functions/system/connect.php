@@ -1,6 +1,5 @@
 <?php
 
-require_once("siteInfo.php");
 
 //connects to the database with the given parameters:
 function connectDB($dbhost, $db_name, $username, $password) {

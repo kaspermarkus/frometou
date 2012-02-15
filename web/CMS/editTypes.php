@@ -71,8 +71,8 @@ if (isset($_GET['singlesave'])) {
  } else	if (isset($_GET[$id])) {
 	$result = mysql_query("SELECT tid, priority, ident FROM dtype WHERE tid=".$_GET['tid']);
 	$tmprow = mysql_fetch_assoc($result);
-
-	$result = mysql_query("SELECT dtype.tid, dtype.priority, dtype_v.tname, dtype.ident FROM dtype, dtype_v WHERE dtype.tid=".$_GET['tid']." AND lang=".$_SESSION['lang']." AND dtype.tid = dtype_v.tid");
+	$mysql = "SELECT dtype.tid, dtype.priority, dtype_v.tname, dtype.ident FROM dtype, dtype_v WHERE dtype.tid=".$_GET['tid']." AND lang='".$_SESSION['lang']."' AND dtype.tid = dtype_v.tid";
+	$result = mysql_query($mysql);
 	$row = mysql_fetch_assoc($result);
 	$row['priority'] = $tmprow['priority'];
 	$row['ident'] = $tmprow['ident'];

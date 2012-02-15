@@ -27,7 +27,6 @@ if (isset($_GET['lang'])) {
 function fix_html_field($arr, $fieldname) {
         $arr[$fieldname] = rmNewlines($arr[$fieldname]);
         $arr[$fieldname] = fixQuotes($arr[$fieldname]);
-        $arr[$fieldname] = saveImages($arr[$fieldname]);
 }
 
 function gotoAvailableLang() {
@@ -143,7 +142,6 @@ function insert_module_fields() {
 			} else if ($row['input_type'] == 'html') {
 			if (isset($val_row['value'])) {
 				$val_row['value'] = fixQuotes($val_row['value']);
-				$val_row['value'] = readImages($val_row['value']);
 			}
 			?>
 			<tr><td colspan=4><textarea name="<?php echo $row['signature']; ?>"><?php echo display_prop($val_row, 'value'); ?></textarea>

@@ -1,7 +1,7 @@
 <?php
-require_once("../functions/siteInfo.php");
+require_once("../functions/system/siteInfo.php");
 require_once("authorize.php");
-require_once("../functions/functions.php");
+require_once("functions.php");
 
 /* insert flags on the page to change the current language. Used when editing pages, etc. */
 function cms_insert_flags($id, $postid) {
