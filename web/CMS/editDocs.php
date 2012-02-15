@@ -47,8 +47,7 @@ function gotoAvailableLang() {
 function save_general_text() {
 	global $_POST, $_SESSION, $id;
 	//first update the general properties:
-	$query = "UPDATE doc SET priority = ".$_POST['priority'].", typeid=".$_POST['typeid'].", ident=\"".$_POST['ident']."\" WHERE $id='".$_POST[$id]."'";
-	//echo $query;
+	$query = "UPDATE doc SET priority = ".$_POST['priority'].", typeid=".$_POST['typeid'].", ident=\"".$_POST['ident']."\", description_img=\"".$_POST['description_img']."\" WHERE $id='".$_POST[$id]."'";
 	mysql_query($query);
 	//update translation specific general properties
 	$query = "REPLACE doc_general_v ( did, lang, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['lang'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
@@ -78,15 +77,35 @@ function display_prop($arr, $val) {
 }
 
 function insert_mandatory_fields() {
-	global $prop, $_POST, $id;
+	global $prop, $_POST, $id, $SITE_INFO_PUBLIC_ROOT;
 	?>
 	<TR><TH>identifier: </TH><TD><input TYPE='text' size="50" name="ident" value="<?php echo display_prop($prop, 'ident'); ?>"></TD>
    	    <TH STYLE="width:0; text-align:right;">priority:&nbsp; </TH><TD WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php echo $prop['priority']; ?>"></TD>
 	    <TD WIDTH=0><INPUT TYPE="submit" value="&nbsp;save&nbsp;" name="saveDoc"></TD></TR>
 
 	<TR><TH STYLE="width:0;">type: </TH><TD style="width:0;"> <?php echo selectType("typeid", 1, (isset($_POST[$id])) ? $prop['typeid'] : null); ?></TD>
-   	    <TH style="text-align:right; vertical-align:top">image:&nbsp; </TH><TD ROWSPAN=3 STYLE="vertical-align:top; text-align:left;"><A HREF="#" style="font-size:11px;">select image</A></TD>
-   	    <TD style="text-align:right"><INPUT TYPE="submit" value="delete" onSubmit="return confirm('Really delete document?');" name="delete"></TD>
+   	    <TH style="text-align:right; vertical-align:top">image:&nbsp; </TH><TD ROWSPAN=3 STYLE="vertical-align:top; text-align:left;">
+			<?php
+?>
+	<script language='javascript'>
+	function update_description_img() {
+		window.SetUrl=(function(id){
+               		 return function(value){
+                                document.getElementById('description_img').src = value;
+				var public_root = <?php echo "/".str_replace("/", '\/', $SITE_INFO_PUBLIC_ROOT)."/"; ?>;
+				value=value.replace(public_root, '');
+                                document.getElementById('description_img_form_field').value = value;
+                         }
+                })(this.id);
+                var kfm_url='kfm/';
+                window.open(kfm_url,'kfm','modal,width=600,height=400');
+	
+	}
+	kfm_init();
+	</script>
+	 <input type='hidden' NAME='description_img'  id="description_img_form_field" VALUE="<?php echo $prop['description_img']; ?>" name='description_img'>
+	<A HREF="#" class="kfm" onClick="javascript:update_description_img()"><IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.(($prop['description_img'])?$prop['description_img']:'imgs/no_img.svg'); ?>" id="description_img" /> </A></TD>
+   	   <TD style="text-align:right"><INPUT TYPE="submit" value="delete" onSubmit="return confirm('Really delete document?');" name="delete"></TD>
 	</TR>
 	<TR><TH>page title:</TH><TD><input size="50" name="pagetitle" value="<?php echo display_prop($prop, 'pagetitle'); ?>"</TD>
    	    <TD></TD><TD></TD>
@@ -128,9 +147,9 @@ function insert_module_fields() {
 			}
 			?>
 			<tr><td colspan=4><textarea name="<?php echo $row['signature']; ?>"><?php echo display_prop($val_row, 'value'); ?></textarea>
-<script type="txt/javascript" src="ckeditor/ckeditor.js"></script>
+<script type="txt/javascript" src="ckeditor/ckeditor_source.js"></script>
 			<script language="JavaScript" type="text/javascript">
-			CKEDITOR.replace( "<?php echo $row['signature']; ?>" , {toolbar : 'MyToolbar', filebrowserBrowseUrl: "CMS/kfm/"});
+			CKEDITOR.replace( "<?php echo $row['signature']; ?>" , {toolbar : 'MyToolbar', filebrowserBrowseUrl: "kfm/"});
 			</script></td>
 <?php
 			}
@@ -215,7 +234,7 @@ if (isset($_POST['saveDoc'])) {
 <HTML>
 <HEAD>
 <script type="text/javascript" src="functions/jquery.js"></script>	
-<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="ckeditor/ckeditor_source.js"></script>
 <SCRIPT LANGUAGE='javascript'>
 function showhide(id) {
 	if (document.getElementById(id).style.display == 'none') {

@@ -18,7 +18,7 @@ function leftMenu() {
 			$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='/layout/schemes/basic1/arrow.gif'>".$link."</TD></TR>\n";
 			$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
 		}
-		$linkaddress = pageLink($row['did'], null, null);
+		$linkaddress = pageLink($row['did']);
 		$linkaddress = "<A HREF='$linkaddress' CLASS='leftmenu-links'>";
 		$link = $linkaddress.$row['linktext']."</A>";
 	}
@@ -31,22 +31,23 @@ function leftMenu() {
 }
 function insert_page_translations($imgs = false) {
 	global $SITE_INFO_PUBLIC_ROOT;
+	global $_SESSION;
 	$query = "SELECT thumbnail_path, lang.lang, lname FROM lang, defaultlangs WHERE defaultlangs.lang = lang.lang ORDER BY lang.priority DESC";
 	$result = mysql_query($query);
 	while ($row = mysql_fetch_assoc($result)) {
 		$imgsrc = $SITE_INFO_PUBLIC_ROOT.$row['thumbnail_path'];
-        
+	//	echo $_SESSION['lang']." vs ".$row['lang'];
         	if ($_SESSION['lang'] != $row['lang']) {
 			if ($imgs) {
-                		echo "<A HREF='".pageLink(null, $row['lang'], null)."'><img src=\"$imgsrc\" CLASS='defaultflags-regular'></A>";
+                		echo "<A HREF='".changeLangLink($row['lang'])."'><img src=\"$imgsrc\" CLASS='defaultflags-regular'></A>";
 			} else {
-		                echo "<A HREF='".pageLink(null, $row['lang'], null)."' CLASS='NE_FLAGS'>".$row['lname']."</A>";
+		                echo "<A HREF='".changeLangLink($row['lang'])."' CLASS='NE_FLAGS'>".$row['lname']."</A>";
 			}
         	} else {
 			if ($imgs) {
                 		echo "<img src=\"$imgsrc\" CLASS='defaultflags-selected' />";
 			} else {
-		                echo "<B><A HREF='".pageLink(null, $row['lang'], null)."' CLASS='NE_FLAGS'>".$row['lname']."</A></B>";
+		                echo "<B>".$row['lname']."</B>";
 			}
                 }
         }
@@ -76,6 +77,7 @@ include_once("basic1.css.php");
 	</td>
        <td CLASS='maintableTopMain'>
 	<?php 
+	//print_r($_SESSION);
 	if ($SITE_INFO_LANGS_ENABLED) {
 		insert_page_translations();
 	}
@@ -94,12 +96,11 @@ include_once("basic1.css.php");
 //if $SHOW_PAGE_TRANSLATION is true, show flags for the different translations of the document:
 if ($SITE_INFO_LANGS_ENABLED && $SHOW_PAGE_TRANSLATIONS) {
 //Create flag to other versions of the document
-        //print_r($props['translations']);
-	echo '<div class="translation_flags">';
+	echo '<div class="linkflags">';
 	foreach ($props['translations'] as $lang=>$trans) {
-        	if ($props['lang'] != $trans['lang']) {
-                	echo "<A HREF='".pageLink(null, null, $trans['lang'])."'>";
-			echo "<IMG CLASS='translation_flags' SRC=\"".$SITE_INFO_PUBLIC_ROOT.$trans['thumbnail_path']."\">";       
+        	if ($props['lang'] != $lang) {
+                	echo "<A HREF='".pageLink($_GET['did'], $lang)."'>";
+			echo "<IMG CLASS='linkflags' SRC=\"".$SITE_INFO_PUBLIC_ROOT.$trans['thumbnail_path']."\">";       
 			echo "</A>";
         	}
 	}	 
@@ -132,7 +133,7 @@ require_once($SITE_INFO_LOCALROOT.$props['normal_page']['display_path']);
 //		$img = "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."'";	
 //		
 //		if ($_SESSION['lang'] != $row['lang']) {
-//			$defaultflags .= "<A HREF='".pageLink(null, $row['lang'], null)."'>$img CLASS='defaultflags-regular'></A>";
+//			$defaultflags .= "<A HREF='".ink2(null, $row['lang'], null)."'>$img CLASS='defaultflags-regular'></A>";
 //		} else {
 //			$defaultflags .= "$img CLASS='defaultflags-selected'>";
 //		}

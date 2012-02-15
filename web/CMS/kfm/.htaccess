@@ -8,12 +8,12 @@
 	ExpiresByType text/css "access plus 52 weeks"
 	ExpiresByType image/png "access plus 52 weeks"
 </IfModule>
-##<IfModule mod_php4.c>
-#	php_value magic_quotes_gpc off
-#</IfModule>
-#<IfModule mod_php5.c>
-#	php_value magic_quotes_gpc off
-#</IfModule>
+<IfModule mod_php4.c>
+	php_value magic_quotes_gpc off
+</IfModule>
+<IfModule mod_php5.c>
+	php_value magic_quotes_gpc off
+</IfModule>
 <IfModule mod_security.c>
 	SecFilterEngine Off
 	SecFilterScanPOST Off

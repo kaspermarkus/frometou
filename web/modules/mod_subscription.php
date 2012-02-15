@@ -77,7 +77,7 @@ if (isset($_GET['success'])) {
 			echo "SENDING MAIL: to ".$to.".........".$subject.$message.$headers;
 			mail($to, $subject, $message, $headers); //Sender mailen 
 			header("location:?success=true");	
-			echo "My page".pageLink($_GET['did'], null, null)."?success=true";
+			echo "My page".pageLink($_GET['did'])."?success=true";
 			/* lksdjkjldfskjldfsasdfkl 
 			$to = "kasper2@markus.dk"; 
 			$subject = "New subscription"; //Emnefeltet

@@ -1,6 +1,4 @@
 <?php
-require_once("path.php");
-
 function run_html_macros($body) {
 	$body = macro_simple_index($body);
 	$body = macro_type_index($body);
@@ -55,12 +53,12 @@ function generate_simple_index($show_types = true) {
 		
 		foreach ($docs as $doc_id=>$doc) {
 			$html .= "<LI CLASS='listingTypeLink'>";
-			$html .= "<a href=\"".pageLink($doc_id, null, $doc['main']['lang'])."\">";
+			$html .= "<a href=\"".pageLink($doc_id, $doc['main']['lang'])."\">";
 			$html .= $doc['main']['linktext']."</A>";
 			if ($SHOW_PAGE_TRANSLATIONS) {
 				foreach ($doc as $lang=>$version) {
-					if ($lang != "main") {
-						$html .= "<a href=\"". pageLink($doc_id, null, $version['lang'])."\">";
+					if ($lang != "main" && $lang != $_SESSION['lang']) {
+						$html .= "<a href=\"". pageLink($doc_id, $version['lang'])."\">";
 						$html .= "<img src=\"".$SITE_INFO_PUBLIC_ROOT.$version['thumbnail_path']."\" class='linkflags'/>";
 						$html .= "</a>";	
 					}
@@ -82,7 +80,6 @@ function macro_descriptive_index($body) {
 		return $body;
 	}
 	$types = getTypes();
-	echo "KLJASDKLJASDJKLADJKLADS";
 	$index = get_index_array();
 	//now that we have all the links create a string with the html for the index:
 	$html = "<TABLE CLASS='listingDescriptionFlags'>";
@@ -92,22 +89,23 @@ function macro_descriptive_index($body) {
 			if ($SHOW_PAGE_TRANSLATIONS) {
 				$flag_html="";
 				foreach ($doc as $lang=>$version) {
-					if ($lang != "main") {
-						$flag_html .= "<a href=\"". pageLink($doc_id, null, $version['lang'])."\">";
+					if ($lang != "main" && $lang != $_SESSION['lang']) {
+						$flag_html .= "<a href=\"". pageLink($doc_id, $version['lang'])."\">";
 						$flag_html .= "<img src=\"".$SITE_INFO_PUBLIC_ROOT.$version['thumbnail_path']."\" class='linkflags'/>";
 						$flag_html .= "</a>";	
 					}
 				}
 			}
 			$html .= "<tr><th align='left'>";
-			$html .= "<a href=\"".pageLink($doc_id, null, $doc['main']['lang'])."\">".$doc['main']['linktext']."</A>";
+			$html .= "<a href=\"".pageLink($doc_id, $doc['main']['lang'])."\">".$doc['main']['linktext']."</A>";
 			$html .= $flag_html."</th>";
 			$html .= "<th>(".$types[$typeid].")</th></tr>\n";
 			$html .= "<TR><TD WIDTH=100% VALIGN='top'>".$doc['main']['description']."</TD>";
 			if ($doc['main']['description_img']) {
 				$html .= "<td><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$doc['main']['description_img']."' CLASS='listingDescriptionFlagsImg'></td>";
 			} else {
-				$html .= "<td></td>";
+				$html .= "<td><IMG SRC='".$SITE_INFO_PUBLIC_ROOT."imgs/no_img.svg' CLASS='listingDescriptionFlagsImg'></td>";
+
 			}
 			$html .= "</TR>";
 		}

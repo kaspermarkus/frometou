@@ -1,4 +1,19 @@
 <?php
+if (file_exists('../../functions/siteInfo.php')) {
+	 require_once('../../functions/siteInfo.php');
+} else if (file_exists('../../../functions/siteInfo.php')) {
+	 require_once('../../../functions/siteInfo.php');
+} else {
+	$dir = "../../../functions";
+	if (file_exists($dir)) {
+		$handle = opendir($dir);
+		while (false !== ($entry = readdir($handle))) {
+			echo $entry."<br>";	
+		}
+	}
+}
+
+
 /**
  * KFM - Kae's File Manager
  *
@@ -20,12 +35,12 @@
 $kfm_db_type = 'mysql';
 
 // the following options should only be filled if you are not using sqlitepdo as the database
-$kfm_db_prefix   = 'kfm_';
-$kfm_db_host     = 'localhost';
-$kfm_db_name     = 'web30db2';
-$kfm_db_username = 'web30u2';
-$kfm_db_password = 'FundA2011';
-$kfm_db_port     = '3306';
+$kfm_db_prefix   = $SITE_INFO_KFM_PREFIX;
+$kfm_db_host     = $SITE_INFO_KFM_HOST;
+$kfm_db_name     = $SITE_INFO_KFM_NAME;
+$kfm_db_username = $SITE_INFO_KFM_USER;
+$kfm_db_password = $SITE_INFO_KFM_PASS;
+$kfm_db_port     = '';
 
 /**
  * This setting specifies if you want to use the KFM security. If set to false, no login form will be displayd
@@ -33,7 +48,7 @@ $kfm_db_port     = '3306';
  *
  * Please change this to 'true' if you want to use usernames and passwords.
  */
-$use_kfm_security=true;
+$use_kfm_security=false;
 
 /**
  * where on the server should the uploaded files be kept?
@@ -43,7 +58,7 @@ $use_kfm_security=true;
  *    $kfm_userfiles_address = 'D:/Files';            # absolute address in Windows
  *    $kfm_userfiles_address = './uploads';           # relative address
  */
-$kfm_userfiles_address = './uploads';
+$kfm_userfiles_address = $SITE_INFO_LOCAL_UPLOADS;
 
 // where should a browser look to find the files?
 // This setting assumes that the files are available throught a public address.
@@ -55,7 +70,7 @@ $kfm_userfiles_address = './uploads';
 // Examples for public accessable files:
 //   $kfm_userfiles_output = 'http://thisdomain.com/files/';
 //   $kfm_userfiles_output = '/files/';
-$kfm_userfiles_output = '/uploads';
+$kfm_userfiles_output = $SITE_INFO_PUBLIC_UPLOADS;
 
 // directory in which KFM keeps its database and generated files
 // if this starts with '/', then the address is absolute. otherwise, it is relative to $kfm_userfiles_address.

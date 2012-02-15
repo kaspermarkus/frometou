@@ -26,7 +26,7 @@ function leftMenu() {
 				if ($row['format'] == 'link') {
 					$linkaddress = $row['link'];
 				} else {
-					$linkaddress = pageLink($row['did'], null, null);
+					$linkaddress = pageLink($row['did']);
 				}
 				$linkaddress = "<A HREF='$linkaddress' CLASS='leftmenu-links'>";
 			}
@@ -163,7 +163,7 @@ function leftMenu() {
 //		$img = "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$row['small']."'";	
 //		
 //		if ($_SESSION['lang'] != $row['lang']) {
-//			$defaultflags .= "<A HREF='".pageLink(null, $row['lang'], null)."'>$img CLASS='defaultflags-regular'></A>";
+//			$defaultflags .= "<A HREF='".peLink(null, $row['lang'], null)."'>$img CLASS='defaultflags-regular'></A>";
 //		} else {
 //			$defaultflags .= "$img CLASS='defaultflags-selected'>";
 //		}

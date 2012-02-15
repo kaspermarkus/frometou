@@ -163,43 +163,6 @@ if ($last_registration!=$today) {
 }
 // }
 ?>
-<?php //------------------------------------ KASPERS TING --------------------------------------
-$SITE_INFO_PUBLIC_ROOT="http://www.fundamentalism.dk/";
-$SITE_INFO_DB_HOST="localhost";
-$SITE_INFO_DB_NAME="web30db1";
-$SITE_INFO_DB_USER="web30u1";
-$SITE_INFO_DB_PASS="Fund@2011";
-
-$connection = mysql_connect($SITE_INFO_DB_HOST, $SITE_INFO_DB_USER, $SITE_INFO_DB_PASS);
-mysql_select_db($SITE_INFO_DB_NAME, $connection);
-$query = "SELECT did, dtype.ident as tident, doc.ident FROM doc, dtype WHERE typeid = tid ORDER BY tident, ident";
-
-if ($res = mysql_query($query)) {
-     ?>
-     <script type="text/javascript">
-     var kfm_local_file_list = [
-     	<?php
-	$count=0;
-	while ($row = mysql_fetch_row($res)) {
-		if (++$count != 1) //if not the first entry
-			echo ", ";
-		echo "{ key: \"".$row[0]."\", value: \"".strtoupper($row[1]).": ".$row[2]."\" }\n";
-	};
-	?>
-     ];
-     </script>
-     <?php
-} else {
-	?>
-	<script type="text/javascript">
-	     var kfm_local_file_list = [ {key: "-1", value: "Unable to load list" } ];
-	</script>
-	<?php
-}
-mysql_close($connection);
-// ------------------- KASPER STOP -----------------------
-?>
-
 <?php // { set up JavaScript environment variables ?>
 		<script type="text/javascript">
 			var kfm_vars={

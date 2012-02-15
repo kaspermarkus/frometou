@@ -3,6 +3,7 @@ require_once("functions.php");
 require_once("macros.php");
 
 function getDocumentProperties($did) {
+	//echo ";dsaf;jsdfj;j;adfs;adfs $did";
 	$props;
 	//get general properties:
 	$query = "SELECT doc.did, lang.lang, doc.module_signature, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
@@ -49,26 +50,15 @@ function getDocumentProperties($did) {
 	$props["parents"] = $parents;
 	$props["translations"]=$translations;
 	$props[$module_signature] = $module_props;
+	//echo "FROM display";
 	//print_r($props);
 	return $props;
 }
 
 function fixBody($did, $body) {
 	$body=stripslashes($body);
-	//$pattern="/\\\\'/";
-	//$replacement="'";
-	//preg_replace($pattern, $replacement, $body);
-	/** FIX INDEXES **/
-	//echo "---body:$body---";
 	$body = run_html_macros($body);
-	//$regularType = documentIndex($did, false, true, true, 1);
-	//$simple = documentIndex($did, false, false, true, 1);
-	//$withDescription = documentIndex($did, true, false, true, 1);
-	//$body = str_ireplace("##indexList::regularType##", $regularType, $body);
-	//$body = str_ireplace("##indexList::simple##", $simple, $body);
-	//$body = str_ireplace("##indexList::withDescription##", $withDescription, $body);
 
-//echo $body;
 	global $SITE_INFO_PUBLIC_ROOT;
 	/** FIX LINKS **/
 	$regexp = "<a href='(\-?[0-9]+)'>";
@@ -89,7 +79,7 @@ function fixBody($did, $body) {
 				if ($row['module_signature'] == 'link') {
 					$linkaddress = $row['link'];
 				} else {
-					$linkaddress = pageLink($row['did'], null, $row['lang']);
+					$linkaddress = pageLink($row['did'], $row['lang']);
 				}
 				$linkaddress = "<A HREF='$linkaddress'";
 			}
@@ -101,19 +91,6 @@ function fixBody($did, $body) {
 		}
 		//echo "REPLACING STRING: $values[0] WITH $link<HR>";
 		$body = str_replace($values[0], $link, $body);
-	}
-
-	/** FIX IMAGES **/
-	$regexp = "<img src='([0-9]+)'>";
-	while (eregi($regexp, $body, $values)) {
-		$result = mysql_query("SELECT small, big FROM images WHERE iid='".$values[1]."'");
-		if ($row = mysql_fetch_row($result)) {
-			if ($row[1] != "") {
-				$body = str_replace($values[0], "<A HREF='$SITE_INFO_PUBLIC_ROOT$row[1]' TARGET='_blank'><img src='$SITE_INFO_PUBLIC_ROOT$row[0]' BORDER='0'></A>", $body);
-			} else {
-				$body = str_replace($values[0], "<img src='$SITE_INFO_PUBLIC_ROOT$row[0]'>", $body);
-			}
-		}
 	}
 	return $body;
 }
@@ -135,13 +112,13 @@ function getParents($did) {
 			$means = null;
 		}
 		if ($row['lang'] == $_SESSION['lang']) {
-			$link = "<A HREF='".pageLink($row['did'], null, null)."'>".$row['linktext']."</A>";
+			$link = "<A HREF='".pageLink($row['did'])."'>".$row['linktext']."</A>";
 			$means = "lang";
 		} else if ($means == null) {
-			$link = "<A HREF='".pageLink($row['did'], null, $row['lang'])."'>".$row['linktext']."</A>";
+			$link = "<A HREF='".pageLink($row['did'], $row['lang'])."'>".$row['linktext']."</A>";
 			$means = 'default';
 		}
-		$flags .= "<A HREF='".pageLink($row['did'], null, $row['lang'])."'><IMG SRC='somepath'></A>"; //fixme .$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags'></A>";
+		$flags .= "<A HREF='".pageLink($row['did'], $row['lang'])."'><IMG SRC='somepath'></A>"; //fixme .$SITE_INFO_PUBLIC_ROOT.$row['small']."' CLASS='linkflags'></A>";
 		$prevRow = $row;
 	}
 	$parents[] = $link . $flags;
