@@ -43,6 +43,7 @@ function getDocumentProperties($did) {
 	$parents = getParents($did);
 	
 	//finally, add all to props array and return
+	$props['did'] = $did;
 	$props["parents"] = $parents;
 	$props["translations"]=$translations;
 	$props[$module_signature] = $module_props;

@@ -100,7 +100,7 @@ function insert_mandatory_fields() {
                 window.open(kfm_url,'kfm','modal,width=600,height=400');
 	
 	}
-	kfm_init();
+	//kfm_init();
 	</script>
 	 <input type='hidden' NAME='description_img'  id="description_img_form_field" VALUE="<?php echo $prop['description_img']; ?>" name='description_img'>
 	<A HREF="#" class="kfm" onClick="javascript:update_description_img()"><IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.(($prop['description_img'])?$prop['description_img']:'imgs/no_img.svg'); ?>" id="description_img" /> </A></TD>

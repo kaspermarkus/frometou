@@ -163,6 +163,36 @@ if ($last_registration!=$today) {
 }
 // }
 ?>
+<?php //------------------------------------ KASPERS TING --------------------------------------
+require_once("../../functions/system/siteInfo.php");
+require_once("../../functions/system/connect.php");
+
+$query = "SELECT did, dtype.ident as tident, doc.ident FROM doc, dtype WHERE typeid = tid ORDER BY tident, ident";
+
+if ($res = mysql_query($query)) {
+     ?>
+     <script type="text/javascript">
+     var kfm_local_file_list = [
+     	<?php
+	$count=0;
+	while ($row = mysql_fetch_row($res)) {
+		if (++$count != 1) //if not the first entry
+			echo ", ";
+		echo "{ key: \"".$row[0]."\", value: \"".strtoupper($row[1]).": ".$row[2]."\" }\n";
+	};
+	?>
+     ];
+     </script>
+     <?php
+} else {
+	?>
+	<script type="text/javascript">
+	     var kfm_local_file_list = [ {key: "-1", value: "Unable to load list" } ];
+	</script>
+	<?php
+}
+// ------------------- KASPER STOP -----------------------
+?>
 <?php // { set up JavaScript environment variables ?>
 		<script type="text/javascript">
 			var kfm_vars={

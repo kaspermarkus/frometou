@@ -1,5 +1,6 @@
 <?php
 require_once($SITE_INFO_LOCAL_ROOT."functions/general_purpose.php");
+require_once($SITE_INFO_LOCAL_ROOT."functions/cms_link_functions.php");
 
 function leftMenu() {
 	global $SITE_INFO_PUBLIC_ROOT;
@@ -16,7 +17,7 @@ function leftMenu() {
 	$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
 	while ($row = mysql_fetch_assoc($result)) {
 		if ($link != null) {
-			$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='/layout/schemes/basic1/arrow.gif'>".$link."</TD></TR>\n";
+			$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='${SITE_INFO_PUBLIC_ROOT}imgs/arrow.gif'>".$link."</TD></TR>\n";
 			$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
 		}
 		$linkaddress = pageLink($row['did']);
@@ -24,7 +25,7 @@ function leftMenu() {
 		$link = $linkaddress.$row['linktext']."</A>";
 	}
 	if ($link != null) {
-		$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='/layout/schemes/basic1/arrow.gif'>".$link."</TD></TR>\n";
+		$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='${SITE_INFO_PUBLIC_ROOT}imgs/arrow.gif'>".$link."</TD></TR>\n";
 		$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
 	}
 	$out .= "</TABLE>";
@@ -65,7 +66,7 @@ function insert_page_translations($imgs = false) {
 </TITLE>
 <link rel="icon" href="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>favicon.ico" type="image/x-icon" />
 <?php 
-include_once("basic1.css.php");
+include_once("layout.css.php");
 ?>
 </head>
 <body>
@@ -74,7 +75,7 @@ include_once("basic1.css.php");
   <tbody>
     <tr>
        <td CLASS='maintableTopLeft'>
-        <IMG CLASS='maintableTopLeft' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>layout/schemes/basic1/logo.png" /> 
+        <IMG CLASS='maintableTopLeft' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/logo.png" /> 
 	</td>
        <td CLASS='maintableTopMain'>
 	<?php 
@@ -85,6 +86,7 @@ include_once("basic1.css.php");
 	?>
          <H1>frometou</H1>
 	 <H3>Simple website building</H3>
+	<p align="right"><?php echo generate_direct_cms_link(); ?></p>
 	</td>
     </tr>
     <tr>	 
@@ -115,7 +117,7 @@ require_once($SITE_INFO_LOCALROOT.$props['normal_page']['display_path']);
 	</td>
 	</tr>
 	<tr>
-	 <td CLASS='maintableBottom' colspan="2">
+	 <td CLASS='maintableBottom' COLSPAN=2>
 	 Colette Markus / Overgade 14, 2.th. / 5000 Odense C / tlf: 2126 5257 / e-mail: <a href="mailto:colette@markus.dk">colette@markus.dk</a>
 	 </td>
 	</tr>
