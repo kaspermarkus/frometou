@@ -12,7 +12,7 @@ if (!($_SESSION['uname'] == "$SITE_INFO_CMS_UNAME" && $_SESSION['pass'] == "$SIT
  } else {
 	require_once("{$SITE_INFO_LOCALROOT}functions/system/connect.php");
 	if (!isset($_SESSION['lang'])) {
-		$result = mysql_query("SELECT lang FROM lang ORDER BY priority DESC");
+		$result = mysql_query("SELECT langid FROM lang ORDER BY priority DESC");
 		$row = mysql_fetch_row($result);
 		$_SESSION['lang'] = $row[0];
 	}

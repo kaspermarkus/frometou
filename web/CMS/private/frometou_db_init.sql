@@ -556,5 +556,5 @@ CREATE TABLE IF NOT EXISTS `module_text_v` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `module_text_v` (did, text_signature, lang_id, value) VALUES 
-(0, 'header' 1, 'Front Page');
+(0, 'header', 1, 'Front Page');
 

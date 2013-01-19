@@ -2,9 +2,9 @@
 function getDocumentProperties($did) {
 	$props;
 	//get general properties:
-	$query = "SELECT doc.did, lang.lang, doc.module_signature, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
+	$query = "SELECT doc.did, lang.langid, doc.module_signature, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
 	$query .= "FROM doc, doc_general_v as general, lang, module ";
-	$query .= "WHERE general.lang = lang.lang AND doc.did='$did' AND doc.did = general.did AND doc.module_signature LIKE module.module_signature ";
+	$query .= "WHERE general.lang = lang.langid AND doc.did='$did' AND doc.did = general.did AND doc.module_signature LIKE module.module_signature ";
 	$query .= " ORDER BY lang.priority DESC";
 	//echo $query;
 	$result = mysql_query($query);
@@ -54,9 +54,9 @@ function getDocumentProperties($did) {
 
 function getParents($did) {
 	global $SITE_INFO_PUBLIC_ROOT;
-	$query = "SELECT doc.did, lang.lang, lang.lname, doc_general_v.linktext ";
+	$query = "SELECT doc.did, lang.langid, lang.lname, doc_general_v.linktext ";
 	$query .= "FROM doc_general_v, lang, doc, hierarchy ";
-	$query .= "WHERE doc_general_v.lang = lang.lang AND doc_general_v.did = doc.did AND hierarchy.parent = doc.did ";
+	$query .= "WHERE doc_general_v.lang = lang.langid AND doc_general_v.did = doc.did AND hierarchy.parent = doc.did ";
 	$query .= "AND hierarchy.did = '$did' ";
 	$query .= " ORDER BY doc.priority DESC, doc.did ASC,  lang.priority DESC";
 	$result = mysql_query($query);

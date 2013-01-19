@@ -42,9 +42,9 @@ function adds(s) {
 <HR>
 <FORM method="GET" NAME='formlist'>
 <TABLE>
-<TR><TH>Current defaults: </TH><TD><?php echo selectBox("SELECT lang.lang, lang.lname FROM lang, defaultlangs WHERE defaultlangs.lang = lang.lang ORDER BY priority", "remover", 1, null); ?></TD>
+<TR><TH>Current defaults: </TH><TD><?php echo selectBox("SELECT lang.langid, lang.lname FROM lang, defaultlangs WHERE defaultlangs.langid = lang.langid ORDER BY priority", "remover", 1, null); ?></TD>
 	<TD><button value="remove" name="remove" type="button" onCLick="javascript:removes(document.formlist.remover);">remove</button></TD></TR>
-<TR><TH>Potential defaults: </TH><TD><?php echo selectBox("SELECT lang, lname FROM lang ORDER BY priority", "adder", 1, null); ?></TD>
+<TR><TH>Potential defaults: </TH><TD><?php echo selectBox("SELECT langid, lname FROM lang ORDER BY priority", "adder", 1, null); ?></TD>
 	<TD><button value="new" name="new" type="button" onCLick="javascript:adds(document.formlist.adder);">add</button></TD></TR>
 </TABLE>
   <br>
