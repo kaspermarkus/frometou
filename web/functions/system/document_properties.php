@@ -31,7 +31,7 @@ function getDocumentProperties($did) {
 	}
 	
 	//Module properties:
-	$sql = "SELECT * FROM module_text_v as tv, module_text as t WHERE tv.text_signature LIKE t.signature AND t.module_signature LIKE '$module_signature' AND tv.did = '$did' AND lang='".$props['lang']."'";
+	$sql = "SELECT * FROM doc_module_v as tv, module_props as t WHERE tv.prop_signature LIKE t.signature AND t.module_signature LIKE '$module_signature' AND tv.did = '$did' AND lang='".$props['lang']."'";
 	//echo $sql;  
 	$result = mysql_query($sql); 
 	if ($result) {

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 19, 2013 at 11:48 AM
+-- Generation Time: Jan 19, 2013 at 03:20 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `doc` (
 --
 
 INSERT INTO `doc` (`did`, `module_signature`, `typeid`, `description_img`, `ident`, `priority`) VALUES
-(1, 'regular', 1, 0, 'home', 200);
+(0, 'regular', 1, 0, 'home', 200);
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,30 @@ CREATE TABLE IF NOT EXISTS `doc_general_v` (
 --
 
 INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `description`) VALUES
-(0, 1, 'forside', '', 'This is the Front Page');
+(0, 1, 'forside', '', 'This is the Front Page'),
+(0, 2, 'Link to Home', 'The Main Page', 'Some english description');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doc_module_v`
+--
+
+CREATE TABLE IF NOT EXISTS `doc_module_v` (
+  `did` int(11) NOT NULL,
+  `prop_signature` varchar(50) COLLATE utf8_bin NOT NULL,
+  `lang_id` int(11) NOT NULL,
+  `value` text COLLATE utf8_bin NOT NULL,
+  UNIQUE KEY `did` (`did`,`prop_signature`,`lang_id`),
+  KEY `text_signature` (`prop_signature`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `doc_module_v`
+--
+
+INSERT INTO `doc_module_v` (`did`, `prop_signature`, `lang_id`, `value`) VALUES
+(0, 'header', 1, 'Front Page');
 
 -- --------------------------------------------------------
 
@@ -518,10 +541,10 @@ INSERT INTO `module` (`mid`, `module_signature`, `module_name`, `display_path`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `module_text`
+-- Table structure for table `module_props`
 --
 
-CREATE TABLE IF NOT EXISTS `module_text` (
+CREATE TABLE IF NOT EXISTS `module_props` (
   `prop_id` int(11) NOT NULL AUTO_INCREMENT,
   `module_signature` varchar(20) COLLATE utf8_bin NOT NULL,
   `signature` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -538,10 +561,10 @@ CREATE TABLE IF NOT EXISTS `module_text` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=16 ;
 
 --
--- Dumping data for table `module_text`
+-- Dumping data for table `module_props`
 --
 
-INSERT INTO `module_text` (`prop_id`, `module_signature`, `signature`, `property_name`, `input_type`, `shown`, `priority`) VALUES
+INSERT INTO `module_props` (`prop_id`, `module_signature`, `signature`, `property_name`, `input_type`, `shown`, `priority`) VALUES
 (1, 'mod_subscription', 'header', 'Header', 'text', 1, 670),
 (2, 'normal_page', 'post_header', 'Post Header', 'text', 1, 200),
 (3, 'normal_page', 'body_content', 'Body', 'html', 1, 100),
@@ -557,28 +580,6 @@ INSERT INTO `module_text` (`prop_id`, `module_signature`, `signature`, `property
 (13, 'mod_subscription', 'post_header', 'Post Header', 'text', 1, 360),
 (14, 'mod_subscription', 'email_subject', 'Text for email subject line', 'text', 2, 310),
 (15, 'mod_subscription', 'email_body', 'The message that should go in the email', 'html', 2, 305);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `module_text_v`
---
-
-CREATE TABLE IF NOT EXISTS `module_text_v` (
-  `did` int(11) NOT NULL,
-  `text_signature` varchar(50) COLLATE utf8_bin NOT NULL,
-  `lang_id` int(11) NOT NULL,
-  `value` text COLLATE utf8_bin NOT NULL,
-  UNIQUE KEY `did` (`did`,`text_signature`,`lang_id`),
-  KEY `text_signature` (`text_signature`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `module_text_v`
---
-
-INSERT INTO `module_text_v` (`did`, `text_signature`, `lang_id`, `value`) VALUES
-(0, 'header', 1, 'Front Page');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

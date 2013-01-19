@@ -30,16 +30,16 @@ function fix_html_field($arr, $fieldname) {
 }
 
 function gotoAvailableLang() {
-	$query = "SELECT lang FROM doc_general_v WHERE did=".$_POST['did'];
+	$query = "SELECT langid FROM doc_general_v WHERE did=".$_POST['did'];
 	$result = mysql_query($query);
 	//if no translations available
 	if (mysql_num_rows($result) <= 0) {
 		//goto default language
-		$query = "SELECT lang FROM defaultLangs";
+		$query = "SELECT langid FROM defaultLangs";
 		$result = mysql_query($query);
 	}
 	$row = mysql_fetch_assoc($result);
-	$_SESSION['lang'] = $row['lang'];
+	$_SESSION['lang'] = $row['langid'];
 	header("location:".$filename."?did=".$_POST['did']);
 }
 
@@ -47,23 +47,26 @@ function save_general_text() {
 	global $_POST, $_SESSION, $id;
 	//first update the general properties:
 	$query = "UPDATE doc SET priority = ".$_POST['priority'].", typeid=".$_POST['typeid'].", ident=\"".$_POST['ident']."\", description_img=\"".$_POST['description_img']."\" WHERE $id='".$_POST[$id]."'";
+	echo $query;
 	mysql_query($query);
 	//update translation specific general properties
-	$query = "REPLACE doc_general_v ( did, lang, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['lang'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
+	$query = "REPLACE doc_general_v ( did, langid, linktext, pagetitle, description ) VALUES ( ".$_POST[$id].", ".$_SESSION['lang'].", \"".$_POST['linktext']."\", \"".$_POST['pagetitle']."\", \"".$_POST['description']."\")"; 
 	mysql_query($query);
+	echo $query;
+	// die();
 }
 
-function save_module_text() {
+function save_module_props() {
 	global $_POST, $_SESSION;
         //take care of generic module text fields
-	$sql = "SELECT * FROM module_text WHERE `module_signature` LIKE \"".$_POST['module_signature']."\" ORDER BY priority DESC";
+	$sql = "SELECT * FROM module_props WHERE `module_signature` LIKE \"".$_POST['module_signature']."\" ORDER BY priority DESC";
         $result=mysql_query($sql);
         if (mysql_num_rows($result) != null) {
              	while ($row = mysql_fetch_assoc($result)) {
 			if ($row['input_type'] == "html") 
 				fix_html_field($_POST, $row['signature']);
 			//print_r($row);
-               		$versionsql = "REPLACE module_text_v ( `did` , `text_signature` , `lang` , `value`) VALUES ( '".$_POST['did']."', '".$row['signature']."', '".$_SESSION['lang']."', '".$_POST[$row['signature']]."')";
+               		$versionsql = "REPLACE doc_module_v ( `did` , `prop_signature` , `langid` , `value`) VALUES ( '".$_POST['did']."', '".$row['signature']."', '".$_SESSION['lang']."', '".$_POST[$row['signature']]."')";
 			mysql_query($versionsql);
 			//echo $versionsql;
             	}	
@@ -121,15 +124,15 @@ function insert_mandatory_fields() {
 function insert_module_fields() {
 	global $prop, $_POST, $id;
 	//get all fields in the module
-	//$sql = "SELECT * FROM module_text_v, module_text WHERE text_signature = signature AND did=".$_POST['did']." AND lang=".$_SESSION['lang']." AND module_signature LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
-	$sql = "SELECT * FROM module_text WHERE `module_signature` LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
+	//$sql = "SELECT * FROM doc_module_v, module_props WHERE prop_signature = signature AND did=".$_POST['did']." AND langid=".$_SESSION['lang']." AND module_signature LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
+	$sql = "SELECT * FROM module_props WHERE `module_signature` LIKE \"".$prop['module_signature']."\" ORDER BY priority DESC";
 	//echo $sql;
 	$result=mysql_query($sql);
 	if (mysql_num_rows($result) != null) {
 		//for each field, get the value and print it:
 	  	 while ($row = mysql_fetch_assoc($result)) {
 			//get value:
-			$val_sql = "SELECT value FROM module_text_v WHERE text_signature=\"".$row['signature']."\" AND did=".$_POST['did']." AND lang='".$_SESSION['lang']."'";
+			$val_sql = "SELECT value FROM doc_module_v WHERE prop_signature=\"".$row['signature']."\" AND did=".$_POST['did']." AND langid='".$_SESSION['lang']."'";
 			$val_res = mysql_query($val_sql);
 			$val_row = null;
 			if (mysql_num_rows($val_res) != null) {
@@ -158,28 +161,28 @@ function insert_module_fields() {
 
 function delete_general_text() {
 	global $_POST, $_SESSION, $id;
-	$query = "DELETE FROM doc_general_v WHERE did=".$_POST[$id]." AND lang=".$_SESSION['lang']; 
+	$query = "DELETE FROM doc_general_v WHERE did=".$_POST[$id]." AND langid=".$_SESSION['lang']; 
 	mysql_query($query);
 }
 
-function delete_module_text() {
+function delete_module_props() {
 	global $_POST, $_SESSION;
         //take care of generic module text fields
-        $sql = "DELETE module_text_v FROM module_text, module_text_v WHERE module_signature LIKE  \"".$_POST['module_signature']."\" AND signature LIKE text_signature AND did='".$_POST['did']."' AND lang='".$_SESSION['lang']."'";
+        $sql = "DELETE doc_module_v FROM module_props, doc_module_v WHERE module_signature LIKE  \"".$_POST['module_signature']."\" AND signature LIKE prop_signature AND did='".$_POST['did']."' AND langid='".$_SESSION['lang']."'";
 	echo $sql;
         $result=mysql_query($sql);
 } 
 /* --------------------------------- document form is submitted ---------------------------------------------------------- */
 if (isset($_POST['saveDoc'])) {
 	save_general_text();
-	save_module_text();
+	save_module_props();
 	
 	//require_once("modules/".$_POST['module_signature'].".php"); //saveModuleForm();	
 	header("location:$filename?$id=".$_POST[$id]);
 
  } else if (isset($_POST['delete'])) {
 	delete_general_text();
-	delete_module_text();
+	delete_module_props();
 	//Handle the rest of the deletion based on the module_signature:
 	gotoAvailableLang();
 
@@ -214,7 +217,7 @@ if (isset($_POST['saveDoc'])) {
 /* ----------------- if no form is submitted ------------------------------------ */
  } else	if (isset($_POST[$id])) {
 	$query = "SELECT doc.did, doc.module_signature, doc.description_img, doc.priority, doc.typeid, doc.ident, linktext, description, pagetitle ";
-	$query .= "FROM doc, doc_general_v WHERE doc.did=".$_POST['did']." AND lang='".$_SESSION['lang']."' AND doc.did = doc_general_v.did";
+	$query .= "FROM doc, doc_general_v WHERE doc.did=".$_POST['did']." AND langid='".$_SESSION['lang']."' AND doc.did = doc_general_v.did";
 	//echo $query;
 	$result = mysql_query($query);
 	if (mysql_num_rows($result) > 0) {
