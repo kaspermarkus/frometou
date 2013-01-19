@@ -1,9 +1,30 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.4
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Jan 19, 2013 at 11:48 AM
+-- Server version: 5.5.29
+-- PHP Version: 5.4.10
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `frometou_db`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `defaultlangs`
 --
-DROP TABLE IF EXISTS defaultlangs;
 
 CREATE TABLE IF NOT EXISTS `defaultlangs` (
   `langid` int(11) NOT NULL,
@@ -23,7 +44,7 @@ INSERT INTO `defaultlangs` (`langid`) VALUES
 --
 -- Table structure for table `doc`
 --
-DROP TABLE IF EXISTS doc;
+
 CREATE TABLE IF NOT EXISTS `doc` (
   `did` int(11) NOT NULL AUTO_INCREMENT,
   `module_signature` char(20) COLLATE utf8_bin NOT NULL,
@@ -36,21 +57,21 @@ CREATE TABLE IF NOT EXISTS `doc` (
   KEY `typeid` (`typeid`),
   KEY `ident` (`ident`),
   KEY `description_img` (`description_img`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `doc`
 --
 
 INSERT INTO `doc` (`did`, `module_signature`, `typeid`, `description_img`, `ident`, `priority`) VALUES
-(0, 'regular', 1, 0, 'home', 200);
+(1, 'regular', 1, 0, 'home', 200);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `doc_general_v`
 --
-DROP TABLE IF EXISTS doc_general_v;
+
 CREATE TABLE IF NOT EXISTS `doc_general_v` (
   `did` int(11) NOT NULL,
   `langid` int(11) NOT NULL,
@@ -74,7 +95,7 @@ INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `descript
 --
 -- Table structure for table `doc_reference`
 --
-DROP TABLE IF EXISTS doc_reference;
+
 CREATE TABLE IF NOT EXISTS `doc_reference` (
   `did` int(11) NOT NULL,
   `reference` varchar(150) COLLATE utf8_bin NOT NULL,
@@ -86,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `doc_reference` (
 --
 -- Table structure for table `dtype`
 --
-DROP TABLE IF EXISTS dtype;
+
 CREATE TABLE IF NOT EXISTS `dtype` (
   `tid` int(11) NOT NULL AUTO_INCREMENT,
   `ident` varchar(150) COLLATE utf8_bin NOT NULL,
@@ -107,7 +128,7 @@ INSERT INTO `dtype` (`tid`, `ident`, `priority`) VALUES
 --
 -- Table structure for table `dtype_v`
 --
-DROP TABLE IF EXISTS dtype_v;
+
 CREATE TABLE IF NOT EXISTS `dtype_v` (
   `tid` int(11) NOT NULL,
   `langid` int(11) NOT NULL,
@@ -128,7 +149,7 @@ INSERT INTO `dtype_v` (`tid`, `langid`, `tname`) VALUES
 --
 -- Table structure for table `hierarchy`
 --
-DROP TABLE IF EXISTS hierarchy;
+
 CREATE TABLE IF NOT EXISTS `hierarchy` (
   `hid` int(11) NOT NULL AUTO_INCREMENT,
   `parent` int(11) NOT NULL,
@@ -143,7 +164,6 @@ CREATE TABLE IF NOT EXISTS `hierarchy` (
 -- Table structure for table `lang`
 --
 
-DROP TABLE IF EXISTS lang;
 CREATE TABLE IF NOT EXISTS `lang` (
   `langid` smallint(6) NOT NULL AUTO_INCREMENT,
   `lname` varchar(30) COLLATE utf8_bin NOT NULL,
@@ -172,7 +192,6 @@ INSERT INTO `lang` (`langid`, `lname`, `shorthand`, `flagtext`, `thumbnail_path`
 -- Table structure for table `layout`
 --
 
-DROP TABLE IF EXISTS layout;
 CREATE TABLE IF NOT EXISTS `layout` (
   `layout_used` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
@@ -190,7 +209,6 @@ INSERT INTO `layout` (`layout_used`) VALUES
 -- Table structure for table `layout_properties`
 --
 
-DROP TABLE IF EXISTS layout_properties;
 CREATE TABLE IF NOT EXISTS `layout_properties` (
   `pid` bigint(20) NOT NULL AUTO_INCREMENT,
   `layoutID` int(11) NOT NULL,
@@ -436,7 +454,7 @@ INSERT INTO `layout_properties` (`pid`, `layoutID`, `element`, `property`, `valu
 --
 -- Table structure for table `layout_template`
 --
-DROP TABLE IF EXISTS layout_template;
+
 CREATE TABLE IF NOT EXISTS `layout_template` (
   `lid` mediumint(9) NOT NULL AUTO_INCREMENT,
   `layoutname` varchar(150) COLLATE utf8_bin NOT NULL,
@@ -458,7 +476,6 @@ INSERT INTO `layout_template` (`lid`, `layoutname`, `filename`) VALUES
 -- Table structure for table `mapping`
 --
 
-DROP TABLE IF EXISTS mapping;
 CREATE TABLE IF NOT EXISTS `mapping` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `did` int(11) NOT NULL,
@@ -473,12 +490,13 @@ CREATE TABLE IF NOT EXISTS `mapping` (
 
 INSERT INTO `mapping` (`mid`, `did`, `path`) VALUES
 (1, 0, 'home');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `module`
 --
-DROP TABLE IF EXISTS module;
+
 CREATE TABLE IF NOT EXISTS `module` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `module_signature` varchar(20) COLLATE utf8_bin NOT NULL,
@@ -502,7 +520,7 @@ INSERT INTO `module` (`mid`, `module_signature`, `module_name`, `display_path`, 
 --
 -- Table structure for table `module_text`
 --
-DROP TABLE IF EXISTS module_text;
+
 CREATE TABLE IF NOT EXISTS `module_text` (
   `prop_id` int(11) NOT NULL AUTO_INCREMENT,
   `module_signature` varchar(20) COLLATE utf8_bin NOT NULL,
@@ -517,35 +535,35 @@ CREATE TABLE IF NOT EXISTS `module_text` (
   KEY `input_type` (`input_type`),
   KEY `priority` (`priority`),
   KEY `signature` (`signature`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `module_text`
 --
 
 INSERT INTO `module_text` (`prop_id`, `module_signature`, `signature`, `property_name`, `input_type`, `shown`, `priority`) VALUES
-(NULL, 'mod_subscription', 'header', 'Header', 'text', 1, 670),
-(NULL, 'normal_page', 'post_header', 'Post Header', 'text', 1, 200),
-(NULL, 'normal_page', 'body_content', 'Body', 'html', 1, 100),
-(NULL, 'normal_page', 'header', 'Header', 'text', 1, 300),
-(NULL, 'mod_subscription', 'success_text', 'Text displayed after subscription is made', 'html', 2, 315),
-(NULL, 'mod_subscription', 'text_after_form', 'Text After Form', 'html', 1, 320),
-(NULL, 'mod_subscription', 'reset_button_text', 'Text on Reset Button', 'text', 1, 325),
-(NULL, 'mod_subscription', 'submit_button_text', 'Text on Submit Button', 'text', 1, 330),
-(NULL, 'mod_subscription', 'email', 'Email Address Label', 'text', 1, 335),
-(NULL, 'mod_subscription', 'fullname', 'Fullname Label', 'text', 1, 340),
-(NULL, 'mod_subscription', 'form_header', 'Form Header', 'text', 1, 345),
-(NULL, 'mod_subscription', 'text_before_form', 'Text Before Form', 'html', 1, 350),
-(NULL, 'mod_subscription', 'post_header', 'Post Header', 'text', 1, 360),
-(NULL, 'mod_subscription', 'email_subject', 'Text for email subject line', 'text', 2, 310),
-(NULL, 'mod_subscription', 'email_body', 'The message that should go in the email', 'html', 2, 305);
+(1, 'mod_subscription', 'header', 'Header', 'text', 1, 670),
+(2, 'normal_page', 'post_header', 'Post Header', 'text', 1, 200),
+(3, 'normal_page', 'body_content', 'Body', 'html', 1, 100),
+(4, 'normal_page', 'header', 'Header', 'text', 1, 300),
+(5, 'mod_subscription', 'success_text', 'Text displayed after subscription is made', 'html', 2, 315),
+(6, 'mod_subscription', 'text_after_form', 'Text After Form', 'html', 1, 320),
+(7, 'mod_subscription', 'reset_button_text', 'Text on Reset Button', 'text', 1, 325),
+(8, 'mod_subscription', 'submit_button_text', 'Text on Submit Button', 'text', 1, 330),
+(9, 'mod_subscription', 'email', 'Email Address Label', 'text', 1, 335),
+(10, 'mod_subscription', 'fullname', 'Fullname Label', 'text', 1, 340),
+(11, 'mod_subscription', 'form_header', 'Form Header', 'text', 1, 345),
+(12, 'mod_subscription', 'text_before_form', 'Text Before Form', 'html', 1, 350),
+(13, 'mod_subscription', 'post_header', 'Post Header', 'text', 1, 360),
+(14, 'mod_subscription', 'email_subject', 'Text for email subject line', 'text', 2, 310),
+(15, 'mod_subscription', 'email_body', 'The message that should go in the email', 'html', 2, 305);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `module_text_v`
 --
-DROP TABLE IF EXISTS module_text_v;
+
 CREATE TABLE IF NOT EXISTS `module_text_v` (
   `did` int(11) NOT NULL,
   `text_signature` varchar(50) COLLATE utf8_bin NOT NULL,
@@ -555,6 +573,13 @@ CREATE TABLE IF NOT EXISTS `module_text_v` (
   KEY `text_signature` (`text_signature`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `module_text_v` (did, text_signature, lang_id, value) VALUES 
+--
+-- Dumping data for table `module_text_v`
+--
+
+INSERT INTO `module_text_v` (`did`, `text_signature`, `lang_id`, `value`) VALUES
 (0, 'header', 1, 'Front Page');
 
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
