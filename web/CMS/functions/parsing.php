@@ -29,4 +29,11 @@ function fixQuotes($str) {
 	$str = eregi_replace('"', "'", $str);
 	return $str;
 }
+
+
+function fix_html_field($val) {
+    $val = rmNewlines($val);
+    $val = fixQuotes($val);
+    return $val;
+}
 ?>
