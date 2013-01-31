@@ -16,15 +16,19 @@ class normal_page {
 			 // print_r($this->props);
 		}
 	}
+	
+	function get($key) {
+		return (isset($this->props[$key])) ? $this->props[$key] : "";
+	}
 
 	function printHTMLForm() {
 		echo "<table><TR><TH>header:</TH><TD><input size='50' name='normal_page_header' value=\"".
-		display_prop($this->props, 'normal_page_header')."\"></TD></TR>".
+		$this->get('normal_page_header')."\"></TD></TR>".
 		"<TR><TH>post header:</TH><TD><input size='50' name='normal_page_post_header' value=\"".
-		display_prop($this->props, 'normal_page_post_header')."\"></TD></TR>".
+		$this->get('normal_page_post_header')."\"></TD></TR>".
 		"<TR><TH>Body:</TH><TD>".
 		"<textarea name='normal_page_body_content'>".
-		display_prop($this->props, 'normal_page_body_content').
+		$this->get('normal_page_body_content').
 		"</textarea>".
 		"<script type='txt/javascript' src='ckeditor/ckeditor_source.js'></script>".
 		"<script language='JavaScript' type='text/javascript'>".
@@ -36,7 +40,7 @@ class normal_page {
 	function single_save($lang, $did, $sig, $val) {
 	    $query = "REPLACE doc_module_v ( `did` , `prop_signature` , `langid` , `value`) VALUES ".
 	    	"( '$did', \"$sig\", '$lang', \"$val\")";
-	    echo $query."<br/>";
+	    //echo $query."<br/>";
 		mysql_query($query);
 	}
 
@@ -47,9 +51,9 @@ class normal_page {
 		$body = fix_html_field($post["normal_page_body_content"]);
 		$this->single_save($lang, $did, "normal_page_body_content", $body);
 	}
-}
 
-function newModule() {
-	//safe self to data object:
-	return new normal_page;
+	function delete($lang) {
+	    $query = "DELETE FROM doc_module_v WHERE did='$did' AND langid='$lang'";
+		mysql_query($query);
+	}
 }
