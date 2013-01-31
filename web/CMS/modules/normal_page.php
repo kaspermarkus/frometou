@@ -7,7 +7,7 @@ class normal_page {
 	function init($did, $lang) {
 		$query = "SELECT * FROM doc_module_v as dmv, module_props as mp ".
 			"WHERE dmv.prop_signature = mp.signature AND dmv.did=$did ".
-			"AND dmv.langid=$lang AND mp.module_signature='normal_page'";
+			"AND dmv.langid='$lang' AND mp.module_signature='normal_page'";
 		$result = mysql_query($query);
 		if ($result && mysql_num_rows($result) > 0) {
 			while ($row = mysql_fetch_assoc($result)) {

@@ -6,8 +6,8 @@ function leftMenu() {
 	global $SITE_INFO_PUBLIC_ROOT;
 	$types = getTypes();
 	$query = "SELECT doc.did, doc_general_v.linktext FROM doc, doc_general_v, lang, hierarchy ";
-	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did AND lang.langid = doc_general_v.lang ";
-	$query .= "AND lang.langid = '".$_SESSION['lang']."' ";
+	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did AND lang.id = doc_general_v.langid ";
+	$query .= "AND lang.id = '".$_SESSION['lang']."' ";
 	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	//echo $query;
 	$result = mysql_query($query);
@@ -34,7 +34,7 @@ function leftMenu() {
 function insert_page_translations($imgs = false) {
 	global $SITE_INFO_PUBLIC_ROOT;
 	global $_SESSION;
-	$query = "SELECT thumbnail_path, lang.langid, lname FROM lang, defaultlangs WHERE defaultlangs.lang = lang.langid ORDER BY lang.priority DESC";
+	$query = "SELECT thumbnail_path, lang.id as lang, lname FROM lang, defaultlangs WHERE defaultlangs.langid = lang.id ORDER BY lang.priority DESC";
 	$result = mysql_query($query);
 	while ($row = mysql_fetch_assoc($result)) {
 		$imgsrc = $SITE_INFO_PUBLIC_ROOT.$row['thumbnail_path'];
@@ -112,7 +112,7 @@ if ($SITE_INFO_LANGS_ENABLED && $SHOW_PAGE_TRANSLATIONS) {
 ?>
 <?php
 //fire up the modules part
-require_once($SITE_INFO_LOCALROOT.$props['normal_page']['display_path']);
+require_once($SITE_INFO_LOCAL_ROOT.$props['normal_page']['display_path']);
 ?>
 	</td>
 	</tr>

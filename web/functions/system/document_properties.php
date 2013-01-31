@@ -2,16 +2,16 @@
 function getDocumentProperties($did) {
 	$props;
 	//get general properties:
-	$query = "SELECT doc.did, lang.langid, doc.module_signature, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
+	$query = "SELECT doc.did, lang.id as lang, doc.module_signature, lang.thumbnail_path, lang.lname, pagetitle, description, module.display_path ";
 	$query .= "FROM doc, doc_general_v as general, lang, module ";
-	$query .= "WHERE general.lang = lang.langid AND doc.did='$did' AND doc.did = general.did AND doc.module_signature LIKE module.module_signature ";
+	$query .= "WHERE general.langid = lang.id AND doc.did='$did' AND doc.did = general.did AND doc.module_signature LIKE module.module_signature ";
 	$query .= " ORDER BY lang.priority DESC";
-	//echo $query;
 	$result = mysql_query($query);
 	
 	$props; //Save the row for language used in $props
 	$translations; //$translations[langname][id,lang,img] ordered list of available translations
 	$module_props; //holds properties of the module
+	$means = null; //saves how we decided on the language to use
 	
 	while ($row = mysql_fetch_assoc($result)) {
 		if (isset($_GET['tmplang']) && $row['lang'] == $_GET['tmplang']) {
@@ -54,11 +54,11 @@ function getDocumentProperties($did) {
 
 function getParents($did) {
 	global $SITE_INFO_PUBLIC_ROOT;
-	$query = "SELECT doc.did, lang.langid, lang.lname, doc_general_v.linktext ";
+	$query = "SELECT doc.did, lang.id as lang, lang.lname, doc_general_v.linktext ";
 	$query .= "FROM doc_general_v, lang, doc, hierarchy ";
-	$query .= "WHERE doc_general_v.lang = lang.langid AND doc_general_v.did = doc.did AND hierarchy.parent = doc.did ";
+	$query .= "WHERE doc_general_v.langid = lang.id AND doc_general_v.did = doc.did AND hierarchy.parent = doc.did ";
 	$query .= "AND hierarchy.did = '$did' ";
-	$query .= " ORDER BY doc.priority DESC, doc.did ASC,  lang.priority DESC";
+	$query .= " ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
 	$result = mysql_query($query);
 	$flags = "";
 	$link = "";

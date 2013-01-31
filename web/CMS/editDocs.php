@@ -56,16 +56,18 @@ class dataContainer {
 
 	function save($post, $lang) {
 		//first update the general properties:
-		$query = "UPDATE doc SET priority = ".$post['priority'].", typeid=".$post['typeid'].", ident=\"".$post['ident']."\", description_img=\"".$post['description_img']."\" WHERE id='".$this->get("did")."'";
+		$query = "UPDATE doc SET priority = ".$post['priority'].", typeid=".$post['typeid'].", ident=\"".$post['ident']."\", description_img=\"".$post['description_img']."\" WHERE did='".$this->get("did")."'";
 		//echo $query;
 		mysql_query($query);
 		//update translation specific general properties
-		$query = "REPLACE doc_general_v ( did, langid, linktext, pagetitle, description ) VALUES ( ".$post['did'].", ".$lang.", \"".$post['linktext']."\", \"".$post['pagetitle']."\", \"".$post['description']."\")"; 
+		$query = "REPLACE doc_general_v ( did, langid, linktext, pagetitle, description ) VALUES ( ".$post['did'].", '".$lang."', \"".$post['linktext']."\", \"".$post['pagetitle']."\", \"".$post['description']."\")"; 
 		//echo $query."<br />";		
 		mysql_query($query);
 		foreach($this->data['modules'] as $n=>$o) {
 			$o->save($post, $lang);
 		}
+		//reinitialize this object, as we've changed some of the base information
+		$this->init($this->get("did"));
 	}
 
 	function delete($lang) {

@@ -10,9 +10,9 @@ if (!($_SESSION['uname'] == "$SITE_INFO_CMS_UNAME" && $_SESSION['pass'] == "$SIT
 	echo "</SCRIPT></BODY></HTML>";
 	die();
  } else {
-	require_once("{$SITE_INFO_LOCALROOT}functions/system/connect.php");
+	require_once("{$SITE_INFO_LOCAL_ROOT}functions/system/connect.php");
 	if (!isset($_SESSION['lang'])) {
-		$result = mysql_query("SELECT langid FROM lang ORDER BY priority DESC");
+		$result = mysql_query("SELECT id FROM lang ORDER BY priority DESC");
 		$row = mysql_fetch_row($result);
 		$_SESSION['lang'] = $row[0];
 	}
@@ -24,7 +24,7 @@ if (!($_SESSION['uname'] == "$SITE_INFO_CMS_UNAME" && $_SESSION['pass'] == "$SIT
 	foreach ($SITE_INFO_MODULES_ENABLED as $mod) {
 		mysql_query("UPDATE  module SET enabled=1 WHERE module_signature='$mod'");
 		//ensure module is initialized
-		require_once("{$SITE_INFO_LOCALROOT}CMS/modules/{$mod}_init.php");
+		require_once("{$SITE_INFO_LOCAL_ROOT}CMS/modules/{$mod}_init.php");
 	}
- }
+}
 ?>
