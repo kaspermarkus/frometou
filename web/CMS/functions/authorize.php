@@ -16,5 +16,15 @@ if (!($_SESSION['uname'] == "$SITE_INFO_CMS_UNAME" && $_SESSION['pass'] == "$SIT
 		$row = mysql_fetch_row($result);
 		$_SESSION['lang'] = $row[0];
 	}
+
+	require_once("functions.php");
+	//update enabled modules from siteInfo file
+	mysql_query("UPDATE module SET enabled=0"); //first disable all
+
+	foreach ($SITE_INFO_MODULES_ENABLED as $mod) {
+		mysql_query("UPDATE  module SET enabled=1 WHERE module_signature='$mod'");
+		//ensure module is initialized
+		require_once("{$SITE_INFO_LOCALROOT}CMS/modules/{$mod}_init.php");
+	}
  }
 ?>

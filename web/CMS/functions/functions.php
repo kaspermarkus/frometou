@@ -1,4 +1,17 @@
 <?php
+/* ---------------------- MODULE INITIALISATION ------------------------- */
+function ensure_module ($sig, $name, $display_path, $cms_path, $module_type) {
+	$query = "REPLACE INTO module ( module_signature, module_name, display_path, cms_path, module_type, enabled ) "
+		." VALUES ('$sig',  '$name',  '$display_path',  '$cms_path',  '$module_type')";
+	mysql_query($query);
+}
+
+function ensure_module_props ($sig, $mod_sig, $name) {
+	$query = "REPLACE INTO module_props (signature, module_signature, property_name ) "
+		." VALUES ('$sig', '$mod_sig', '$name' )";
+	mysql_query($query);
+}
+
 
 /* ---------------------------------- FOR GETTING TRANSLATION ----------------------------------------------------------------------------------------------*/
 function queryDocLink($did, $linktext) {
