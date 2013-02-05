@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 31, 2013 at 09:33 PM
+-- Generation Time: Feb 05, 2013 at 05:11 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `defaultlangs` (
-  `langid` int(11) NOT NULL,
+  `langid` char(3) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`langid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS `defaultlangs` (
 --
 
 INSERT INTO `defaultlangs` (`langid`) VALUES
-(1),
-(2);
+('dk'),
+('uk');
 
 -- --------------------------------------------------------
 
@@ -57,14 +57,15 @@ CREATE TABLE IF NOT EXISTS `doc` (
   KEY `typeid` (`typeid`),
   KEY `ident` (`ident`),
   KEY `description_img` (`description_img`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `doc`
 --
 
 INSERT INTO `doc` (`did`, `module_signature`, `typeid`, `description_img`, `ident`, `priority`) VALUES
-(0, 'normal_page', 1, 0, 'home', 200);
+(0, 'normal_page', 1, 0, 'Home', 200),
+(2, 'normal_page', 1, 0, 'subpagee 1', 200);
 
 -- --------------------------------------------------------
 
@@ -74,7 +75,7 @@ INSERT INTO `doc` (`did`, `module_signature`, `typeid`, `description_img`, `iden
 
 CREATE TABLE IF NOT EXISTS `doc_general_v` (
   `did` int(11) NOT NULL,
-  `langid` int(11) NOT NULL,
+  `langid` char(3) COLLATE utf8_bin NOT NULL,
   `linktext` varchar(150) COLLATE utf8_bin NOT NULL,
   `pagetitle` varchar(150) COLLATE utf8_bin NOT NULL,
   `description` text COLLATE utf8_bin NOT NULL,
@@ -88,8 +89,8 @@ CREATE TABLE IF NOT EXISTS `doc_general_v` (
 --
 
 INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `description`) VALUES
-(0, 1, 'Link hjemadimod', 'Dette er FORSIDEN', 'Saa koerer vi lige en DANSKERE'),
-(0, 2, 'Link to Home', 'The Main Page', 'Some english descriptionses');
+(0, 'dk', 'Link hjemadimoda', 'Dette er FORSIDENa', 'Saa koerer vi lige en DANSKEREa'),
+(0, 'uk', 'Link to Home', 'The Main Page', 'Some english descriptionse');
 
 -- --------------------------------------------------------
 
@@ -100,7 +101,7 @@ INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `descript
 CREATE TABLE IF NOT EXISTS `doc_module_v` (
   `did` int(11) NOT NULL,
   `prop_signature` varchar(50) COLLATE utf8_bin NOT NULL,
-  `langid` int(11) NOT NULL,
+  `langid` char(3) COLLATE utf8_bin NOT NULL,
   `value` text COLLATE utf8_bin NOT NULL,
   UNIQUE KEY `did` (`did`,`prop_signature`,`langid`),
   KEY `text_signature` (`prop_signature`)
@@ -111,12 +112,12 @@ CREATE TABLE IF NOT EXISTS `doc_module_v` (
 --
 
 INSERT INTO `doc_module_v` (`did`, `prop_signature`, `langid`, `value`) VALUES
-(0, 'normal_page_post_header', 1, 'Dette er den foerste sides'),
-(0, 'normal_page_body_content', 1, '<p>	HALLO HALLO! Hallow</p><p>	&nbsp;</p><p>	##descriptionIndex##</p>'),
-(0, 'normal_page_header', 1, 'Forsiden'),
-(0, 'normal_page_header', 2, 'Hello Worldses'),
-(0, 'normal_page_post_header', 2, 'Yes Hello Indeed'),
-(0, 'normal_page_body_content', 2, '<p>	Yes, You might say that</p>');
+(0, 'normal_page_post_header', 'dk', 'Dette er den foerste sides'),
+(0, 'normal_page_body_content', 'dk', '<p>	HALLO HALLO! Hallow</p><p>	&nbsp;</p><p>	##descriptionIndex##</p>'),
+(0, 'normal_page_header', 'dk', 'Forsidena'),
+(0, 'normal_page_header', 'uk', 'Hello Worlds'),
+(0, 'normal_page_post_header', 'uk', 'Yes Hello Indeed'),
+(0, 'normal_page_body_content', 'uk', '<p>	Yes, You might say that</p>');
 
 -- --------------------------------------------------------
 
@@ -147,7 +148,7 @@ INSERT INTO `dtype` (`tid`, `ident`, `priority`) VALUES
 
 CREATE TABLE IF NOT EXISTS `dtype_v` (
   `tid` int(11) NOT NULL,
-  `langid` int(11) NOT NULL,
+  `langid` char(3) COLLATE utf8_bin NOT NULL,
   `tname` varchar(100) COLLATE utf8_bin NOT NULL,
   KEY `langid` (`langid`),
   KEY `tid` (`tid`)
@@ -158,7 +159,8 @@ CREATE TABLE IF NOT EXISTS `dtype_v` (
 --
 
 INSERT INTO `dtype_v` (`tid`, `langid`, `tname`) VALUES
-(1, 2, 'Side');
+(1, 'dk', 'Side'),
+(1, 'uk', 'Page');
 
 -- --------------------------------------------------------
 
@@ -171,6 +173,7 @@ CREATE TABLE IF NOT EXISTS `hierarchy` (
   `parent` int(11) NOT NULL,
   `did` int(11) NOT NULL DEFAULT '-1',
   PRIMARY KEY (`hid`),
+  UNIQUE KEY `parent_2` (`parent`,`did`),
   KEY `parent` (`parent`,`did`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=51 ;
 
@@ -181,26 +184,25 @@ CREATE TABLE IF NOT EXISTS `hierarchy` (
 --
 
 CREATE TABLE IF NOT EXISTS `lang` (
-  `langid` smallint(6) NOT NULL AUTO_INCREMENT,
   `lname` varchar(30) COLLATE utf8_bin NOT NULL,
-  `shorthand` char(3) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `id` char(3) COLLATE utf8_bin NOT NULL DEFAULT '',
   `flagtext` varchar(150) COLLATE utf8_bin DEFAULT NULL,
   `thumbnail_path` varchar(70) COLLATE utf8_bin NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '100',
-  PRIMARY KEY (`langid`),
-  UNIQUE KEY `shorthand` (`shorthand`),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `shorthand` (`id`),
   UNIQUE KEY `langName` (`lname`),
   KEY `priority` (`priority`),
   KEY `flagpath` (`thumbnail_path`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Dumping data for table `lang`
 --
 
-INSERT INTO `lang` (`langid`, `lname`, `shorthand`, `flagtext`, `thumbnail_path`, `priority`) VALUES
-(1, 'Dansk', 'dk', 'Dansk version', 'imgs/dkflag.gif', 1000),
-(2, 'English', 'uk', 'English Version', 'imgs/ukflag.gif', 120);
+INSERT INTO `lang` (`lname`, `id`, `flagtext`, `thumbnail_path`, `priority`) VALUES
+('Dansk', 'dk', 'Dansk version', 'imgs/dkflag.gif', 1000),
+('English', 'uk', 'English Version', 'imgs/ukflag.gif', 120);
 
 -- --------------------------------------------------------
 
