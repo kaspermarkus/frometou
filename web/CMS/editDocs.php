@@ -221,39 +221,14 @@ cms_insert_flags('did', $data->get('did'));
 	<BR>
 	
 <?php
-	// if ($data->get('did') != NULL) {
-	//     echo "<FIELDSET><LEGEND><B>Categorization</B></LEGEND>";
-	//     echo "<TABLE><TBODY>";
-	//     echo "<TR><TD>";
-	//     $sql = "SELECT hierarchy.parent, ident FROM hierarchy, doc WHERE ";
-	// 	$sql .= " doc.did = hierarchy.parent AND hierarchy.did = ".$data->get("did"); ;
-	// 	$sql .= " ORDER BY ident ASC";
-	// 	//echo $sql;
-	// 	$result=mysql_query($sql);
-	// 	if (mysql_num_rows($result) != null) {
-	// 	    while ($row = mysql_fetch_assoc($result)) {
-	// 			echo "<A HREF='?did=".$data->get['did']."&parent=".$row['parent']."&rmParent=1'>[remove]</A> <A HREF='?did=".$row['parent']."'>".$row['ident']."</A><BR>";
-	// 	   }
-	//     }
-	//     echo "</TD></TR></TABLE>";
-	//     echo "<FORM METHOD=\"POST\">";
-	//     echo selectDocument("- SELECT PARENT TO ADD -", "addp", 1, null)."<INPUT TYPE=\"submit\" NAME=\"addParent\" VALUE=\"Set as parent\"><BR>";
-	//     echo selectParent(" - SELECT PARENT TO DELETE -", "delp", 1, $data->get('did'))."<INPUT TYPE=\"submit\" NAME=\"delParent\" VALUE=\"Remove as parent\">";
-	// 	echo "<HR>";
-	// 	echo selectDocument("- SELECT CHILD TO ADD -", "addc", 1, null);
-	// 	echo "<INPUT TYPE='submit' NAME='addChild' VALUE='Set as child'>";
-	// 	echo "<BR>";
-	// 	echo selectChild("- SELECT CHILD TO REMOVE -", "delc", 1, $data->get('did')); 
-	// 	echo "<INPUT TYPE='submit' NAME='delChild' VALUE='Remove as child'>";
-	//     echo "</FORM>";
-	//     echo "</FIELDSET>";
-	// }
 
-
-//SOFUS TODO HIERARCHY MODUL
-//Lav kode til at tjekke om modulet er oprettet i "module" tabellen, og at hierarchy tabellen er oprettet
-//paa DENNE side, automatisk load alle moduler der er af typen "general", og som er enabled
-//Lav koden til at vise, tilfoeje og fjerne parents og children (save osv)
+$query = "SELECT * FROM module WHERE module_type='general' && enabled=1";
+$result = mysql_query($query);
+while($row = mysql_fetch_array($result)){
+    require ($row["cms_path"]);
+    $mod = new $row["module_name"];
+    $mod->insertEditDocHTML();
+}
 
 ?>
 <A HREF='listDocs.php'>Back to list of documents</A></BODY>

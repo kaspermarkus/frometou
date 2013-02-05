@@ -2,7 +2,7 @@
 /* ---------------------- MODULE INITIALISATION ------------------------- */
 function ensure_module ($sig, $name, $display_path, $cms_path, $module_type) {
 	$query = "REPLACE INTO module ( module_signature, module_name, display_path, cms_path, module_type, enabled ) "
-		." VALUES ('$sig',  '$name',  '$display_path',  '$cms_path',  '$module_type')";
+		." VALUES ('$sig',  '$name',  '$display_path',  '$cms_path',  '$module_type', 1)";
 	mysql_query($query);
 }
 
