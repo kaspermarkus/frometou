@@ -7,9 +7,7 @@ if (!isset($_GET['did'])) {
 	$_GET['did'] = 0;
 }
 
-$props = getDocumentProperties($_GET['did']);
-
-$pagetitle = $props['pagetitle'];
+$props = new propContainer($_GET['did']);
 
 include_once("layout/layout.php");
 ?>

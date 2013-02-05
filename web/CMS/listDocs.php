@@ -32,10 +32,9 @@ if (isset($_GET['remove'])) {
 	mysql_query("DELETE FROM doc WHERE did=".$_GET['remove']);
 	mysql_query("DELETE FROM doc_general_v WHERE did=".$_GET['remove']);
 	mysql_query("DELETE FROM doc_module_v WHERE did=".$_GET['remove']);
-	mysql_query("DELETE FROM doc_reference_v WHERE did=".$_GET['remove']);
-	mysql_query("DELETE FROM hierarchy WHERE did=".$_GET['remove']);
-	mysql_query("DELETE FROM hierarchy WHERE parent=".$_GET['remove']);
-	header("location:listDocs.php");
+	//TODO:  Load all general modules to delete doc entry (if exist)
+	// mysql_query("DELETE FROM hierarchy WHERE did=".$_GET['remove']);
+	// mysql_query("DELETE FROM hierarchy WHERE parent=".$_GET['remove']);
 }
 ?>
 
@@ -77,18 +76,14 @@ function edits(s) {
 <FIELDSET><LEGEND><B>New Document</B></LEGEND>
 <SELECT NAME="module_signature">
 <?php 
-//show all document modules and prefix with a m_ before name
-$query = "SELECT module_signature, module_name FROM module";
-$result = mysql_query($query); 
-while ($row = mysql_fetch_assoc($result)) {
-	echo "<OPTION VALUE=\"".$row['module_signature']."\"'>".$row['module_name']."</OPTION>";
-}
+query_to_printf("SELECT module_signature, module_name FROM module WHERE module_type='page'",
+	"<OPTION VALUE=\"%s\"'>%s</OPTION>",
+	'module_signature', 'module_name');
 ?>
 </SELECT>
 <INPUT TYPE="submit" value="new" name="new">
 </FIELDSET>
 </FORM>
 </TD></TR></TABLE>
-<?php echo $query; ?>
 </BODY>
 </HTML>

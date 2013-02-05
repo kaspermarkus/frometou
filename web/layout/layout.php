@@ -62,7 +62,7 @@ function insert_page_translations($imgs = false) {
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/> 
 <meta http-equiv="Content-Language" content="el">
 <TITLE>
-<?php echo $pagetitle; ?>
+<?php echo $props->get("pagetitle"); ?>
 </TITLE>
 <link rel="icon" href="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>favicon.ico" type="image/x-icon" />
 <?php 
@@ -84,8 +84,6 @@ include_once("layout.css.php");
 		insert_page_translations();
 	}
 	?>
-         <H1>frometou</H1>
-	 <H3>Simple website building</H3>
 	<p align="right"><?php echo generate_direct_cms_link(); ?></p>
 	</td>
     </tr>
@@ -112,7 +110,7 @@ if ($SITE_INFO_LANGS_ENABLED && $SHOW_PAGE_TRANSLATIONS) {
 ?>
 <?php
 //fire up the modules part
-require_once($SITE_INFO_LOCAL_ROOT.$props['normal_page']['display_path']);
+require_once($SITE_INFO_LOCAL_ROOT.$props->get("display_path"));
 ?>
 	</td>
 	</tr>

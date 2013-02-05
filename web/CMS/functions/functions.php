@@ -47,6 +47,29 @@ function createDocLink($result, $linktext) {
 	return $link . " ".$flags;
 }
 
+/* Multi query to printf string function */
+function query_to_printf ($query, $str) {
+	//get argument minus the first two we know
+	$columns = func_get_args();
+	array_shift($columns);
+	array_shift($columns);
+	//do query
+	$result = mysql_query($query);
+	if ($result && mysql_num_rows($result) > 0) {
+		while ($row = mysql_fetch_assoc($result)) {
+			$printfArgs = array ( $str );
+			//go through the row and create an array of values of the required columns
+			foreach ($columns as $key => $value) {
+				array_push($printfArgs, $row[$value]);
+			}
+			call_user_func_array('printf', $printfArgs);
+		}
+	} else {
+		return null;
+	}
+	return true;
+}
+
 /* ------------------------------------ FUNCTIONS FOR PRINTING SIMPLE SELECTBOXES -------------------------------------------------------------------------- */
 function selectBox($query, $name, $size, $default) {
 	if ($res = mysql_query($query)) {
@@ -155,12 +178,6 @@ function selectSpecialText($name, $size, $default) {
 
 /* prints all documents */
 function selectDocument($header, $name, $size, $default) {
-	// $sql = "SELECT did, ident FROM doc ORDER BY ident ASC";
-// 	if ($header != null) {
-// 		return headerSelectBox($header, $sql, $name, $size, $default);
-// 	} else {
-// 		return selectBox($sql, $name, $size, $default);
-	//}
 	$query = "SELECT did, dtype.ident as tident, doc.ident FROM doc, dtype WHERE typeid = tid ORDER BY tident, ident";
 	return selectTypeNameList($query, $header, $name, $size, $default);
 }
