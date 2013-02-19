@@ -21,8 +21,12 @@ require_once("../functions/system/siteInfo.php");
 <table>
 <TR><TH>Contents</TH></TR>
 <TR><TD><a href="listDocs.php">Documents</a></TD></TR>
+<TR><TH>Documents<TH></TR>
+<TR><TD><?php require_once("../CMS/functions/listDocs.php");?></TD></TR>
+<TR><TD><?php require_once("../CMS/new_doc.php");?></TD></TR>
 <TR><TD><a href="listTypes.php">Types</a></TD></TR>
 <TR><TD><a href="listLangs.php">Languages</a></TD></TR>
+<TR><TD><a href="parent_menu.php">parent menu</a></TD></TR>
 <!--
 <TR><TD><a href="listImgs.php">Images</a></TD></TR>
 <TR><TD><a href="listFiles.php">Files</a></TD></TR>

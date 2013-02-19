@@ -68,6 +68,9 @@ class dataContainer {
 		}
 		//reinitialize this object, as we've changed some of the base information
 		$this->init($this->get("did"));
+
+		//updating the changes to navigation window
+		echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 	}
 
 	function delete($lang) {
@@ -84,53 +87,73 @@ class dataContainer {
 		<input type='hidden' name="did" value="<?php $this->show('did'); ?>">
 		<!-- <input type='hidden' name="module_signature" value="<?php echo $prop['module_signature']; ?>"> -->
 		<TABLE BORDER=0 id="standardInfo" WIDTH=100%>
-		<tr><th>Public Url:</th><th colspan=3>
-		<?php
-		$url = $SITE_INFO_PUBLIC_ROOT.$_SESSION['lang']."/page".$this->get('did');
-		echo "<a href=\"$url\">$url</a>";
-		?>
-		</th></tr>;
-		<TR><TH>identifier: </TH><TD><input TYPE='text' size="50" name="ident" value="<?php $this->show('ident'); ?>"></TD>
-	   	    <TH STYLE="width:0; text-align:right;">priority: </TH><TD WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php $this->show('priority'); ?>"></TD>
-		    <TD WIDTH=0><INPUT TYPE="submit" value="&nbsp;save&nbsp;" name="saveDoc"></TD></TR>
-
-		<TR><TH STYLE="width:0;">type: </TH><TD style="width:0;"> <?php echo selectType("typeid", 1, $this->get('typeid')); ?></TD>
-	   	    <TH style="text-align:right; vertical-align:top">image:&nbsp; </TH><TD ROWSPAN=3 STYLE="vertical-align:top; text-align:left;">
-				<?php
-		?>
-		<script language='javascript'>
-		function update_description_img() {
-			window.SetUrl=(function(id){
-	               		 return function(value){
-	                                document.getElementById('description_img').src = value;
-					var public_root = <?php echo "/".str_replace("/", '\/', $SITE_INFO_PUBLIC_ROOT)."/"; ?>;
-					value=value.replace(public_root, '');
-	                                document.getElementById('description_img_form_field').value = value;
-	                         }
-	                })(this.id);
-	                var kfm_url='kfm/';
-	                window.open(kfm_url,'kfm','modal,width=600,height=400');
-		
-		}
-		//kfm_init();
-		</script>
-		 <input type='hidden' NAME='description_img'  id="description_img_form_field" VALUE="<?php $this->show('description_img'); ?>" name='description_img'>
-		<A HREF="#" class="kfm" onClick="javascript:update_description_img()"><IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'imgs/no_img.svg'); ?>" id="description_img" /> </A></TD>
-	   	   <TD style="text-align:right"><INPUT TYPE="submit" value="delete" onsubmit="return confirm('Really delete this translation of the document?');" name="delete"></TD>
-		</TR>
-		<TR><TH>page title:</TH><TD><input size="50" name="pagetitle" value="<?php $this->show("pagetitle"); ?>"</TD>
-	   	    <TD></TD><TD></TD>
-
-		<TR><TH>linktext:</TH><TD><input size="50" name="linktext" value="<?php $this->show("linktext"); ?>"</TD>
-	   	    <TD></TD><TD></TD>
-		</TR>
-		<TR><TH>description: </TH><TD><TEXTAREA COLS=50 ROWS=3 NAME='description'><?php $this->show("description"); ?></TEXTAREA></TD>
-		    <TD></TD><TD></TD>
-		</TR>
-		<TR>
-		<TR><TH COLSPAN=4 style="text-align:left;">
-	           <INPUT TYPE="submit" value="save" name="saveDoc">
-		</TH></TR></table>
+			<tr>
+				<th>Public Url:</th>
+				<th colspan=3>
+					<?php
+					$url = $SITE_INFO_PUBLIC_ROOT.$_SESSION['lang']."/page".$this->get('did');
+					echo "<a href=\"$url\">$url</a>";
+					?>
+				</th>
+			</tr>;
+			<TR>
+				<TH>identifier: </TH>
+				<TD>
+					<input TYPE='text' size="50" name="ident" value="<?php $this->show('ident'); ?>">
+				</TD>
+		   	    	<TH STYLE="width:0; text-align:right;">priority: </TH>
+		   	    <TD WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php $this->show('priority'); ?>"></TD>
+			    <TD WIDTH=0><INPUT TYPE="submit" value="&nbsp;save&nbsp;" name="saveDoc"></TD>
+			</TR>
+			<TR>
+				<TH STYLE="width:0;">type: </TH>
+				<TD style="width:0;"> <?php echo selectType("typeid", 1, $this->get('typeid')); ?>
+				</TD>
+	   	    	<TH style="text-align:right; vertical-align:top">image:&nbsp; </TH>
+	   	    	<TD ROWSPAN=3 STYLE="vertical-align:top; text-align:left;">
+					<script language='javascript'>
+					function update_description_img() {
+						window.SetUrl=(function(id){
+			               		 return function(value){
+			                                document.getElementById('description_img').src = value;
+							var public_root = <?php echo "/".str_replace("/", '\/', $SITE_INFO_PUBLIC_ROOT)."/"; ?>;
+							value=value.replace(public_root, '');
+			                                document.getElementById('description_img_form_field').value = value;
+			                         }
+			                })(this.id);
+			                var kfm_url='kfm/';
+			                window.open(kfm_url,'kfm','modal,width=600,height=400');
+				
+					}
+					//kfm_init();
+					</script>
+					<input type='hidden' NAME='description_img'  id="description_img_form_field" VALUE="<?php $this->show('description_img'); ?>" name='description_img'>
+					<A HREF="#" class="kfm" onClick="javascript:update_description_img()">
+						<IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'imgs/no_img.svg'); ?>" id="description_img" />
+					</A>
+				</TD>
+			   	<TD style="text-align:right">
+	   	   			<INPUT TYPE="submit" value="delete" onClick="return confirm('Really delete this translation of the document?');" name="delete">
+	   	   		</TD>
+			</TR>
+			<TR>
+				<TH>page title:</TH>
+				<TD>
+					<input size="50" name="pagetitle" value="<?php $this->show("pagetitle"); ?>">
+				</TD>
+					<TR><TH>linktext:</TH>
+				<TD><input size="50" name="linktext" value="<?php $this->show("linktext"); ?>"></TD>
+			</TR>
+			<TR>
+				<TH>description: </TH>
+				<TD><TEXTAREA COLS=50 ROWS=3 NAME='description'><?php $this->show("description"); ?></TEXTAREA></TD>
+			</TR>
+			<TR>
+				<TH COLSPAN=4 style="text-align:left;">
+		           <INPUT TYPE="submit" value="save" name="saveDoc">
+				</TH>
+			</TR>
+		</table>
 		<?php
 		foreach($this->data['modules'] as $n=>$o) {
 			$o->printHTMLForm();
@@ -159,21 +182,6 @@ if (isset($_POST['saveDoc'])) {
 //load language specific basic properties:
 $data->loadTranslation($_SESSION['lang']);
 //print_r($data);
-
-/* -------------- categorization ----------------------------------------------- */
-//  } else if (isset($_POST['addParent']) && $_POST['addp'] != '-1') {
-// 	$mysql = "INSERT INTO hierarchy (parent, did) VALUES (".$_POST['addp'].", ".$data->get('did').")";
-// 	mysql_query($mysql);
-// 	header("location:$filename?did=".$data->get('did'));
-//  } else if (isset($_POST['delParent']) && $_POST['delp'] != '-1') {
-// 	mysql_query("DELETE FROM hierarchy WHERE did='".$data->get('did')."' and parent='".$_POST['delp']."'");
-// 	header("location:$filename?did=".$data->get('did'));	
-// } else if (isset($_POST['addChild']) && $_POST['addc'] != '-1') {
-// 	mysql_query("INSERT INTO hierarchy (parent, did) VALUES (".$data->get('did').", ".$_POST['addc'].")");
-// 	header("location:$filename?did=".$data->get('did'));
-//  } else if (isset($_POST['delChild']) && $_POST['delc'] != '-1') {
-// 	mysql_query("DELETE FROM hierarchy WHERE did='".$_POST['delc']."' and parent='".$data->get('did')."'");
-// 	header("location:$filename?did=".$data->get('did'));	
 
 ?>
 <HTML>
@@ -208,14 +216,11 @@ cms_insert_flags('did', $data->get('did'));
 <HR>
 <FORM name="f1" target="_self" method="post" action="<?php echo $filename; ?>" onSubmit="return submitForm();">
 
-<FIELDSET ID="documentInfo"><LEGEND><B>
-	<?php
-	//Show the basic php stuff
-	?>
-	<A HREF="#" onClick="showhide('documentInfoSub'); showhide('cke_bodyEdit'); return false;">
-		Document properties <font id="documentInfoSubPlus" style="display:none;">+</font>
-	</A></B></LEGEND>
-	<?php $data->printHTMLForm(); ?>
+	<FIELDSET ID="documentInfo"><LEGEND><B>
+		<A HREF="#" onClick="showhide('documentInfoSub'); showhide('cke_bodyEdit'); return false;">
+			Document properties <font id="documentInfoSubPlus" style="display:none;">+</font>
+		</A></B></LEGEND>
+		<?php $data->printHTMLForm(); ?>
 	</FIELDSET>
 	</form>
 	<BR>

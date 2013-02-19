@@ -1,5 +1,9 @@
 <?php
 require_once("../functions/system/siteInfo.php");
+require_once("../functions/security.php");
+$_POST = secureInput($_POST);
+$_GET = secureInput($_GET);
+
 header('Content-type: text/html; charset=iso-8859-1');
 
 session_start(); // Starts the session

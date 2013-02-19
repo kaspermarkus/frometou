@@ -1,4 +1,6 @@
 <?php
+
+
 class hierarchy {
 	function insertEditDocHTML () {
 		global $_GET, $_POST, $data;
@@ -54,7 +56,6 @@ class hierarchy {
 		$docs = savingData("SELECT * FROM doc");
 		$children = savingData("SELECT ident, doc.did FROM hierarchy, doc WHERE doc.did = hierarchy.did AND hierarchy.parent = '". $data->get('did') ."' ORDER BY ident ASC");
 		$parents = savingData("SELECT ident, doc.did FROM hierarchy, doc WHERE doc.did = hierarchy.parent AND hierarchy.did = '". $data->get('did') ."' ORDER BY ident ASC");
-
 
 
 		//children
