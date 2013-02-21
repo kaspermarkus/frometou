@@ -73,14 +73,6 @@ class dataContainer {
 		echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 	}
 
-	function delete($lang) {
-		$query = "DELETE FROM doc_general_v WHERE did=".$this->get('did')." AND langid=".$lang; 
-		mysql_query($query);
-		foreach($this->data['modules'] as $n=>$o) {
-			$o->delete($lang);
-		}
-	}
-
 	function printHTMLForm() {
 		global $SITE_INFO_PUBLIC_ROOT;
 		?>
@@ -132,9 +124,6 @@ class dataContainer {
 						<IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'imgs/no_img.svg'); ?>" id="description_img" />
 					</A>
 				</TD>
-			   	<TD style="text-align:right">
-	   	   			<INPUT TYPE="submit" value="delete" onClick="return confirm('Really delete this translation of the document?');" name="delete">
-	   	   		</TD>
 			</TR>
 			<TR>
 				<TH>page title:</TH>
@@ -174,9 +163,6 @@ if (isset($_GET['lang'])) {
 //save if user has clicked saved
 if (isset($_POST['saveDoc'])) {
 	$data->save($_POST, $_SESSION['lang']);
-} else if (isset($_POST['delete'])) {
-	//else if user has clicked delete:
-	$data->delete($_SESSION['lang']);
 }
 
 //load language specific basic properties:
@@ -226,6 +212,7 @@ cms_insert_flags('did', $data->get('did'));
 	<BR>
 	
 <?php
+require_once("functions/delete.php");
 
 $query = "SELECT * FROM module WHERE module_type='general' && enabled=1";
 $result = mysql_query($query);
