@@ -31,13 +31,12 @@ function leftMenu() {
 	getCheck($props->get("did"));
 
 	//Getting child list
-	//$did = $props->get("did")
-
 	function printChildlist($did) {
 		$result = menuQuery($did);
 		$childlist = "<ul class='childMenu'>\n";
 		while ($row = mysql_fetch_assoc($result)) {
 			$childlist .= "<li><A HREF='".pageLink($row['did'])."' CLASS='leftmenu-links'>".$row['linktext']."</A></li>\n";
+			echo $did;
 		}
 		$childlist .= "</ul>\n";
 		return $childlist;

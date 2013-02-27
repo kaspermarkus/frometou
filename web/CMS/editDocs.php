@@ -153,12 +153,10 @@ class dataContainer {
 			foreach($this->data['modules'] as $n=>$o) {
 			$o->printHTMLForm();
 		}
-			require_once("modules/mainmenu.php");
-		    $mod = new mainmenu;
-			echo $mod->checkMainMenu($this->get('did'));
-			echo $this->get('did');
-
-
+	//mainmenu checkbox
+	require_once("modules/mainmenu.php");
+    $mod = new mainmenu;
+	echo $mod->checkMainMenu($this->get('did'));
 	}
 }
 

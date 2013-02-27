@@ -17,15 +17,14 @@ class mainmenu{
 				mysql_query("INSERT INTO mainmenu (did) VALUES ('$did')");
 				$checked = "checked"; 
 			}
-		}else{
-				mysql_query("DELETE FROM mainmenu WHERE did='$did'");
-				$checked = "";
+		}elseif ($_POST){
+			mysql_query("DELETE FROM mainmenu WHERE did='$did'");
+			$checked = "";
 		}
-
-		echo "<input type='checkbox' name='mainmenu' value='mainmenuRes' $checked> Main menu";
+		echo "<input type='checkbox' name='mainmenu' value='mainmenuRes' $checked>Show main menu";
 	}
 
-//printing list of maintable documents!
+	//printing list of maintable documents!
 	function printMainMenu($lang){
 		$query = "SELECT mainmenu.did, doc_general_v.did, doc_general_v.pagetitle FROM mainmenu, doc_general_v WHERE mainmenu.did = doc_general_v.did AND langid = '$lang'";
 		$result = mysql_query($query);
@@ -34,7 +33,6 @@ class mainmenu{
 			echo $row['did']."<br>";
 		}
 	}
-
 }
 
 //checkMainMenu(0);
