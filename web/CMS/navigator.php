@@ -20,6 +20,7 @@ require_once("../functions/system/siteInfo.php");
 <br>
 <table>
 <TR><TH>Contents</TH></TR>
+
 <TR><TD><a href="listDocs.php">Documents</a></TD></TR>
 <TR><TH>Documents<TH></TR>
 <TR><TD><?php require_once("../CMS/functions/listDocs.php");?></TD></TR>

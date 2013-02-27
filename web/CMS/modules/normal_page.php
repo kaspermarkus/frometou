@@ -35,7 +35,7 @@ class normal_page {
 		"<script language='JavaScript' type='text/javascript'>".
 		"    CKEDITOR.replace( 'normal_page_body_content' , {toolbar : 'MyToolbar', ".
 		"		filebrowserBrowseUrl: 'kfm/'});".
-		"</script></td><table>";
+		"</script></td></table>";
 	}
 
 	function single_save($lang, $did, $sig, $val) {

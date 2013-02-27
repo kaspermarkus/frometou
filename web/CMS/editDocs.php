@@ -119,7 +119,7 @@ class dataContainer {
 					}
 					//kfm_init();
 					</script>
-					<input type='hidden' NAME='description_img'  id="description_img_form_field" VALUE="<?php $this->show('description_img'); ?>" name='description_img'>
+					<input type='hidden' NAME='description_img'  id="description_img_form_field" VALUE="<?php $this->show('description_img'); ?>" name='description_img' />
 					<A HREF="#" class="kfm" onClick="javascript:update_description_img()">
 						<IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'imgs/no_img.svg'); ?>" id="description_img" />
 					</A>
@@ -135,18 +135,30 @@ class dataContainer {
 			</TR>
 			<TR>
 				<TH>description: </TH>
-				<TD><TEXTAREA COLS=50 ROWS=3 NAME='description'><?php $this->show("description"); ?></TEXTAREA></TD>
+				<TD>
+					<TEXTAREA COLS=50 ROWS=3 NAME='description'><?php $this->show("description"); ?></TEXTAREA></TD>
 			</TR>
 			<TR>
 				<TH COLSPAN=4 style="text-align:left;">
-		           <INPUT TYPE="submit" value="save" name="saveDoc">
+		           <INPUT TYPE="submit" value="save" name="saveDoc" />
 				</TH>
 			</TR>
+						<tr>
+				<td>
+				</td>
+			</tr>
+
 		</table>
 		<?php
-		foreach($this->data['modules'] as $n=>$o) {
+			foreach($this->data['modules'] as $n=>$o) {
 			$o->printHTMLForm();
 		}
+			require_once("modules/mainmenu.php");
+		    $mod = new mainmenu;
+			echo $mod->checkMainMenu($this->get('did'));
+			echo $this->get('did');
+
+
 	}
 }
 
@@ -169,6 +181,8 @@ if (isset($_POST['saveDoc'])) {
 $data->loadTranslation($_SESSION['lang']);
 //print_r($data);
 
+
+
 ?>
 <HTML>
 <HEAD>
@@ -185,8 +199,6 @@ function showhide(id) {
 	}
 }
 </SCRIPT>
-
-<meta http-equiv=Content-Type content="text/html; charset=iso-8859-1" /> 
 	<LINK REL="stylesheet" type="text/css" href="css/general.css">
 	<title>Edit/add documents</title>
 </HEAD>
@@ -197,11 +209,9 @@ cms_insert_flags('did', $data->get('did'));
 ?>
 </TD></TR></TABLE>
 
-
 <BR><A HREF='listDocs.php'>Back to list of documents</A>
 <HR>
 <FORM name="f1" target="_self" method="post" action="<?php echo $filename; ?>" onSubmit="return submitForm();">
-
 	<FIELDSET ID="documentInfo"><LEGEND><B>
 		<A HREF="#" onClick="showhide('documentInfoSub'); showhide('cke_bodyEdit'); return false;">
 			Document properties <font id="documentInfoSubPlus" style="display:none;">+</font>
@@ -209,6 +219,7 @@ cms_insert_flags('did', $data->get('did'));
 		<?php $data->printHTMLForm(); ?>
 	</FIELDSET>
 	</form>
+
 	<BR>
 	
 <?php
@@ -216,6 +227,7 @@ require_once("functions/delete.php");
 
 $query = "SELECT * FROM module WHERE module_type='general' && enabled=1";
 $result = mysql_query($query);
+echo $query;
 while($row = mysql_fetch_array($result)){
     require ($row["cms_path"]);
     $mod = new $row["module_name"];
@@ -223,6 +235,7 @@ while($row = mysql_fetch_array($result)){
 }
 
 ?>
-<A HREF='listDocs.php'>Back to list of documents</A></BODY>
-
+<A HREF='listDocs.php'>Back to list of documents</A>
+</table>
+</BODY>
 </HTML>
