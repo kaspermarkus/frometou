@@ -17,11 +17,12 @@ class mainmenu{
 				mysql_query("INSERT INTO mainmenu (did) VALUES ('$did')");
 				$checked = "checked"; 
 			}
-		}elseif ($_POST){
-			mysql_query("DELETE FROM mainmenu WHERE did='$did'");
+		}elseif(isset($_POST['postCheck'])){
+			mysql_query("DELETE FROM mainmenu WHERE did = '$did'");
 			$checked = "";
 		}
 		echo "<input type='checkbox' name='mainmenu' value='mainmenuRes' $checked>Show main menu";
+		echo "<input type='hidden' value='HiddenPost' name='postCheck' />";
 	}
 
 	//printing list of maintable documents!

@@ -4,7 +4,11 @@ header('Content-Type: text/html; charset=iso-8859-1');
 require_once("functions/cms_general.php");
 require_once("functions/parsing.php");
 
-$filename = "editDocs.php";
+$_SESSION['ThisDid'] = $_GET['did'];
+
+//updating the changes to navigation window
+echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
+
 //print_r( $_POST );
 
 class dataContainer {
@@ -68,9 +72,6 @@ class dataContainer {
 		}
 		//reinitialize this object, as we've changed some of the base information
 		$this->init($this->get("did"));
-
-		//updating the changes to navigation window
-		echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 	}
 
 	function printHTMLForm() {
@@ -209,7 +210,7 @@ cms_insert_flags('did', $data->get('did'));
 
 <BR><A HREF='listDocs.php'>Back to list of documents</A>
 <HR>
-<FORM name="f1" target="_self" method="post" action="<?php echo $filename; ?>" onSubmit="return submitForm();">
+<FORM name="f1" target="_self" method="post" action="editDocs.php?did=<?php echo $data->get('did'); ?>" onSubmit="return submitForm();">
 	<FIELDSET ID="documentInfo"><LEGEND><B>
 		<A HREF="#" onClick="showhide('documentInfoSub'); showhide('cke_bodyEdit'); return false;">
 			Document properties <font id="documentInfoSubPlus" style="display:none;">+</font>
