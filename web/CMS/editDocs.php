@@ -203,7 +203,7 @@ function showhide(id) {
 </HEAD>
 	<BODY>
 	<TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Documents</H1></TD><TD ALIGN='right'><?php
-cms_insert_flags('did', $data->get('did'));
+	cms_insert_flags('did', $data->get('did'));
 /* ------------------------------------------------------------ */
 ?>
 </TD></TR></TABLE>

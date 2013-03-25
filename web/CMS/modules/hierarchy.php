@@ -83,7 +83,7 @@ class hierarchy {
 		echo "<div style='border:5px; border-color:#C8C8C8;border-style:solid;width:200px;'>";
 		echo "<form method='POST'>";
 		echo "<select name='possibleParents'>";
-		foreach ($docs as $id => $ident) {
+		foreach ($ as $id => $ident) {
 			if (!in_array($ident, $parents)) {
 				echo "<option value='$id'>$ident</option>";
 			} else {
