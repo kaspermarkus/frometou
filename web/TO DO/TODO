@@ -21,3 +21,21 @@ _________________________
 ---- skal menuer deles op efter type
 
 - lav sitemap/browse funktionalitet
+
+
+----- KASPER NOTER ----
+INSTALLATION:
+- planlaeg hvordan vi koerer root-installation fra php - evt. en side til at opdatere script fra php (script skal baseres paa siteInfo.php)
+- lav php side til at koere alt der kan goeres som cms bruger (lav tabeller, initialiser kfm, osv)
+-- fix install scripts for kfm til at koere noedvendige ting derfra
+ ---- http://localhost:8888/frometou/web/CMS/kfm/initialise.php (configuration.php skulle vaere i orden)
+
+GENERELT:
+- fjern ubrugte ting fra venstre menu
+- "+ new document" - aendre til tekst og/eller billede
+- Lav evt. seperat menuting oeverst, og nedenunder en liste af dokumenter - formateret saa det er tydeligt at det en liste
+- Hvis vi laver nogen eksempelsider med billeder, skal vi vaere sikre paa at de er i KFM databasen
+- hvad goer vi med save knapper?
+- tjek evt. alle felter med " og '
+- parent menu virker ikke
+- hvad med hierarchy?
