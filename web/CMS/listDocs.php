@@ -19,7 +19,22 @@ if (isset($_POST['new'])) {
 	//lastly edit the new document in editDoc.php
 	header("location:editDocs.php?did=$newID");
 }
-
+/* if we have chosen to remove one */
+if (isset($_GET['remove'])) {
+	if ($_GET['remove'] <= 0) {
+		echo "<SCRIPT LANGUAGE='javascript'>\n";
+		echo "alert('NOT ALLOWED TO DELETE THIS DOCUMENT');\n";
+		echo "document.location='listDocs.php';\n";
+		echo "</SCRIPT>";
+		exit(0);
+	}
+	mysql_query("DELETE FROM doc WHERE did=".$_GET['remove']);
+	mysql_query("DELETE FROM doc_general_v WHERE did=".$_GET['remove']);
+	mysql_query("DELETE FROM doc_module_v WHERE did=".$_GET['remove']);
+	//TODO:  Load all general modules to delete doc entry (if exist)
+	// mysql_query("DELETE FROM hierarchy WHERE did=".$_GET['remove']);
+	// mysql_query("DELETE FROM hierarchy WHERE parent=".$_GET['remove']);
+}
 ?>
 
 <HTML>

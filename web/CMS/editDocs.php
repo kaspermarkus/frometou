@@ -4,7 +4,11 @@ header('Content-Type: text/html; charset=iso-8859-1');
 require_once("functions/cms_general.php");
 require_once("functions/parsing.php");
 
-$filename = "editDocs.php";
+$_SESSION['ThisDid'] = $_GET['did'];
+
+//updating the changes to navigation window
+echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
+
 //print_r( $_POST );
 
 class dataContainer {
@@ -68,9 +72,6 @@ class dataContainer {
 		}
 		//reinitialize this object, as we've changed some of the base information
 		$this->init($this->get("did"));
-
-		//updating the changes to navigation window
-		echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 	}
 
 	function printHTMLForm() {
@@ -153,12 +154,10 @@ class dataContainer {
 			foreach($this->data['modules'] as $n=>$o) {
 			$o->printHTMLForm();
 		}
-			require_once("modules/mainmenu.php");
-		    $mod = new mainmenu;
-			echo $mod->checkMainMenu($this->get('did'));
-			echo $this->get('did');
-
-
+	//mainmenu checkbox
+	require_once("modules/mainmenu.php");
+    $mod = new mainmenu;
+	echo $mod->checkMainMenu($this->get('did'));
 	}
 }
 
@@ -204,14 +203,14 @@ function showhide(id) {
 </HEAD>
 	<BODY>
 	<TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Documents</H1></TD><TD ALIGN='right'><?php
-cms_insert_flags('did', $data->get('did'));
+	cms_insert_flags('did', $data->get('did'));
 /* ------------------------------------------------------------ */
 ?>
 </TD></TR></TABLE>
 
 <BR><A HREF='listDocs.php'>Back to list of documents</A>
 <HR>
-<FORM name="f1" target="_self" method="post" action="<?php echo $filename; ?>" onSubmit="return submitForm();">
+<FORM name="f1" target="_self" method="post" action="editDocs.php?did=<?php echo $data->get('did'); ?>" onSubmit="return submitForm();">
 	<FIELDSET ID="documentInfo"><LEGEND><B>
 		<A HREF="#" onClick="showhide('documentInfoSub'); showhide('cke_bodyEdit'); return false;">
 			Document properties <font id="documentInfoSubPlus" style="display:none;">+</font>

@@ -88,8 +88,18 @@ A.leftmenu-links
   text-decoration:none;
   font-family:verdana;
   display:block;
-
 }
+
+A.chosenLink
+{
+  color:#696969;
+  font-size:12px;
+  text-decoration:none;
+  font-family:verdana;
+  display:block;
+  font-weight:bold;
+}
+
 
 A:HOVER.leftmenu-links 
 {
