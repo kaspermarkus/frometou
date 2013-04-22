@@ -221,7 +221,6 @@ require_once("functions/delete.php");
 
 $query = "SELECT * FROM module WHERE module_type='general' && enabled=1";
 $result = mysql_query($query);
-echo $query;
 while($row = mysql_fetch_array($result)){
     require ($row["cms_path"]);
     $mod = new $row["module_name"];
