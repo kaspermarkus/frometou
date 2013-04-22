@@ -43,11 +43,7 @@ require_once("../functions/system/siteInfo.php");
 <TR><TD><a href="listDefaultLangs.php">default Languages</a></TD></TR>
 </TABLE>
 <BR>
-<table>
-<TR><TH>Layout</TH></TR>
-<TR><TD><a href="editCss.php">Edit Style</A></TD></TR>
-<TR><TD><a href="editTheme.php">Select Theme</A></TD></TR>
-</TABLE>
+
 <?php
 //<table>
 //<TR><TH>Secure actions</TH></TR>
