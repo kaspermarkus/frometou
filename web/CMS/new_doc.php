@@ -18,7 +18,7 @@ if (isset($_POST['new'])) {
 	$row = mysql_fetch_row(mysql_query($mysql));
 	$newID = $row[0];
 
-	header("location:../CMS/navigator.php?newPage=$newID");
+	echo "<html><body><script>window.location = 'navigator.php?newPage=$newID';</script></body></html>";
 }
 
 
