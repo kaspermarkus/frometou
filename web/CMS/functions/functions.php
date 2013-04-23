@@ -152,54 +152,10 @@ function uniqueSelectBox($query, $uniqueOn, $name, $size) {
 	return uniqueSelectBoxDefault($query, $uniqueOn, $name, $size, null);
 }
 
-/* prints all types */
-function selectImage($name, $size, $default) {
-	$sql = "SELECT iid, ident FROM images ORDER BY ident ASC";
-	return selectBox($sql, $name, $size, $default);
-}
-
-/* prints all types */
-function selectType($name, $size, $default) {
-	$sql = "SELECT tid, ident FROM dtype ORDER BY ident ASC";
-	return selectBox($sql, $name, $size, $default);
-}
-
-/* prints all supporters */
-function selectSupporter($name, $size, $default) {
-	$sql = "SELECT sid, fullname FROM supporters ORDER BY fullname ASC";
-	return selectBox($sql, $name, $size, $default);
-}
-
-/* prints all types */
-function selectSpecialText($name, $size, $default) {
-	$sql = "SELECT DISTINCT category, category FROM special_text ORDER BY category ASC";
-	return selectBox($sql, $name, $size, $default);
-}
-
 /* prints all documents */
 function selectDocument($header, $name, $size, $default) {
-	$query = "SELECT did, dtype.ident as tident, doc.ident FROM doc, dtype WHERE typeid = tid ORDER BY tident, ident";
+	$query = "SELECT did, doc.ident FROM doc ORDER BY ident";
 	return selectTypeNameList($query, $header, $name, $size, $default);
-}
-
-function selectIndex($header, $name, $size) {
-	$sql = "SELECT did, dtype.ident as tident,doc.ident FROM doc, dtype WHERE tid = typeid AND typeid = 0";
-	$sql .= " ORDER BY tident, ident ASC";
-	return selectTypeNameList($sql, $header, $name, $size, null);
-}
-
-function selectParent($header, $name, $size, $id) {
-	$sql = "SELECT hierarchy.parent, dtype.ident as tident,doc.ident FROM hierarchy, doc, dtype WHERE ";
-	$sql .= " doc.did = hierarchy.parent AND hierarchy.did = $id AND tid=typeid ";
-	$sql .= " ORDER BY tident,doc.ident ASC";
-	return selectTypeNameList($sql, $header, $name, $size, null);
-}
-
-function selectChild($header, $name, $size, $id) {
-	$sql = "SELECT doc.did, dtype.ident as tident, doc.ident FROM hierarchy, doc, dtype WHERE ";
-	$sql .= "doc.did = hierarchy.did AND hierarchy.parent = $id AND tid=typeid ";
-	$sql .= " ORDER BY tident,doc.ident ASC";
-	return selectTypeNameList($sql, $header, $name, $size, null);
 }
 
 function selectTypeNameList($query, $header, $name, $size, $default) {
@@ -215,7 +171,7 @@ function selectTypeNameList($query, $header, $name, $size, $default) {
 			if ($default == $row[0]) {
 				$toReturn .= " SELECTED";
 			}
-			$toReturn .= ">".strtoupper($row[1]).": ".$row[2]."</OPTION>\n";
+			$toReturn .= ">".$row[1]."</OPTION>\n";
 		}
 		$toReturn .= "</SELECT>";
 	}
