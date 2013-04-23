@@ -7,7 +7,6 @@ require_once("../functions/security.php");
 $_POST = secureInput($_POST);
 $_GET = secureInput($_GET);
 
-
 if (!($_SESSION['uname'] == "$SITE_INFO_CMS_UNAME" && $_SESSION['pass'] == "$SITE_INFO_CMS_PASS")) {
 	echo "<HTML><BODY><SCRIPT LANGUAGE='javascript'>";
 	echo "document.location = 'login.php?errorMsg=An error occured.. please login again'";

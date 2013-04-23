@@ -39,7 +39,7 @@ class dataContainer {
 			die();
 			header("location:listDocs.php");$data->loadTranslation($_SESSION['lang']);
 		}
-		$this->add("baseData", "SELECT doc.module_signature, doc.did, doc.priority, module_name, cms_path, ident, typeid, description_img ".
+		$this->add("baseData", "SELECT doc.module_signature, doc.did, doc.priority, module_name, cms_path, ident, description_img ".
 			"FROM doc, module ".
 			"WHERE doc.module_signature = module.module_signature AND doc.did=".$did);
  		//load module:
@@ -60,7 +60,7 @@ class dataContainer {
 
 	function save($post, $lang) {
 		//first update the general properties:
-		$query = "UPDATE doc SET priority = ".$post['priority'].", typeid=".$post['typeid'].", ident=\"".$post['ident']."\", description_img=\"".$post['description_img']."\" WHERE did='".$this->get("did")."'";
+		$query = "UPDATE doc SET priority = ".$post['priority'].", ident=\"".$post['ident']."\", description_img=\"".$post['description_img']."\" WHERE did='".$this->get("did")."'";
 		//echo $query;
 		mysql_query($query);
 		//update translation specific general properties
@@ -99,9 +99,6 @@ class dataContainer {
 		   	    <TD WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php $this->show('priority'); ?>"></TD>
 			</TR>
 			<TR>
-				<TH STYLE="width:0;">type: </TH>
-				<TD style="width:0;"> <?php echo selectType("typeid", 1, $this->get('typeid')); ?>
-				</TD>
 	   	    	<TH style="text-align:right; vertical-align:top">image:&nbsp; </TH>
 	   	    	<TD ROWSPAN=3 STYLE="vertical-align:top; text-align:left;">
 					<script language='javascript'>
