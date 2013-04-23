@@ -79,6 +79,7 @@ class dataContainer {
 		?>
 		<input type='hidden' name="did" value="<?php $this->show('did'); ?>">
 		<!-- <input type='hidden' name="module_signature" value="<?php echo $prop['module_signature']; ?>"> -->
+			    <TD WIDTH=0><INPUT TYPE="submit" value="&nbsp;save changes &nbsp;" name="saveDoc"></TD><br><br>
 		<TABLE BORDER=0 id="standardInfo" WIDTH=100%>
 			<tr>
 				<th>Public Url:</th>
@@ -88,7 +89,7 @@ class dataContainer {
 					echo "<a href=\"$url\">$url</a>";
 					?>
 				</th>
-			</tr>;
+			</tr>
 			<TR>
 				<TH>identifier: </TH>
 				<TD>
@@ -96,7 +97,6 @@ class dataContainer {
 				</TD>
 		   	    	<TH STYLE="width:0; text-align:right;">priority: </TH>
 		   	    <TD WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php $this->show('priority'); ?>"></TD>
-			    <TD WIDTH=0><INPUT TYPE="submit" value="&nbsp;save&nbsp;" name="saveDoc"></TD>
 			</TR>
 			<TR>
 				<TH STYLE="width:0;">type: </TH>
@@ -139,16 +139,10 @@ class dataContainer {
 				<TD>
 					<TEXTAREA COLS=50 ROWS=3 NAME='description'><?php $this->show("description"); ?></TEXTAREA></TD>
 			</TR>
-			<TR>
-				<TH COLSPAN=4 style="text-align:left;">
-		           <INPUT TYPE="submit" value="save" name="saveDoc" />
-				</TH>
-			</TR>
 						<tr>
 				<td>
 				</td>
 			</tr>
-
 		</table>
 		<?php
 			foreach($this->data['modules'] as $n=>$o) {
@@ -158,6 +152,7 @@ class dataContainer {
 	require_once("modules/mainmenu.php");
     $mod = new mainmenu;
 	echo $mod->checkMainMenu($this->get('did'));
+   	echo "<br><INPUT TYPE='submit' value='&nbsp;save changes &nbsp;' name='saveDoc' />";
 	}
 }
 
@@ -226,7 +221,6 @@ require_once("functions/delete.php");
 
 $query = "SELECT * FROM module WHERE module_type='general' && enabled=1";
 $result = mysql_query($query);
-echo $query;
 while($row = mysql_fetch_array($result)){
     require ($row["cms_path"]);
     $mod = new $row["module_name"];

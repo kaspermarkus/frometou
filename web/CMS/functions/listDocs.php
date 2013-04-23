@@ -57,11 +57,8 @@ function docFlags($did) {
 	}
 }
 
-
-
-
-function ListDocs($did){		
-	$query = "SELECT did, ident FROM frometou_db.doc WHERE typeid = 1";
+function ListDocs($did){
+	$query = "SELECT did, ident FROM frometou_db.doc WHERE typeid = 1 ORDER BY ident";
 	$result = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_array($result)) {
 		if ($did == $row['did']){

@@ -21,13 +21,10 @@ require_once("../functions/system/siteInfo.php");
 <br>
 <table>
 <TR><TH>Contents</TH></TR>
-
-<TR><TD><a href="listDocs.php">Documents</a></TD></TR>
 <TR><TH>Documents<TH></TR>
 <TR><TD><?php require_once("../CMS/functions/listDocs.php");?></TD></TR>
 <TR><TD><?php require_once("../CMS/new_doc.php");?></TD></TR>
 <TR><TD><a href="listTypes.php">Types</a></TD></TR>
-<TR><TD><a href="listLangs.php">Languages</a></TD></TR>
 <TR><TD><a href="parent_menu.php">parent menu</a></TD></TR>
 <!--
 <TR><TD><a href="listImgs.php">Images</a></TD></TR>
@@ -44,11 +41,7 @@ require_once("../functions/system/siteInfo.php");
 <TR><TD><a href="listDefaultLangs.php">default Languages</a></TD></TR>
 </TABLE>
 <BR>
-<table>
-<TR><TH>Layout</TH></TR>
-<TR><TD><a href="editCss.php">Edit Style</A></TD></TR>
-<TR><TD><a href="editTheme.php">Select Theme</A></TD></TR>
-</TABLE>
+
 <?php
 //<table>
 //<TR><TH>Secure actions</TH></TR>
