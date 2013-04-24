@@ -4,7 +4,6 @@ function leftMenu() {
 
 	global $SITE_INFO_PUBLIC_ROOT;
 	global $props;
-	$types = getTypes();
 //	$_SESSION['mainenuId'] = 0;
 //	echo $_SESSION['mainenuId'];
 
