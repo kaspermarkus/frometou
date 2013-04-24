@@ -6,19 +6,18 @@ require_once("functions/cms_general.php");
 if (isset($_POST['new'])) {
 	//adding defaults
 	$module_signature = "normal_page";
-	$typeid = 1;
 
 	//create a stub for the new document (the non-language specific)
-	$query = "INSERT INTO doc (did, module_signature, typeid, description_img, ident, priority) VALUES ";
-	$query .= "( '', '".$module_signature."', '".$typeid."', '', 'new document', '100')";
+	$query = "INSERT INTO doc (did, module_signature, description_img, ident, priority) VALUES ";
+	$query .= "( '', '".$module_signature."', '', 'new document', '100')";
 	mysql_query($query);
 
 	//get new id:
-	$mysql = "SELECT did FROM doc WHERE module_signature='$module_signature' AND typeid='$typeid' AND ident='new document' AND priority='100' ORDER BY did DESC LIMIT 1";
+	$mysql = "SELECT did FROM doc WHERE module_signature='$module_signature' AND ident='new document' AND priority='100' ORDER BY did DESC LIMIT 1";
 	$row = mysql_fetch_row(mysql_query($mysql));
 	$newID = $row[0];
 
-	header("location:../CMS/navigator.php?newPage=$newID");
+	echo "<html><body><script>window.location = 'navigator.php?newPage=$newID';</script></body></html>";
 }
 
 

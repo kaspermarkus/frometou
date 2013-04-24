@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.4
+-- version 3.5.7
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 05, 2013 at 05:11 PM
+-- Generation Time: Apr 23, 2013 at 04:43 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -48,24 +48,34 @@ INSERT INTO `defaultlangs` (`langid`) VALUES
 CREATE TABLE IF NOT EXISTS `doc` (
   `did` int(11) NOT NULL AUTO_INCREMENT,
   `module_signature` char(20) COLLATE utf8_bin NOT NULL,
-  `typeid` int(11) NOT NULL,
   `description_img` int(11) NOT NULL DEFAULT '-1',
   `ident` varchar(200) COLLATE utf8_bin NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '100',
   PRIMARY KEY (`did`),
   KEY `priority` (`priority`),
-  KEY `typeid` (`typeid`),
   KEY `ident` (`ident`),
   KEY `description_img` (`description_img`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=111 ;
 
 --
 -- Dumping data for table `doc`
 --
 
-INSERT INTO `doc` (`did`, `module_signature`, `typeid`, `description_img`, `ident`, `priority`) VALUES
-(0, 'normal_page', 1, 0, 'Home', 200),
-(2, 'normal_page', 1, 0, 'subpagee 1', 200);
+INSERT INTO `doc` (`did`, `module_signature`, `description_img`, `ident`, `priority`) VALUES
+(107, 'normal_page', 0, 'new document', 100),
+(105, 'normal_page', 0, '.pp.', 100),
+(106, 'normal_page', 0, 'new documoeent', 100),
+(103, 'normal_page', 0, 'sub1,2', 100),
+(104, 'normal_page', 0, 'sub1/2', 100),
+(0, 'normal_page', 0, 'DeleteMe', 100),
+(102, 'normal_page', 0, 'sub2', 100),
+(101, 'normal_page', 0, 'sub1', 100),
+(92, 'normal_page', 0, 'page 3', 100),
+(91, 'normal_page', 0, 'page 2', 100),
+(90, 'normal_page', 0, 'page 1', 100),
+(108, 'normal_page', 0, 'new document', 100),
+(109, 'normal_page', 0, 'new document', 100),
+(110, 'normal_page', 0, 'new document', 100);
 
 -- --------------------------------------------------------
 
@@ -89,8 +99,21 @@ CREATE TABLE IF NOT EXISTS `doc_general_v` (
 --
 
 INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `description`) VALUES
-(0, 'dk', 'Link hjemadimoda', 'Dette er FORSIDENa', 'Saa koerer vi lige en DANSKEREa'),
-(0, 'uk', 'Link to Home', 'The Main Page', 'Some english descriptionse');
+(0, 'dk', 'Link hjem og dette er en lang link titel', 'Dette er FORSIDEN', 0x536161206b6f65726572207669206c69676520656e2044414e534b455245),
+(0, 'uk', 'Link to Home', 'The Main Page', 0x536f6d6520656e676c697368206465736372697074696f6e7365),
+(106, 'dk', '', '', ''),
+(92, 'uk', 'page 3', 'page 3', 0x706167652033),
+(105, 'dk', '', '.p', ''),
+(104, 'dk', 'sub1/2', 'sub1/2', 0x737562312f32),
+(101, 'dk', 'sub1', 'sub1', 0x73756231),
+(90, 'dk', 'page 1', 'page 1', 0x706167652031),
+(91, 'dk', 'page 2', 'page 2', 0x706167652032),
+(92, 'dk', 'page 3', 'page 3', 0x706167652033),
+(94, 'dk', 'newbe', 'newbe', 0x6e65776265),
+(93, 'dk', '', '', ''),
+(96, 'dk', 'DeleteMe', 'DeleteMe', 0x44656c6574654d65),
+(102, 'dk', 'sub2', 'sub2', 0x73756232),
+(103, 'dk', 'sub1,2o', 'sub1,2', 0x737562312c32);
 
 -- --------------------------------------------------------
 
@@ -112,55 +135,49 @@ CREATE TABLE IF NOT EXISTS `doc_module_v` (
 --
 
 INSERT INTO `doc_module_v` (`did`, `prop_signature`, `langid`, `value`) VALUES
-(0, 'normal_page_post_header', 'dk', 'Dette er den foerste sides'),
-(0, 'normal_page_body_content', 'dk', '<p>	HALLO HALLO! Hallow</p><p>	&nbsp;</p><p>	##descriptionIndex##</p>'),
-(0, 'normal_page_header', 'dk', 'Forsidena'),
-(0, 'normal_page_header', 'uk', 'Hello Worlds'),
-(0, 'normal_page_post_header', 'uk', 'Yes Hello Indeed'),
-(0, 'normal_page_body_content', 'uk', '<p>	Yes, You might say that</p>');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dtype`
---
-
-CREATE TABLE IF NOT EXISTS `dtype` (
-  `tid` int(11) NOT NULL AUTO_INCREMENT,
-  `ident` varchar(150) COLLATE utf8_bin NOT NULL,
-  `priority` smallint(6) NOT NULL,
-  PRIMARY KEY (`tid`),
-  KEY `tid` (`tid`,`priority`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `dtype`
---
-
-INSERT INTO `dtype` (`tid`, `ident`, `priority`) VALUES
-(1, 'Page', 100);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dtype_v`
---
-
-CREATE TABLE IF NOT EXISTS `dtype_v` (
-  `tid` int(11) NOT NULL,
-  `langid` char(3) COLLATE utf8_bin NOT NULL,
-  `tname` varchar(100) COLLATE utf8_bin NOT NULL,
-  KEY `langid` (`langid`),
-  KEY `tid` (`tid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `dtype_v`
---
-
-INSERT INTO `dtype_v` (`tid`, `langid`, `tname`) VALUES
-(1, 'dk', 'Side'),
-(1, 'uk', 'Page');
+(0, 'normal_page_header', 'uk', 0x48656c6c6f20576f726c6473),
+(0, 'normal_page_post_header', 'uk', 0x5965732048656c6c6f20496e64656564),
+(0, 'normal_page_body_content', 'uk', 0x3c703e0d0a095965732c20596f75206d696768742073617920746861743c2f703e0d0a),
+(106, 'normal_page_body_content', 'dk', 0x3c703e0d0a092e3c2f703e0d0a),
+(0, 'normal_page_header', 'dk', 0x466f72736964653f),
+(0, 'normal_page_post_header', 'dk', 0x6e657720646f63756d656e74),
+(0, 'normal_page_body_content', 'dk', 0x3c703e0d0a096e657720646f63756d656e743c2f703e0d0a),
+(106, 'normal_page_post_header', 'dk', ''),
+(106, 'normal_page_header', 'dk', ''),
+(101, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562313c2f703e0d0a),
+(102, 'normal_page_header', 'dk', 0x73756232),
+(102, 'normal_page_post_header', 'dk', 0x73756232),
+(102, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562323c2f703e0d0a),
+(103, 'normal_page_header', 'dk', 0x737562312c32),
+(103, 'normal_page_post_header', 'dk', 0x737562312c32),
+(103, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562312c323c2f703e0d0a),
+(104, 'normal_page_header', 'dk', 0x737562312f32),
+(104, 'normal_page_post_header', 'dk', 0x737562312f32),
+(104, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562312f323c2f703e0d0a),
+(105, 'normal_page_header', 'dk', ''),
+(105, 'normal_page_post_header', 'dk', ''),
+(105, 'normal_page_body_content', 'dk', 0x3c703e0d0a092e3f3c2f703e0d0a),
+(90, 'normal_page_header', 'dk', ''),
+(90, 'normal_page_post_header', 'dk', ''),
+(92, 'normal_page_header', 'uk', 0x706167652033),
+(92, 'normal_page_post_header', 'uk', 0x706167652033),
+(92, 'normal_page_body_content', 'uk', 0x3c703e0d0a097061676520333c2f703e0d0a),
+(101, 'normal_page_post_header', 'dk', 0x73756231),
+(101, 'normal_page_header', 'dk', 0x73756231),
+(90, 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520313c2f703e0d0a),
+(91, 'normal_page_header', 'dk', 0x706167652032),
+(91, 'normal_page_post_header', 'dk', 0x706167652032),
+(91, 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520323c2f703e0d0a),
+(92, 'normal_page_header', 'dk', 0x706167652033),
+(92, 'normal_page_post_header', 'dk', 0x706167652033),
+(92, 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520333c2f703e0d0a),
+(97, 'normal_page_header', 'uk', 0x6e657720646f63756d656e747320656e67),
+(97, 'normal_page_header', 'dk', 0x6e657720646f63756d656e7473),
+(97, 'normal_page_post_header', 'dk', 0x6e657720646f63756d656e74),
+(97, 'normal_page_body_content', 'dk', 0x3c703e0d0a096e657720646f63756d656e743c2f703e0d0a),
+(96, 'normal_page_header', 'dk', 0x44656c6574654d65),
+(96, 'normal_page_post_header', 'dk', 0x44656c6574654d65),
+(96, 'normal_page_body_content', 'dk', 0x3c703e0d0a0944656c6574654d653c2f703e0d0a);
 
 -- --------------------------------------------------------
 
@@ -175,7 +192,21 @@ CREATE TABLE IF NOT EXISTS `hierarchy` (
   PRIMARY KEY (`hid`),
   UNIQUE KEY `parent_2` (`parent`,`did`),
   KEY `parent` (`parent`,`did`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=51 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=149 ;
+
+--
+-- Dumping data for table `hierarchy`
+--
+
+INSERT INTO `hierarchy` (`hid`, `parent`, `did`) VALUES
+(133, 90, 0),
+(130, 90, 101),
+(124, 90, 100),
+(148, 103, 105),
+(131, 90, 104),
+(147, 105, 105),
+(126, 90, 97),
+(129, 91, 102);
 
 -- --------------------------------------------------------
 
@@ -207,6 +238,28 @@ INSERT INTO `lang` (`lname`, `id`, `flagtext`, `thumbnail_path`, `priority`) VAL
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `mainmenu`
+--
+
+CREATE TABLE IF NOT EXISTS `mainmenu` (
+  `did` int(11) NOT NULL,
+  PRIMARY KEY (`did`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mainmenu`
+--
+
+INSERT INTO `mainmenu` (`did`) VALUES
+(90),
+(91),
+(92),
+(103),
+(104);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `mapping`
 --
 
@@ -216,14 +269,17 @@ CREATE TABLE IF NOT EXISTS `mapping` (
   `path` varchar(200) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`mid`),
   KEY `did` (`did`,`path`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `mapping`
 --
 
 INSERT INTO `mapping` (`mid`, `did`, `path`) VALUES
-(1, 0, 'home');
+(1, 0, 'home'),
+(2, 92, 'tester'),
+(3, 105, 'adsfdsa'),
+(4, 105, 'asfdsasfd');
 
 -- --------------------------------------------------------
 
@@ -248,7 +304,9 @@ CREATE TABLE IF NOT EXISTS `module` (
 
 INSERT INTO `module` (`module_signature`, `module_name`, `display_path`, `cms_path`, `module_type`, `enabled`) VALUES
 ('normal_page', 'Regular Page', 'modules/normal_page.php', 'modules/normal_page.php', 'page', 1),
-('mod_subscription', 'Subscription Form', 'modules/mod_subscription.php', 'modules/mod_subscription_cms.php', 'page', 0);
+('mod_subscription', 'Subscription Form', 'modules/mod_subscription.php', 'modules/mod_subscription_cms.php', 'page', 0),
+('mod_hierarchy', 'hierarchy', 'modules/hierarchy.php', 'modules/hierarchy.php', 'general', 1),
+('mod_mainmenu', 'mainmenu', 'modules/mainmenu.php', 'modules/mainmenu.php', 'general', 1);
 
 -- --------------------------------------------------------
 

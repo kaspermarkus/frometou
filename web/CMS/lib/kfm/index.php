@@ -164,10 +164,10 @@ if ($last_registration!=$today) {
 // }
 ?>
 <?php //------------------------------------ KASPERS TING --------------------------------------
-require_once("../../functions/system/siteInfo.php");
-require_once("../../functions/system/connect.php");
+require_once("../../../functions/system/siteInfo.php");
+require_once("../../../functions/system/connect.php");
 
-$query = "SELECT did, dtype.ident as tident, doc.ident FROM doc, dtype WHERE typeid = tid ORDER BY tident, ident";
+$query = "SELECT did, ident FROM doc ORDER BY ident";
 
 if ($res = mysql_query($query)) {
      ?>
@@ -178,7 +178,7 @@ if ($res = mysql_query($query)) {
 	while ($row = mysql_fetch_row($res)) {
 		if (++$count != 1) //if not the first entry
 			echo ", ";
-		echo "{ key: \"".$row[0]."\", value: \"".strtoupper($row[1]).": ".$row[2]."\" }\n";
+		echo "{ key: \"".$row[0]."\", value: \"".$row[1]."\" }\n";
 	};
 	?>
      ];

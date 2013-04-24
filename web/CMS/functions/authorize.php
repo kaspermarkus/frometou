@@ -1,12 +1,11 @@
 <?php
+session_start(); // Starts the session
+
 require_once("../functions/system/siteInfo.php");
 require_once("../functions/security.php");
+
 $_POST = secureInput($_POST);
 $_GET = secureInput($_GET);
-
-header('Content-type: text/html; charset=iso-8859-1');
-
-session_start(); // Starts the session
 
 if (!($_SESSION['uname'] == "$SITE_INFO_CMS_UNAME" && $_SESSION['pass'] == "$SITE_INFO_CMS_PASS")) {
 	echo "<HTML><BODY><SCRIPT LANGUAGE='javascript'>";

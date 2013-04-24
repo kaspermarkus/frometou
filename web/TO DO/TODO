@@ -1,6 +1,6 @@
 PRIORITEREDE LISTE:
 ------------------------
-- parse links før og efter (til at have flag, rigtige addresser osv)
+- parse links fÃ¸r og efter (til at have flag, rigtige addresser osv)
 - mulighed for at lave database backup (CMS)
 - lav et dokument der viser et billede
 - lav document-mapping (userside)
@@ -9,15 +9,34 @@ PRIORITEREDE LISTE:
 UVIGTIGE TING:
 _________________________
 - lav lille orange cirkel oppe i addressebaren
-- ved alle editsiderne: lav en liste over andre (dokuemnter/categorier) som man kan vælge direkte herfra, fremfor at skulle gå tilbage via list*** og vælge dem
+- ved alle editsiderne: lav en liste over andre (dokuemnter/categorier) som man kan vÃ¦lge direkte herfra, fremfor at skulle gÃ¥ tilbage via list*** og vÃ¦lge dem
 - lav specielt sted til at lave secure actions:
----- rydde ud i gamle billedfiler der ikke bruges længere
----- rydde ud i gamle filer der ikke bruges længere
-- lav så alle steder der er billeder, previews af dem
+---- rydde ud i gamle billedfiler der ikke bruges lÃ¦ngere
+---- rydde ud i gamle filer der ikke bruges lÃ¦ngere
+- lav sÃ¥ alle steder der er billeder, previews af dem
 - lav document-listings med type foran
-- lav så man kan indstille:
----- skal der være flag ved menuer
----- skal der være flag ved links
+- lav sÃ¥ man kan indstille:
+---- skal der vÃ¦re flag ved menuer
+---- skal der vÃ¦re flag ved links
 ---- skal menuer deles op efter type
 
 - lav sitemap/browse funktionalitet
+
+
+----- KASPER NOTER ----
+INSTALLATION:
+- planlaeg hvordan vi koerer root-installation fra php - evt. en side til at opdatere script fra php (script skal baseres paa siteInfo.php)
+- lav php side til at koere alt der kan goeres som cms bruger (lav tabeller, initialiser kfm, osv)
+-- fix install scripts for kfm til at koere noedvendige ting derfra
+ ---- http://localhost:8888/frometou/web/CMS/kfm/initialise.php (configuration.php skulle vaere i orden)
+
+GENERELT:
+- fjern ubrugte ting fra venstre menu
+- "+ new document" - aendre til tekst og/eller billede
+- Lav evt. seperat menuting oeverst, og nedenunder en liste af dokumenter - formateret saa det er tydeligt at det en liste
+- Hvis vi laver nogen eksempelsider med billeder, skal vi vaere sikre paa at de er i KFM databasen
+- hvad goer vi med save knapper?
+- tjek evt. alle felter med " og '
+- parent menu virker ikke
+- hvad med hierarchy?
+- billeder bliver ikke rigtigt gemt
