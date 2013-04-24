@@ -1,6 +1,5 @@
 <?php
-require_once("functions/system/connect.php");
-require_once("functions/system/siteInfo.php");
+require_once("functions/system/mandatory.php");
 
 if (isset($_GET['page'])) {
 	$_GET['page'] = str_replace("'", "-", $_GET['page']);

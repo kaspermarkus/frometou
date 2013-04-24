@@ -1,7 +1,7 @@
 <?php
 
-$SITE_INFO_LOCALROOT="C:\\xampp\\htdocs\\frometou\\web\\"; //set to your local path to website
-$SITE_INFO_PUBLIC_ROOT="http://localhost/frometou/web/"; //set to you public facing url
+$SITE_INFO_LOCALROOT="C:\\path\\to\\frometou\\local\\web\\"; //set to your local path to website
+$SITE_INFO_PUBLIC_ROOT="http://www.frometou.com/"; //set to you public facing url
 
 //NOTICE!!!! No slash on the end
 $SITE_INFO_PUBLIC_UPLOADS=$SITE_INFO_PUBLIC_ROOT."/uploads";
@@ -15,8 +15,8 @@ $SITE_INFO_CMS_PASS="frometou_secret"; //Set password to log on to CMS system - 
 /* Logon info to database */
 $SITE_INFO_DB_HOST="localhost";  //should generally stay as localhost - but can be changed
 $SITE_INFO_DB_NAME="frometou_db";  //the name of the database you will use for the website
-$SITE_INFO_DB_USER="root"; //database username
-$SITE_INFO_DB_PASS=""; //database password
+$SITE_INFO_DB_USER="frometou_user"; //database username
+$SITE_INFO_DB_PASS="frometou_pass"; //database password
 
 /* Set whether languages should be enabled */
 $SITE_INFO_LANGS_ENABLED=1;    //1 or 0 .. set if multiple languages is enabled - can be changed later
@@ -33,7 +33,8 @@ $SITE_INFO_SHOW_PAGE_TRANSLATIONS=1;  //1 or 0
 $SITE_INFO_MODULES_ENABLED = [
 	"normal_page",
 	// "subscription", // function(name,street,city) - subscribe members of a group
-	"hierarchy"
+	"hierarchy",
+    "mainmenu"
 	// "navigator"
 ];
 
