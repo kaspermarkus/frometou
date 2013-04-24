@@ -34,7 +34,7 @@ class normal_page {
 		"<script type='txt/javascript' src='ckeditor/ckeditor_source.js'></script>".
 		"<script language='JavaScript' type='text/javascript'>".
 		"    CKEDITOR.replace( 'normal_page_body_content' , {toolbar : 'MyToolbar', ".
-		"		filebrowserBrowseUrl: 'lib/kfm/'});".
+		"		filebrowserBrowseUrl: 'lib/elFinder/elfinder.html', uiColor: '#9AB8F3'});".
 		"</script></td></table>";
 	}
 
