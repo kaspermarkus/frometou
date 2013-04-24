@@ -164,8 +164,8 @@ if ($last_registration!=$today) {
 // }
 ?>
 <?php //------------------------------------ KASPERS TING --------------------------------------
-require_once("../../functions/system/siteInfo.php");
-require_once("../../functions/system/connect.php");
+require_once("../../../functions/system/siteInfo.php");
+require_once("../../../functions/system/connect.php");
 
 $query = "SELECT did, ident FROM doc ORDER BY ident";
 

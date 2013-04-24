@@ -83,24 +83,13 @@ class dataContainer {
 		<TABLE BORDER=0 id="standardInfo" WIDTH=100%>
 			<tr>
 				<th>Public Url:</th>
-				<th colspan=3>
+				<th>
 					<?php
 					$url = $SITE_INFO_PUBLIC_ROOT.$_SESSION['lang']."/page".$this->get('did');
 					echo "<a href=\"$url\">$url</a>";
 					?>
 				</th>
-			</tr>
-			<TR>
-				<TH>identifier: </TH>
-				<TD>
-					<input TYPE='text' size="50" name="ident" value="<?php $this->show('ident'); ?>">
-				</TD>
-		   	    	<TH STYLE="width:0; text-align:right;">priority: </TH>
-		   	    <TD WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php $this->show('priority'); ?>"></TD>
-			</TR>
-			<TR>
-	   	    	<TH style="text-align:right; vertical-align:top">image:&nbsp; </TH>
-	   	    	<TD ROWSPAN=3 STYLE="vertical-align:top; text-align:left;">
+	   	    	<TD ROWSPAN=6 STYLE="vertical-align:top; text-align:left;">
 					<script language='javascript'>
 					function update_description_img() {
 						window.SetUrl=(function(id){
@@ -111,7 +100,7 @@ class dataContainer {
 			                                document.getElementById('description_img_form_field').value = value;
 			                         }
 			                })(this.id);
-			                var kfm_url='kfm/';
+			                var kfm_url='lib/kfm/';
 			                window.open(kfm_url,'kfm','modal,width=600,height=400');
 				
 					}
@@ -122,23 +111,32 @@ class dataContainer {
 						<IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'imgs/no_img.svg'); ?>" id="description_img" />
 					</A>
 				</TD>
-			</TR>
+			</tr>
+			<tr>
+				<th>identifier: </th>
+				<td>
+					<input TYPE='text' size="50" name="ident" value="<?php $this->show('ident'); ?>">
+				</td>
+			</tr>
+			<tr>
+		   	    <th STYLE="width:0; text-align:right;">priority: </th>
+		   	    <td WIDTH=100%><input TYPE='text' size="3" name="priority" value="<?php $this->show('priority'); ?>"></td>
+			</tr>
 			<TR>
 				<TH>page title:</TH>
 				<TD>
 					<input size="50" name="pagetitle" value="<?php $this->show("pagetitle"); ?>">
 				</TD>
-					<TR><TH>linktext:</TH>
+			</tr>
+			<tr>
+				<TH>linktext:</TH>
 				<TD><input size="50" name="linktext" value="<?php $this->show("linktext"); ?>"></TD>
-			</TR>
-			<TR>
+			</tr>
+			<tr>
 				<TH>description: </TH>
 				<TD>
-					<TEXTAREA COLS=50 ROWS=3 NAME='description'><?php $this->show("description"); ?></TEXTAREA></TD>
-			</TR>
-						<tr>
-				<td>
-				</td>
+					<TEXTAREA COLS=50 ROWS=3 NAME='description'><?php $this->show("description"); ?></TEXTAREA>
+				</TD>
 			</tr>
 		</table>
 		<?php
@@ -178,7 +176,7 @@ $data->loadTranslation($_SESSION['lang']);
 <HTML>
 <HEAD>
 <script type="text/javascript" src="functions/jquery.js"></script>	
-<script type="text/javascript" src="ckeditor/ckeditor_source.js"></script>
+<script type="text/javascript" src="lib/ckeditor/ckeditor_source.js"></script>
 <SCRIPT LANGUAGE='javascript'>
 function showhide(id) {
 	if (document.getElementById(id).style.display == 'none') {

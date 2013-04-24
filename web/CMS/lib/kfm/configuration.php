@@ -1,9 +1,9 @@
 <?php
 
-if (file_exists('../../functions/system/siteInfo.php')) {
-	 require_once('../../functions/system/siteInfo.php');
-} else if (file_exists('../../../functions/system/siteInfo.php')) {
+if (file_exists('../../../functions/system/siteInfo.php')) {
 	 require_once('../../../functions/system/siteInfo.php');
+} else if (file_exists('../../../../functions/system/siteInfo.php')) {
+	 require_once('../../../../functions/system/siteInfo.php');
 } else {
 	echo "UNABLE TO INITIALIZE KFM.. cannot find siteInfo.php";
     die(0);

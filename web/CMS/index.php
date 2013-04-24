@@ -9,7 +9,7 @@ require_once("functions/authorize.php");
 
 <title><?php echo $SITE_INFO_WEB_NAME; ?>  - administrative pages</title>
 </head>
-<frameset cols="153, *">
+<frameset cols="200, *">
 <frame name="navigation" src="navigator.php" marginheight="0" marginwidth="0">
 <?php 
 $rightFrameContent = "main.php";
