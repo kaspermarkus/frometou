@@ -1,6 +1,5 @@
 
 <?php
-require_once($SITE_INFO_LOCAL_ROOT."functions/general_purpose.php");
 require_once($SITE_INFO_LOCAL_ROOT."functions/cms_link_functions.php");
 require_once($SITE_INFO_LOCAL_ROOT."functions/menu_function.php");
 require_once($SITE_INFO_LOCAL_ROOT."functions/language_function.php");
