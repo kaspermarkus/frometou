@@ -200,8 +200,13 @@ function showhide(id) {
 /* ------------------------------------------------------------ */
 ?>
 </TD></TR></TABLE>
-
+<?php
+if (isset($_GET['new'])){
+	echo "<h1>You are now creating a new version of this document</h1>";
+}
+?>
 <BR><A HREF='listDocs.php'>Back to list of documents</A>
+
 <HR>
 <FORM name="f1" target="_self" method="post" action="editDocs.php?did=<?php echo $data->get('did'); ?>" onSubmit="return submitForm();">
 	<FIELDSET ID="documentInfo"><LEGEND><B>

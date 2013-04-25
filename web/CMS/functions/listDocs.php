@@ -22,7 +22,6 @@ function docFlags($did) {
 
 	foreach ($availableLang as $langImg => $langId) {
 		$mysql = "SELECT langid, did FROM doc_module_v WHERE prop_signature = 'normal_page_header' AND did = '$did' AND langid = '$langId' ORDER BY did DESC";
-
 		$result = mysql_query($mysql);
 		while ($row = mysql_fetch_assoc($result)) {
 			//splitting the output
@@ -37,24 +36,20 @@ function docFlags($did) {
 				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."'>";
 				echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$langImg."' WIDTH='22' HEIGHT='14' BORDER=2>";
 				echo "</a>";
-				echo $_SESSION['ThisDid'];
 			}else{
-				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."'>";
+				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."'&new=true>";
 				echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$langImg."' WIDTH='22' HEIGHT='14' BORDER=0> ";
 				echo "</a>";
-				echo $_SESSION['ThisDid'];
 			}
 		}else{
 			if($langId == $_SESSION['lang'] and $did == $_SESSION['ThisDid']) {
 				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."'>";
 				echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$langImg."' WIDTH='22' HEIGHT='14' BORDER=2>";
 				echo "</a>";
-				echo $_SESSION['ThisDid'];
 			}else{
-				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."'>";
+				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."&new=true'>";
 				echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$langImg."' WIDTH='11' HEIGHT='7' BORDER=0> ";
 				echo "</a>";
-				echo $_SESSION['ThisDid'];
 			}
 		}
 		$langInUse = null;
