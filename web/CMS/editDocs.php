@@ -157,7 +157,7 @@ $data = new dataContainer;
 $data->init((isset($_GET['did'])) ? $_GET['did'] : $_POST['did']);
 
 //if new language chosen
-if (isset($_GET['lang'])) {
+ if (isset($_GET['lang'])) {
 	$_SESSION['lang'] = $_GET['lang'];
 }
 
@@ -192,7 +192,10 @@ function showhide(id) {
 	<title>Edit/add documents</title>
 </HEAD>
 	<BODY>
-	<TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Documents</H1></TD><TD ALIGN='right'><?php
+	<TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Documents</H1></TD>
+		<td><a href='delete.php'><b>Delete this Document</b></a></h1></td>
+		<TD ALIGN='right'>
+<?php
 	cms_insert_flags('did', $data->get('did'));
 /* ------------------------------------------------------------ */
 ?>
