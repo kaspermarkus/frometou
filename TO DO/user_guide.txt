@@ -1,0 +1,87 @@
+\section{Creating a new module:}
+
+\subsection{Registering the Module}
+
+To register a new module, we have to add an entry to the table 'module': 
+
+INSERT INTO frometou_db.module ( mid, module_signature, module_name, display_path, cms_path)
+VALUES (
+NULL , 'normal_page', 'Normal Page', 'modules/normal_page.php', 'modules/normal_page.php')
+
+\subsection{Defining User editable fields of the module}
+A user editable field is either a full WYSIWYG editor or a simple text field. There can be as many as desired in the module. User editable fields are fields that can be used by the module to allow the CMS user to edit text/variables to later display on the page. This is defined in the module_text table and the language specific versions will be held in module_text_v table. 
+
+The advantage of using these fields is that they provide a generic form of allowing CMS user to edit multi-language fields. The code for this is in modules/general.php, so it simplifies writing the code for both display and CMS edit of the module.
+
+For this module, we will only create one field that the CMS user can edit, namely the body of the document.
+
+signature: 'body' - the identifier we can use to refer to it when displaying
+input_type: 'html' - the input type. html will give a WYSIWYG
+propertye_name: An easy readable name shown in the CMS system
+
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'normal_page', 'header', 'Header', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'normal_page', 'postHeader', 'Post Header', 'text', '1', '200');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'normal_page', 'body', 'Body', 'html', '1', '100');
+
+Since these are all regular module fields, we do not have to do anything more on the CMS side. When openening the page in the CMS, these fields will be editable.
+
+Final thing we need is to tell the system how to display these pages. We have actually already defined this via the 'display_path' field in the modules database. The filename entered in 'display_path' will be included in the body section of the page.
+
+Lets define the file we specified in display path: 'modules/normal_page.php'. Create the file and give it the following contents:
+
+<?php
+$fields = $props['normal_page'];
+
+//TODO: Include modules
+if (isset($fields['header'])) echo "<H1 CLASS='docheader'>".$fields['header']."</H1>";
+if (isset($fields['post_header'])) echo "<H2 CLASS='docheader'>".$fields['post_header']."</H2>";
+echo fixBody($_GET['did'], $fields['body']);
+
+?>
+
+Notice that the $props[module_signature] will contain all the variables specified in the modules_text table of the database. This is handled automagically by the system.
+
+
+
+\subsection{Subscription Module}
+Now for a bit more complicated module. This is a module where a user can subscribe to a list. On subscription the info will be added to a database list.
+
+To register a the module, add an entry to the table 'module': 
+
+INSERT INTO frometou_db.module ( mid, module_signature, module_name, display_path, cms_path)
+VALUES (
+NULL , 'mod_subscription', 'Subscription Form', 'modules/mod_subscription.php', 'modules/mod_subscription_cms.php')
+
+\subsection{Defining User editable fields of the module}
+The fields we need will be a header, postHeader, and then labels for the form. We will allow allow for a text after and before the form.
+
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'header', 'Header', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'post_header', 'Post Header', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'text_before_form', 'Text Before Form', 'html', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'form_header', 'Form Header', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'fullname', 'Fullname Label', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'email', 'Email Address Label', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'submit_button_text', 'Text on Submit Button', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'reset_button_text', 'Text on Reset Button', 'text', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'text_after_form', 'Text After Form', 'html', '1', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'success_text', 'Text displayed after subscription is made', 'html', '2', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'email_subject', 'Text for email subject line', 'text', '2', '300');
+INSERT INTO module_text (prop_id, module_signature, signature, property_name, input_type, shown, priority) VALUES (NULL, 'mod_subscription', 'email_body', 'The message that should go in the email', 'html', '2', '300');
+
+Since these are all regular module fields, we do not have to do anything more on the CMS side. When openening the page in the CMS, these fields will be editable.
+
+Final thing we need is to tell the system how to display these pages. We have actually already defined this via the 'display_path' field in the modules database. The filename entered in 'display_path' will be included in the body section of the page.
+
+Lets define the file we specified in display path: 'modules/normal_page.php'. Create the file and give it the following contents:
+
+<?php
+$fields = $props['normal_page'];
+
+//TODO: Include modules
+if (isset($fields['header'])) echo "<H1 CLASS='docheader'>".$fields['header']."</H1>";
+if (isset($fields['post_header'])) echo "<H2 CLASS='docheader'>".$fields['post_header']."</H2>";
+echo fixBody($_GET['did'], $fields['body']);
+
+?>
+
+Notice that the $props[module_signature] will contain all the variables specified in the modules_text table of the database. This is handled automagically by the system.
