@@ -141,10 +141,10 @@ class dataContainer {
             foreach($this->data['modules'] as $n=>$o) {
             $o->printHTMLForm();
         }
-    //mainmenu checkbox
-    require_once("modules/mainmenu.php");
-    $mod = new mainmenu;
-    echo $mod->checkMainMenu($this->get('did'));
+	    //mainmenu checkbox
+	    // require_once("modules/mainmenu.php");
+	    // $mod = new mainmenu;
+	    // echo $mod->checkMainMenu($this->get('did'));
        echo "<br><INPUT TYPE='submit' value='&nbsp;save changes &nbsp;' name='saveDoc' />";
     }
 }
@@ -173,7 +173,8 @@ $data->loadTranslation($_SESSION['lang']);
 ?>
 <HTML>
 <HEAD>
-<script type="text/javascript" src="functions/jquery.js"></script>    
+<script type="text/javascript" src="lib/jquery.js"></script>   
+<!-- CKEDITOR STUFF START --> 
 <script type="text/javascript" src="lib/ckeditor/ckeditor_source.js"></script>
 <SCRIPT LANGUAGE='javascript'>
 function showhide(id) {
@@ -186,8 +187,10 @@ function showhide(id) {
     }
 }
 </SCRIPT>
-    <LINK REL="stylesheet" type="text/css" href="css/general.css">
-    <title>Edit/add documents</title>
+<!-- CKEDITOR STUFF END --> 
+
+<LINK REL="stylesheet" type="text/css" href="css/general.css">
+<title>Edit/add documents</title>
 </HEAD>
 	<BODY>
 	<TABLE BORDER=0 WIDTH='100%'>
@@ -223,9 +226,10 @@ if (isset($_GET['new'])){
 <?php
 require_once("functions/delete.php");
 
+//Display the 'general' modules
 $query = "SELECT * FROM module WHERE module_type='general' && enabled=1";
 $result = mysql_query($query);
-while($row = mysql_fetch_array($result)){
+while ($row = mysql_fetch_array($result)) {
     require ($row["cms_path"]);
     $mod = new $row["module_name"];
     $mod->insertEditDocHTML();

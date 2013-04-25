@@ -27,7 +27,6 @@ require_once("../functions/system/siteInfo.php");
 <TR><TH>Documents<TH></TR>
 <TR><TD><?php require_once("../CMS/functions/listDocs.php");?></TD></TR>
 <TR><TD><?php require_once("../CMS/new_doc.php");?></TD></TR>
-<TR><TD><a href="listTypes.php">Types</a></TD></TR>
 <TR><TD><a href="listMappings.php">Mappings</a></TD></TR>
 </TABLE>
 </BODY>
