@@ -189,14 +189,25 @@ function showhide(id) {
     <LINK REL="stylesheet" type="text/css" href="css/general.css">
     <title>Edit/add documents</title>
 </HEAD>
-    <BODY>
-    <TABLE BORDER=0 WIDTH='100%'><TR><TD><H1>Edit/add Documents</H1></TD><TD ALIGN='right'><?php
-    cms_insert_flags('did', $data->get('did'));
-/* ------------------------------------------------------------ */
+	<BODY>
+	<TABLE BORDER=0 WIDTH='100%'>
+		<TR>
+			<TD><H1>Edit/add Documents</H1></TD>
+			<td><a href='delete.php'><b>Delete this Document</b></a></h1></td>
+			<TD ALIGN='right'>
+			<?php
+				cms_insert_flags('did', $data->get('did'));
+			?>
+			</TD>
+		</TR>
+	</TABLE>
+<?php
+if (isset($_GET['new'])){
+	echo "<h1>You are now creating a new version of this document</h1>";
+}
 ?>
-</TD></TR></TABLE>
-
 <BR><A HREF='listDocs.php'>Back to list of documents</A>
+
 <HR>
 <FORM name="f1" target="_self" method="post" action="editDocs.php?did=<?php echo $data->get('did'); ?>" onSubmit="return submitForm();">
     <FIELDSET ID="documentInfo"><LEGEND><B>
