@@ -1,5 +1,6 @@
-<?php
 
+
+<?php
 class normal_page {
 	var $props = [];
 	var $did;
@@ -34,7 +35,7 @@ class normal_page {
 		"<script language='JavaScript' type='text/javascript'>".
 		"    CKEDITOR.replace( 'normal_page_body_content' , {toolbar : 'MyToolbar', ".
 		"		filebrowserBrowseUrl: 'kfm/'});".
-		"</script></td><table>";
+		"</script></td></table>";
 	}
 
 	function single_save($lang, $did, $sig, $val) {
@@ -50,10 +51,5 @@ class normal_page {
 		$this->single_save($lang, $did, "normal_page_post_header", $post["normal_page_post_header"]);
 		$body = fix_html_field($post["normal_page_body_content"]);
 		$this->single_save($lang, $did, "normal_page_body_content", $body);
-	}
-
-	function delete($lang) {
-	    $query = "DELETE FROM doc_module_v WHERE did='$did' AND langid='$lang'";
-		mysql_query($query);
 	}
 }

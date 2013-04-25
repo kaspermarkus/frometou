@@ -1,0 +1,17 @@
+Installation Notes:
+
+Requirements:
+* php >= 5.x
+* mysql database
+* web server supporting .htaccess docs (eg. apache 2)
+
+Getting frometou
+* Download the zip file found here: XXXXX.
+* Unzip the file and copy it to the web server. You will want the root of the website to point to the web folder of frometou
+
+SiteInfo.php / Configuring your website:
+* The configuration of the CMS system is done using a file called siteInfo.php. This file tells the system about the database(s) to use, usernames and passwords, relevant paths, etc. 
+* The siteInfo file resides in the folder: web/functions/system/. Here you can find an example file named: siteInfo.php.example. Copy or rename this file to siteInfo.php and edit it according to your preferences.
+
+Creating users/databases:
+* 

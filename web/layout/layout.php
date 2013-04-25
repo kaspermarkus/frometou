@@ -1,126 +1,82 @@
-<?php
-require_once($SITE_INFO_LOCAL_ROOT."functions/general_purpose.php");
-require_once($SITE_INFO_LOCAL_ROOT."functions/cms_link_functions.php");
 
-function leftMenu() {
-	global $SITE_INFO_PUBLIC_ROOT;
-	$types = getTypes();
-	$query = "SELECT doc.did, doc_general_v.linktext FROM doc, doc_general_v, lang, hierarchy ";
-	$query .= "WHERE hierarchy.parent = '0' AND doc.did = hierarchy.did AND doc.did = doc_general_v.did AND lang.id = doc_general_v.langid ";
-	$query .= "AND lang.id = '".$_SESSION['lang']."' ";
-	$query .= "ORDER BY doc.priority DESC, doc.did ASC, lang.priority DESC";
-	//echo $query;
-	$result = mysql_query($query);
-	$prevRow;
-	$link = null;
-	$out = "<TABLE CLASS='leftmenu-table'>";
-	$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
-	while ($row = mysql_fetch_assoc($result)) {
-		if ($link != null) {
-			$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='${SITE_INFO_PUBLIC_ROOT}imgs/arrow.gif'>".$link."</TD></TR>\n";
-			$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
-		}
-		$linkaddress = pageLink($row['did']);
-		$linkaddress = "<A HREF='$linkaddress' CLASS='leftmenu-links'>";
-		$link = $linkaddress.$row['linktext']."</A>";
-	}
-	if ($link != null) {
-		$out .= "<TR><TD CLASS='leftmenu-links'><IMG SRC='${SITE_INFO_PUBLIC_ROOT}imgs/arrow.gif'>".$link."</TD></TR>\n";
-		$out .= "<TR><TD CLASS='leftmenu-spacer'><TABLE CLASS='leftmenu-spacer'><TR><TD CLASS='dots'></TD></TR></TABLE></TD></TR>\n";
-	}
-	$out .= "</TABLE>";
-	return $out;
-}
-function insert_page_translations($imgs = false) {
-	global $SITE_INFO_PUBLIC_ROOT;
-	global $_SESSION;
-	$query = "SELECT thumbnail_path, lang.id as lang, lname FROM lang, defaultlangs WHERE defaultlangs.langid = lang.id ORDER BY lang.priority DESC";
-	$result = mysql_query($query);
-	while ($row = mysql_fetch_assoc($result)) {
-		$imgsrc = $SITE_INFO_PUBLIC_ROOT.$row['thumbnail_path'];
-	//	echo $_SESSION['lang']." vs ".$row['lang'];
-        	if ($_SESSION['lang'] != $row['lang']) {
-			if ($imgs) {
-                		echo "<A HREF='".changeLangLink($row['lang'])."'><img src=\"$imgsrc\" CLASS='defaultflags-regular'></A>";
-			} else {
-		                echo "<A HREF='".changeLangLink($row['lang'])."' CLASS='NE_FLAGS'>".$row['lname']."</A>";
-			}
-        	} else {
-			if ($imgs) {
-                		echo "<img src=\"$imgsrc\" CLASS='defaultflags-selected' />";
-			} else {
-		                echo "<B>".$row['lname']."</B>";
-			}
-                }
-        }
-}
+<?php
+require_once($SITE_INFO_LOCAL_ROOT."functions/cms_link_functions.php");
+require_once($SITE_INFO_LOCAL_ROOT."functions/menu_function.php");
+require_once($SITE_INFO_LOCAL_ROOT."functions/language_function.php");
 
 ?>
+
+
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <HTML>
-<HEAD>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/> 
-<meta http-equiv="Content-Language" content="el">
-<TITLE>
-<?php echo $props->get("pagetitle"); ?>
-</TITLE>
-<link rel="icon" href="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>favicon.ico" type="image/x-icon" />
-<?php 
-include_once("layout.css.php");
-?>
-</head>
-<body>
-<center>
-<BR><BR><table CLASS='maintable' cellpadding="0" cellspacing="0">
-  <tbody>
-    <tr>
-       <td CLASS='maintableTopLeft'>
-        <IMG CLASS='maintableTopLeft' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/logo.png" /> 
-	</td>
-       <td CLASS='maintableTopMain'>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/> 
+	<meta http-equiv="Content-Language" content="el">
+	<TITLE>
+		<?php echo $props->get("pagetitle"); ?>
+	</TITLE>
+	<link rel="icon" href="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>favicon.ico" type="image/x-icon" />
 	<?php 
-	//print_r($_SESSION);
-	if ($SITE_INFO_LANGS_ENABLED) {
-		insert_page_translations();
-	}
+	include_once("layout.css.php");
 	?>
-	<p align="right"><?php echo generate_direct_cms_link(); ?></p>
-	</td>
-    </tr>
-    <tr>	 
-        <td CLASS='maintableLeft'>
-	<BR>
-	 <?php echo leftMenu(); ?>
-	 </td>
-	 <td CLASS='maintableMain'>
-<?php
-//if $SHOW_PAGE_TRANSLATION is true, show flags for the different translations of the document:
-if ($SITE_INFO_LANGS_ENABLED && $SHOW_PAGE_TRANSLATIONS) {
-//Create flag to other versions of the document
-	echo '<div class="linkflags">';
-	foreach ($props['translations'] as $lang=>$trans) {
-        	if ($props['lang'] != $lang) {
-                	echo "<A HREF='".pageLink($_GET['did'], $lang)."'>";
-			echo "<IMG CLASS='linkflags' SRC=\"".$SITE_INFO_PUBLIC_ROOT.$trans['thumbnail_path']."\">";       
-			echo "</A>";
-        	}
-	}	 
-	echo '</div>';
-}
-?>
-<?php
-//fire up the modules part
-require_once($SITE_INFO_LOCAL_ROOT.$props->get("display_path"));
-?>
-	</td>
-	</tr>
-	<tr>
-	 <td CLASS='maintableBottom' COLSPAN=2>
-	 Colette Markus / Overgade 14, 2.th. / 5000 Odense C / tlf: 2126 5257 / e-mail: <a href="mailto:colette@markus.dk">colette@markus.dk</a>
-	 </td>
-	</tr>
-  <tbody>
-</table>
-</center>
-</BODY>
+</head>
+	<body>
+		<center>
+
+			<table CLASS='maintable' cellpadding="0" cellspacing="0">
+			  <tbody>
+			  	<tr height="20">
+			  		<td class="CornerLeftTop"></td>
+			  		<td class="CornerCenterTop" colspan="2"></td>
+			  		<td class="CornerRightTop"></td>
+			  	</tr>
+
+			    <tr>
+			  		<td class="CornerLeftCenter" rowspan="3"></td>
+			       	<td CLASS='maintableTop'  colspan="2">
+				        <span CLASS='maintableTop'>
+				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/tree.png" />
+				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/frometou.png" />					        
+				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/treeRotate.png" />
+				        </span>
+				        <div class="maintableTopLanguage">
+							<?php if ($SITE_INFO_LANGS_ENABLED) { insert_page_translations(); } ?>
+							<?php echo generate_direct_cms_link(); ?>
+						</div>
+						<hr>
+					</td>
+			  		<td rowspan="3" class="CornerRightCenter"></td>
+
+			    </tr>
+			    <tr>
+
+			        <td CLASS='maintableLeft'>
+			        	<div  CLASS='maintableLeftMenu'>
+							<?php echo leftMenu(); ?>
+			        	</div>
+				 	</td>
+				 	<td CLASS='maintableMain'>
+						<?php require_once($SITE_INFO_LOCAL_ROOT.$props->get("display_path")); ?>
+					</td>
+				</tr>
+				<tr>
+					 <td CLASS='maintableBottom' COLSPAN=2>
+						The Ninjas / all over the place 14, japan / 666 nuclear waste / tlf: xxxxxx / e-mail: <a href="mailto:ninja@markus.dk">ninja@markus.dk</a>
+					 </td>
+				</tr>
+
+			  	<tr height="30">
+			  		<td class="CornerLeftBottom"></td>
+			  		<td class="CornerCenterBottom" colspan="2"></td>
+			  		<td class="CornerRightBottom"></td>
+			  	</tr>
+
+			  <tbody>
+			</table>
+
+		</center>
+	</BODY>
 </HTML>

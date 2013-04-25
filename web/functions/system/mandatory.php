@@ -8,6 +8,12 @@ session_start();
 require_once("siteInfo.php");
 require_once("connect.php");
 require_once("document_properties.php");
+require_once($SITE_INFO_LOCAL_ROOT."functions/security.php");
+
+$_POST = secureInput($_POST);
+$_GET = secureInput($_GET);
+
+
 
 //If no session language is set, set it:
 if (!isset($_SESSION['lang'])) {

@@ -46,6 +46,13 @@ th {
 .navigation A:HOVER {
 	color:#FF3300
 	}
+
+A.selectedDoc {
+  color:#ff0000;
+  text-decoration:none;
+  font-weight:bold;
+}
+
 	
 .navigation TD {
 	padding:2px 9px 0px 21px;

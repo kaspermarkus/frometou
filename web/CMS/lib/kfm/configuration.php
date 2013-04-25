@@ -1,18 +1,13 @@
 <?php
-if (file_exists('../../functions/system/siteInfo.php')) {
-	 require_once('../../functions/system/siteInfo.php');
-} else if (file_exists('../../../functions/system/siteInfo.php')) {
-	 require_once('../../../functions/system/siteInfo.php');
-} else {
-	$dir = "../../../system/functions";
-	if (file_exists($dir)) {
-		$handle = opendir($dir);
-		while (false !== ($entry = readdir($handle))) {
-			echo $entry."<br>";	
-		}
-	}
-}
 
+if (file_exists('../../../functions/system/siteInfo.php')) {
+	 require_once('../../../functions/system/siteInfo.php');
+} else if (file_exists('../../../../functions/system/siteInfo.php')) {
+	 require_once('../../../../functions/system/siteInfo.php');
+} else {
+	echo "UNABLE TO INITIALIZE KFM.. cannot find siteInfo.php";
+    die(0);
+}
 
 /**
  * KFM - Kae's File Manager
