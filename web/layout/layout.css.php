@@ -1,168 +1,154 @@
 <style type="text/css">
-<?php 
-//Get info from database
-$query = "SELECT element, property, value FROM layout_properties WHERE layoutID='-1' ORDER BY priority DESC, element ASC";
-//echo $query;
-$result = mysql_query($query);
-while ($row = mysql_fetch_assoc($result)) {
-	echo $row['element']." { ".$row['property'].":".$row['value']."; }\n";
+
+
+
+
+
+
+/* ---------------------- Center ----------------------- */
+body{
+  background-color:#eff2f3;  
 }
-?>
+
+
+center{
+  margin-top: 50px;
+}
+
+.maintableMain{
+  background-color:#ffffff;
+  width: 800px;
+  height:auto;
+}
+
+
+
+.maintableBottom{
+  background-color:#ffffff;
+  text-align: center;
+}
+
+.maintableBottom{
+  font:12px arial,sans-serif;
+
+}
+
+
+
+
+/* ---------------------- Top ----------------------- */
+
+.maintableTop{
+  background-color:#ffffff;
+  height: 100px;
+  font-size: 50px;
+  color: blue;
+}
+
+.maintableTopLanguage {
+  text-align: right;
+  float: right;  
+ font-size: 12px;
+  color: black;
+}
 
 
 /* ---------------------- LEFT MENU ----------------------- */
 
-A.leftmenu-links 
-{ 
-  color:white;
-  font-size:11px;
-  font-weight:bold;
-  text-decoration:none;
-  font-family:verdana;
- }
 
-.leftmenu-links A:HOVER 
-{ 
-  color:#F8DB38;
-  }
-TD.leftmenu-links 
-{ 
-  padding:0px 10px 5px 10px;
- }
 
-TD.leftmenu-links IMG 
-{  
-  padding:0px 3px 0px 0px;
+td.maintableLeft{
+  background-color: #ffffff;
+  width: 200px;
+  text-align: top;
+  vertical-align:top;
 }
 
-TD.dots { 
-  background: url(http://www.thecolororange.net/layout/spacer1.gif);
-  background-repeat:repeat-x;
-  height:1px;
- }
 
-TABLE.leftmenu-spacer 
+ul{
+  list-style-image:url('../imgs/DarkArrow.png');
+  width: 180px;
+  background-color: #ffffff;
+}
+
+li{
+  background-color: #ffffff;
+  margin-bottom: 7px;
+}
+
+ul.childMenu{
+  width: 120px;
+}
+
+
+A.leftmenu-links 
 { 
-  width:100%;
- }
+  color:#696969;
+  font-size:12px;
+  text-decoration:none;
+  font-family:verdana;
+  display:block;
+}
 
-TD.leftmenu-spacer 
-{ 
-  height:10px;
-  padding:0px 7px 3px 7px;
- }
-
-
-
-/* ------------------- OTHER STUFF ------------------------------ */
-TD.translations 
-{ 
-  text-align:right;
- }
-
-IMG.linkflags 
-{ 
-  width:20px;
-  height:13px;
-  border:0px;
-  padding:0px 0px 0px 5px;
- }
-
-IMG.translationflags 
-{ 
-  width:20px;
-  height:13px;
-  border:0px;
-  padding:0px 0px 0px 5px;
- }
-
-A.listingTypeLink
-{ 
-  ;
- }
-
-A.listingTypeIndexLink
-{ 
-  font-weight:bold;
- }
-
-LI.listingTypeHeader
-{ 
-  font-weight:bold;
- }
-
-TABLE.listingDescriptionFlags 
-{ 
-  border:1px;
-  width:100%;
- }
-
-IMG.listingDescriptionFlagsImg
-{ 
-  width:135px;
-  height:100px;
- }
-
-/* ------------------ SUPPORT LIST ------------------------ */
-TH.supportlist
+A.chosenLink
 {
-  padding:10px 0px 0px 0px;
- }
-
-
-FONT.supportlist-name
-{ 
+  color:#696969;
+  font-size:12px;
+  text-decoration:none;
+  font-family:verdana;
+  display:block;
   font-weight:bold;
+}
+
+
+A:HOVER.leftmenu-links 
+{
   color:black;
-  font-size:13px;
- }
+   font-weight:bold;
+}
 
-FONT.supportlist-location
-{ 
-  font-weight:normal;
-  color:black;
- }
 
-TD.supportlist-date
-{ 
-  text-align:right;
-  font-weight:bold;
-  color:black;
- }
 
-TD.supportlist-comment 
-{ 
-  font-weight:normal;
-  color:#FF8900;                         
- }
+/* ---------------------- Corners ----------------------- */
+.CornerLeftTop {
+background:url('../imgs/CornerLeftTop.png');
+}
+.CornerCenterTop {
+  background:url('../imgs/CornerCenterTop.png');
+  background-repeat:repeat-x;
+  height: 30px;
+}
 
-/* ---------------- COUNTER ------------------------------- */
-DIV.counter 
-{ 
-  text-align:center;
- }
+.CornerRightTop {
+    background:url('../imgs/CornerRightTop.png');
+}
 
-TD.counter 
-{ 
-  font-weight:bold;
-  font-family:monospace;
-  font-size:18px;
-  color:white;
-  background-color:#000000;
-  margin:0px 2px 0px 2px;
-  }
 
-TABLE.counter
-{ 
-  background-color:#000000;
-  text-align:center;
-  margin-left:auto; 
-  margin-right:auto;
- }
 
-FONT.counter
-{ 
-  text-align:center;
- }
+.CornerLeftCenter {
+  background:url('../imgs/CornerLeftCenter.png');
+  background-repeat:repeat-y;
+  width: 30px;
+}
+
+.CornerRightCenter {
+  background:url('../imgs/CornerRightCenter.png');
+  background-repeat:repeat-y;
+  width: 30px;
+}
+
+
+.CornerLeftBottom {
+  background:url('../imgs/CornerLeftBottom.png');
+}
+.CornerCenterBottom {
+    background:url('../imgs/CornerCenterBottom.png');
+    background-repeat:repeat-x;
+    height: 30px;
+}
+.CornerRightBottom {
+    background:url('../imgs/CornerRightBottom.png');
+}
+
 
 </style>

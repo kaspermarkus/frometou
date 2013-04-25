@@ -1,6 +1,4 @@
 <?php
-
-
 //connects to the database with the given parameters:
 function connectDB($dbhost, $db_name, $username, $password) {
 	//get connection to host:
