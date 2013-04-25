@@ -44,8 +44,14 @@
 		        var elf = $('#elfinder').elfinder({
 		            url : 'php/connector.php',
 		            getFileCallback : function(file) {
-		                window.opener.CKEDITOR.tools.callFunction(funcNum, file);
-		                window.close();
+				    	//if from CKEditor:
+				    	if (getUrlParam('CKEditorFuncNum')) {
+			                window.opener.CKEDITOR.tools.callFunction(funcNum, file);
+			                window.close();
+			            } else if (getUrlParam('frometou') == 'docImage') {
+			            	window.opener.SetUrl(file);
+			            	window.close();
+			            }
 		            },
 		            resizable: false
 		        }).elfinder('instance');

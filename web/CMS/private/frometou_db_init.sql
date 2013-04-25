@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2013 at 04:43 PM
+-- Generation Time: Apr 25, 2013 at 06:24 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -48,13 +48,13 @@ INSERT INTO `defaultlangs` (`langid`) VALUES
 CREATE TABLE IF NOT EXISTS `doc` (
   `did` int(11) NOT NULL AUTO_INCREMENT,
   `module_signature` char(20) COLLATE utf8_bin NOT NULL,
-  `description_img` int(11) NOT NULL DEFAULT '-1',
+  `description_img` varchar(500) COLLATE utf8_bin DEFAULT NULL,
   `ident` varchar(200) COLLATE utf8_bin NOT NULL,
   `priority` int(11) NOT NULL DEFAULT '100',
   PRIMARY KEY (`did`),
   KEY `priority` (`priority`),
   KEY `ident` (`ident`),
-  KEY `description_img` (`description_img`)
+  KEY `description_img` (`description_img`(333))
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=111 ;
 
 --
@@ -62,20 +62,20 @@ CREATE TABLE IF NOT EXISTS `doc` (
 --
 
 INSERT INTO `doc` (`did`, `module_signature`, `description_img`, `ident`, `priority`) VALUES
-(107, 'normal_page', 0, 'new document', 100),
-(105, 'normal_page', 0, '.pp.', 100),
-(106, 'normal_page', 0, 'new documoeent', 100),
-(103, 'normal_page', 0, 'sub1,2', 100),
-(104, 'normal_page', 0, 'sub1/2', 100),
-(0, 'normal_page', 0, 'DeleteMe', 100),
-(102, 'normal_page', 0, 'sub2', 100),
-(101, 'normal_page', 0, 'sub1', 100),
-(92, 'normal_page', 0, 'page 3', 100),
-(91, 'normal_page', 0, 'page 2', 100),
-(90, 'normal_page', 0, 'page 1', 100),
-(108, 'normal_page', 0, 'new document', 100),
-(109, 'normal_page', 0, 'new document', 100),
-(110, 'normal_page', 0, 'new document', 100);
+(107, 'normal_page', 'files/lets-do-this.jpg', 'new document122', 100),
+(105, 'normal_page', NULL, '.pp.', 100),
+(106, 'normal_page', NULL, 'new documoeent', 100),
+(103, 'normal_page', NULL, 'sub1,2', 100),
+(104, 'normal_page', NULL, 'sub1/2', 100),
+(0, 'normal_page', NULL, 'DeleteMe', 100),
+(102, 'normal_page', NULL, 'sub2', 100),
+(101, 'normal_page', NULL, 'sub1', 100),
+(92, 'normal_page', NULL, 'page 3', 100),
+(91, 'normal_page', NULL, 'page 2', 100),
+(90, 'normal_page', NULL, 'page 1', 100),
+(108, 'normal_page', NULL, 'new document', 100),
+(109, 'normal_page', NULL, 'new document', 100),
+(110, 'normal_page', NULL, 'new document', 100);
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,9 @@ INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `descript
 (93, 'dk', '', '', ''),
 (96, 'dk', 'DeleteMe', 'DeleteMe', 0x44656c6574654d65),
 (102, 'dk', 'sub2', 'sub2', 0x73756232),
-(103, 'dk', 'sub1,2o', 'sub1,2', 0x737562312c32);
+(103, 'dk', 'sub1,2o', 'sub1,2', 0x737562312c32),
+(110, 'dk', '', '', ''),
+(107, 'dk', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -177,7 +179,13 @@ INSERT INTO `doc_module_v` (`did`, `prop_signature`, `langid`, `value`) VALUES
 (97, 'normal_page_body_content', 'dk', 0x3c703e0d0a096e657720646f63756d656e743c2f703e0d0a),
 (96, 'normal_page_header', 'dk', 0x44656c6574654d65),
 (96, 'normal_page_post_header', 'dk', 0x44656c6574654d65),
-(96, 'normal_page_body_content', 'dk', 0x3c703e0d0a0944656c6574654d653c2f703e0d0a);
+(96, 'normal_page_body_content', 'dk', 0x3c703e0d0a0944656c6574654d653c2f703e0d0a),
+(110, 'normal_page_header', 'dk', ''),
+(110, 'normal_page_post_header', 'dk', ''),
+(110, 'normal_page_body_content', 'dk', 0x3c703e0d0a09666173646664736161647366616664733c2f703e0d0a),
+(107, 'normal_page_header', 'dk', 0x64667366647361666473),
+(107, 'normal_page_post_header', 'dk', ''),
+(107, 'normal_page_body_content', 'dk', 0x3c703e0d0a093c696d6720616c743d2727207372633d27687474703a2f2f6c6f63616c686f73743a383838382f66726f6d65746f752f7765622f66696c65732f6c6574732d646f2d746869732e6a706727207374796c653d2777696474683a2033303270783b206865696768743a2033363070783b27202f3e3c2f703e0d0a);
 
 -- --------------------------------------------------------
 

@@ -1,6 +1,7 @@
 <?php
 
 error_reporting(0); // Set E_ALL for debuging
+include_once("../../../../functions/system/siteInfo.php");
 
 include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinderConnector.class.php';
 include_once dirname(__FILE__).DIRECTORY_SEPARATOR.'elFinder.class.php';
@@ -31,8 +32,8 @@ $opts = array(
 	'roots' => array(
 		array(
 			'driver'        => 'LocalFileSystem',   // driver for accessing file system (REQUIRED)
-			'path'          => '../files/',         // path to files (REQUIRED)
-			'URL'           => dirname($_SERVER['PHP_SELF']) . '/../files/', // URL to files (REQUIRED)
+			'path'          => '../../../../files/',         // path to files (REQUIRED)
+			'URL'           => $SITE_INFO_PUBLIC_UPLOADS, // URL to files (REQUIRED)
 			'accessControl' => 'access'             // disable and hide dot starting files (OPTIONAL)
 		)
 	)
