@@ -14,7 +14,7 @@ if (isset($_GET['remove'])) {
 
 <HTML>
 <HEAD>
-<LINK REL="stylesheet" type="text/css" href="css/general.css">
+<LINK REL="stylesheet" type="text/css" href="layout/css/general.css">
 <SCRIPT LANGUAGE='javascript'>
  function removes(s) {
 	if (s.selectedIndex != -1) {

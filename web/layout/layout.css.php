@@ -1,10 +1,5 @@
 <style type="text/css">
 
-
-
-
-
-
 /* ---------------------- Center ----------------------- */
 body{
   background-color:#eff2f3;  
@@ -33,9 +28,6 @@ center{
 
 }
 
-
-
-
 /* ---------------------- Top ----------------------- */
 
 .maintableTop{
@@ -56,7 +48,6 @@ center{
 /* ---------------------- LEFT MENU ----------------------- */
 
 
-
 td.maintableLeft{
   background-color: #ffffff;
   width: 200px;
@@ -66,7 +57,7 @@ td.maintableLeft{
 
 
 ul{
-  list-style-image:url('../imgs/DarkArrow.png');
+  list-style-image:url('../layout/imgs/DarkArrow.png');
   width: 180px;
   background-color: #ffffff;
 }
@@ -111,43 +102,43 @@ A:HOVER.leftmenu-links
 
 /* ---------------------- Corners ----------------------- */
 .CornerLeftTop {
-background:url('../imgs/CornerLeftTop.png');
+background:url('../layout/imgs/CornerLeftTop.png');
 }
 .CornerCenterTop {
-  background:url('../imgs/CornerCenterTop.png');
+  background:url('../layout/imgs/CornerCenterTop.png');
   background-repeat:repeat-x;
   height: 30px;
 }
 
 .CornerRightTop {
-    background:url('../imgs/CornerRightTop.png');
+    background:url('../layout/imgs/CornerRightTop.png');
 }
 
 
 
 .CornerLeftCenter {
-  background:url('../imgs/CornerLeftCenter.png');
+  background:url('../layout/imgs/CornerLeftCenter.png');
   background-repeat:repeat-y;
   width: 30px;
 }
 
 .CornerRightCenter {
-  background:url('../imgs/CornerRightCenter.png');
+  background:url('../layout/imgs/CornerRightCenter.png');
   background-repeat:repeat-y;
   width: 30px;
 }
 
 
 .CornerLeftBottom {
-  background:url('../imgs/CornerLeftBottom.png');
+  background:url('../layout/imgs/CornerLeftBottom.png');
 }
 .CornerCenterBottom {
-    background:url('../imgs/CornerCenterBottom.png');
+    background:url('../layout/imgs/CornerCenterBottom.png');
     background-repeat:repeat-x;
     height: 30px;
 }
 .CornerRightBottom {
-    background:url('../imgs/CornerRightBottom.png');
+    background:url('../layout/imgs/CornerRightBottom.png');
 }
 
 

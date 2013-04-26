@@ -38,9 +38,9 @@ require_once($SITE_INFO_LOCAL_ROOT."functions/language_function.php");
 			  		<td class="CornerLeftCenter" rowspan="3"></td>
 			       	<td CLASS='maintableTop'  colspan="2">
 				        <span CLASS='maintableTop'>
-				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/tree.png" />
-				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/frometou.png" />					        
-				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>imgs/treeRotate.png" />
+				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>layout/imgs/tree.png" />
+				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>layout/imgs/frometou.png" />					        
+				        <IMG CLASS='maintableTop' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT; ?>layout/imgs/treeRotate.png" />
 				        </span>
 				        <div class="maintableTopLanguage">
 							<?php if ($SITE_INFO_LANGS_ENABLED) { insert_page_translations(); } ?>

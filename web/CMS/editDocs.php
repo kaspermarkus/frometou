@@ -108,7 +108,7 @@ class dataContainer {
 					</script>
 					<input type='hidden' NAME='description_img'  id="description_img_form_field" VALUE="<?php $this->show('description_img'); ?>" name='description_img' />
 					<A HREF="#" class="kfm" onClick="javascript:update_description_img()">
-						<IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'imgs/no_img.svg'); ?>" id="description_img" />
+						<IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'layout/imgs/no_img.svg'); ?>" id="description_img" />
 					</A>
 				</TD>
 			</tr>
@@ -188,7 +188,7 @@ function showhide(id) {
 	}
 }
 </SCRIPT>
-	<LINK REL="stylesheet" type="text/css" href="css/general.css">
+	<LINK REL="stylesheet" type="text/css" href="layout/css/general.css">
 	<title>Edit/add documents</title>
 </HEAD>
 	<BODY>

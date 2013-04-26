@@ -12,7 +12,7 @@ echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 <HTML>
   <HEAD>
      <TITLE></TITLE>
-     <LINK REL="stylesheet" type="text/css" href="css/general.css" >
+     <LINK REL="stylesheet" type="text/css" href="layout/css/general.css" >
      <BASE TARGET="main">
   </HEAD>
 <BODY class="navigation">
@@ -28,5 +28,9 @@ echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 <H2>Administration</H2>
 <br>
 <HR>
+Through this site you will be apple to modify the page, after your needs<br><br>
+On this page you will find links to toturials, and guides on how to use administrate your webpage.
+<hr>
+
 </BODY>
 </HTML>

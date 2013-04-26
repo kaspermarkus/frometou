@@ -9,7 +9,7 @@ require_once("../functions/system/siteInfo.php");
  <HTML>
   <HEAD>
   <TITLE>Please enter login and password to enter <?php echo $SITE_INFO_WEB_NAME; ?> adminstrative pages</TITLE>
-   <LINK REL="stylesheet" type="text/css" href="css/general.css" >
+   <LINK REL="stylesheet" type="text/css" href="layout/css/general.css" >
    </HEAD>
 <BODY>
 <br><br><br>

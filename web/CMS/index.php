@@ -5,7 +5,7 @@ require_once("functions/authorize.php");
 <html>
 <head>
 <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
-        <LINK REL="stylesheet" type="text/css" href="css/general.css">
+        <LINK REL="stylesheet" type="text/css" href="layout/css/general.css">
 
 <title><?php echo $SITE_INFO_WEB_NAME; ?>  - administrative pages</title>
 </head>
