@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 25, 2013 at 06:24 PM
+-- Generation Time: Apr 26, 2013 at 03:21 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.10
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `doc` (
   KEY `priority` (`priority`),
   KEY `ident` (`ident`),
   KEY `description_img` (`description_img`(333))
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=111 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=119 ;
 
 --
 -- Dumping data for table `doc`
@@ -64,18 +64,18 @@ CREATE TABLE IF NOT EXISTS `doc` (
 INSERT INTO `doc` (`did`, `module_signature`, `description_img`, `ident`, `priority`) VALUES
 (107, 'normal_page', 'files/lets-do-this.jpg', 'new document122', 100),
 (105, 'normal_page', NULL, '.pp.', 100),
-(106, 'normal_page', NULL, 'new documoeent', 100),
+(106, 'normal_page', '', 'sprogtest', 100),
 (103, 'normal_page', NULL, 'sub1,2', 100),
 (104, 'normal_page', NULL, 'sub1/2', 100),
-(0, 'normal_page', NULL, 'DeleteMe', 100),
-(102, 'normal_page', NULL, 'sub2', 100),
+(0, 'normal_page', '', 'asfdfsda', 100),
+(102, 'normal_page', '', 'sub2', 100),
 (101, 'normal_page', NULL, 'sub1', 100),
-(92, 'normal_page', NULL, 'page 3', 100),
+(92, 'normal_page', '', 'page 3', 100),
 (91, 'normal_page', NULL, 'page 2', 100),
 (90, 'normal_page', NULL, 'page 1', 100),
-(108, 'normal_page', NULL, 'new document', 100),
-(109, 'normal_page', NULL, 'new document', 100),
-(110, 'normal_page', NULL, 'new document', 100);
+(110, 'normal_page', 'files/lets-do-this.jpg', 'new documentaass', 100),
+(111, 'normal_page', '', 'Hello World #100', 100),
+(118, 'normal_page', '', 'Hello dr. lort', 100);
 
 -- --------------------------------------------------------
 
@@ -108,14 +108,16 @@ INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `descript
 (101, 'dk', 'sub1', 'sub1', 0x73756231),
 (90, 'dk', 'page 1', 'page 1', 0x706167652031),
 (91, 'dk', 'page 2', 'page 2', 0x706167652032),
-(92, 'dk', 'page 3', 'page 3', 0x706167652033),
+(92, 'dk', 'page 3', 'page 3', 0x53696420652034),
 (94, 'dk', 'newbe', 'newbe', 0x6e65776265),
 (93, 'dk', '', '', ''),
 (96, 'dk', 'DeleteMe', 'DeleteMe', 0x44656c6574654d65),
 (102, 'dk', 'sub2', 'sub2', 0x73756232),
 (103, 'dk', 'sub1,2o', 'sub1,2', 0x737562312c32),
-(110, 'dk', '', '', ''),
-(107, 'dk', '', '', '');
+(110, 'dk', '', '', 0x736164666466617361647366),
+(107, 'dk', '', 'Lad os goere det', ''),
+(111, 'dk', 'Hello World #100', 'Hello World #100', 0x48656c6c6f20576f726c642023313030),
+(118, 'dk', 'dsfds', '', 0x6473666473666161646673);
 
 -- --------------------------------------------------------
 
@@ -125,6 +127,7 @@ INSERT INTO `doc_general_v` (`did`, `langid`, `linktext`, `pagetitle`, `descript
 
 CREATE TABLE IF NOT EXISTS `doc_module_v` (
   `did` int(11) NOT NULL,
+  `module` varchar(50) COLLATE utf8_bin NOT NULL,
   `prop_signature` varchar(50) COLLATE utf8_bin NOT NULL,
   `langid` char(3) COLLATE utf8_bin NOT NULL,
   `value` text COLLATE utf8_bin NOT NULL,
@@ -136,56 +139,65 @@ CREATE TABLE IF NOT EXISTS `doc_module_v` (
 -- Dumping data for table `doc_module_v`
 --
 
-INSERT INTO `doc_module_v` (`did`, `prop_signature`, `langid`, `value`) VALUES
-(0, 'normal_page_header', 'uk', 0x48656c6c6f20576f726c6473),
-(0, 'normal_page_post_header', 'uk', 0x5965732048656c6c6f20496e64656564),
-(0, 'normal_page_body_content', 'uk', 0x3c703e0d0a095965732c20596f75206d696768742073617920746861743c2f703e0d0a),
-(106, 'normal_page_body_content', 'dk', 0x3c703e0d0a092e3c2f703e0d0a),
-(0, 'normal_page_header', 'dk', 0x466f72736964653f),
-(0, 'normal_page_post_header', 'dk', 0x6e657720646f63756d656e74),
-(0, 'normal_page_body_content', 'dk', 0x3c703e0d0a096e657720646f63756d656e743c2f703e0d0a),
-(106, 'normal_page_post_header', 'dk', ''),
-(106, 'normal_page_header', 'dk', ''),
-(101, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562313c2f703e0d0a),
-(102, 'normal_page_header', 'dk', 0x73756232),
-(102, 'normal_page_post_header', 'dk', 0x73756232),
-(102, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562323c2f703e0d0a),
-(103, 'normal_page_header', 'dk', 0x737562312c32),
-(103, 'normal_page_post_header', 'dk', 0x737562312c32),
-(103, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562312c323c2f703e0d0a),
-(104, 'normal_page_header', 'dk', 0x737562312f32),
-(104, 'normal_page_post_header', 'dk', 0x737562312f32),
-(104, 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562312f323c2f703e0d0a),
-(105, 'normal_page_header', 'dk', ''),
-(105, 'normal_page_post_header', 'dk', ''),
-(105, 'normal_page_body_content', 'dk', 0x3c703e0d0a092e3f3c2f703e0d0a),
-(90, 'normal_page_header', 'dk', ''),
-(90, 'normal_page_post_header', 'dk', ''),
-(92, 'normal_page_header', 'uk', 0x706167652033),
-(92, 'normal_page_post_header', 'uk', 0x706167652033),
-(92, 'normal_page_body_content', 'uk', 0x3c703e0d0a097061676520333c2f703e0d0a),
-(101, 'normal_page_post_header', 'dk', 0x73756231),
-(101, 'normal_page_header', 'dk', 0x73756231),
-(90, 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520313c2f703e0d0a),
-(91, 'normal_page_header', 'dk', 0x706167652032),
-(91, 'normal_page_post_header', 'dk', 0x706167652032),
-(91, 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520323c2f703e0d0a),
-(92, 'normal_page_header', 'dk', 0x706167652033),
-(92, 'normal_page_post_header', 'dk', 0x706167652033),
-(92, 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520333c2f703e0d0a),
-(97, 'normal_page_header', 'uk', 0x6e657720646f63756d656e747320656e67),
-(97, 'normal_page_header', 'dk', 0x6e657720646f63756d656e7473),
-(97, 'normal_page_post_header', 'dk', 0x6e657720646f63756d656e74),
-(97, 'normal_page_body_content', 'dk', 0x3c703e0d0a096e657720646f63756d656e743c2f703e0d0a),
-(96, 'normal_page_header', 'dk', 0x44656c6574654d65),
-(96, 'normal_page_post_header', 'dk', 0x44656c6574654d65),
-(96, 'normal_page_body_content', 'dk', 0x3c703e0d0a0944656c6574654d653c2f703e0d0a),
-(110, 'normal_page_header', 'dk', ''),
-(110, 'normal_page_post_header', 'dk', ''),
-(110, 'normal_page_body_content', 'dk', 0x3c703e0d0a09666173646664736161647366616664733c2f703e0d0a),
-(107, 'normal_page_header', 'dk', 0x64667366647361666473),
-(107, 'normal_page_post_header', 'dk', ''),
-(107, 'normal_page_body_content', 'dk', 0x3c703e0d0a093c696d6720616c743d2727207372633d27687474703a2f2f6c6f63616c686f73743a383838382f66726f6d65746f752f7765622f66696c65732f6c6574732d646f2d746869732e6a706727207374796c653d2777696474683a2033303270783b206865696768743a2033363070783b27202f3e3c2f703e0d0a);
+INSERT INTO `doc_module_v` (`did`, `module`, `prop_signature`, `langid`, `value`) VALUES
+(108, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(108, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a097364667364666161646673646673613c2f703e0d0a),
+(106, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a092e736164667366646166647361666473613c2f703e0d0a),
+(0, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(0, 'normal_page', 'normal_page_body_content', 'dk', 0x2e),
+(106, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(106, 'normal_page', 'normal_page_header', 'dk', 0x41206c6974746c652064616e69736820636f6d6d6f6e2073656e7365),
+(101, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562313c2f703e0d0a),
+(102, 'normal_page', 'normal_page_header', 'dk', 0x73756232),
+(102, 'normal_page', 'normal_page_post_header', 'dk', 0x73756232),
+(102, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562323c2f703e0d0a),
+(103, 'normal_page', 'normal_page_header', 'dk', 0x737562312c32),
+(103, 'normal_page', 'normal_page_post_header', 'dk', 0x737562312c32),
+(103, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562312c323c2f703e0d0a),
+(104, 'normal_page', 'normal_page_header', 'dk', 0x737562312f32),
+(104, 'normal_page', 'normal_page_post_header', 'dk', 0x737562312f32),
+(104, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a09737562312f323c2f703e0d0a),
+(105, 'normal_page', 'normal_page_header', 'dk', ''),
+(105, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(105, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a092e3f3c2f703e0d0a),
+(90, 'normal_page', 'normal_page_header', 'dk', ''),
+(90, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(92, 'normal_page', 'normal_page_header', 'uk', 0x706167652033),
+(92, 'normal_page', 'normal_page_post_header', 'uk', 0x706167652033),
+(92, 'normal_page', 'normal_page_body_content', 'uk', 0x3c703e0d0a097061676520333c2f703e0d0a),
+(101, 'normal_page', 'normal_page_post_header', 'dk', 0x73756231),
+(101, 'normal_page', 'normal_page_header', 'dk', 0x73756231),
+(90, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520313c2f703e0d0a),
+(91, 'normal_page', 'normal_page_header', 'dk', 0x706167652032),
+(91, 'normal_page', 'normal_page_post_header', 'dk', 0x706167652032),
+(91, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520323c2f703e0d0a),
+(92, 'normal_page', 'normal_page_header', 'dk', 0x706167652033),
+(92, 'normal_page', 'normal_page_post_header', 'dk', 0x706167652033),
+(92, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a097061676520333c2f703e0d0a),
+(97, 'normal_page', 'normal_page_header', 'uk', 0x6e657720646f63756d656e747320656e67),
+(97, 'normal_page', 'normal_page_header', 'dk', 0x6e657720646f63756d656e7473),
+(97, 'normal_page', 'normal_page_post_header', 'dk', 0x6e657720646f63756d656e74),
+(97, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a096e657720646f63756d656e743c2f703e0d0a),
+(96, 'normal_page', 'normal_page_header', 'dk', 0x44656c6574654d65),
+(96, 'normal_page', 'normal_page_post_header', 'dk', 0x44656c6574654d65),
+(96, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a0944656c6574654d653c2f703e0d0a),
+(110, 'normal_page', 'normal_page_header', 'dk', ''),
+(110, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(110, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a093c696d6720616c743d2727207372633d27687474703a2f2f6c6f63616c686f73743a383838382f66726f6d65746f752f7765622f66696c65732f6c6574732d646f2d746869732e6a706727207374796c653d2777696474683a2033303270783b206865696768743a2033363070783b27202f3e666173646664736161647366616664733c2f703e0d0a),
+(107, 'normal_page', 'normal_page_header', 'dk', 0x4a75737420646f206974),
+(107, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(107, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a093c696d6720616c743d2727207372633d27687474703a2f2f6c6f63616c686f73743a383838382f66726f6d65746f752f7765622f66696c65732f6c6574732d646f2d746869732e6a706727207374796c653d2777696474683a2033303270783b206865696768743a2033363070783b27202f3e3c2f703e0d0a),
+(111, 'normal_page', 'normal_page_header', 'dk', 0x48656c6c6f20576f726c642023313030),
+(111, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(111, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a095965737369723c2f703e0d0a),
+(118, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a096473616664667361736164663c2f703e0d0a),
+(112, 'normal_page', 'normal_page_header', 'dk', 0x53484f554c4420424520474f4e45),
+(108, 'normal_page', 'normal_page_header', 'dk', ''),
+(112, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(0, 'normal_page', 'normal_page_header', 'dk', ''),
+(118, 'normal_page', 'normal_page_post_header', 'dk', ''),
+(118, 'normal_page', 'normal_page_header', 'dk', ''),
+(112, 'normal_page', 'normal_page_body_content', 'dk', 0x3c703e0d0a09492053484f554c4420424520474f4e453c2f703e0d0a);
 
 -- --------------------------------------------------------
 
@@ -200,21 +212,22 @@ CREATE TABLE IF NOT EXISTS `hierarchy` (
   PRIMARY KEY (`hid`),
   UNIQUE KEY `parent_2` (`parent`,`did`),
   KEY `parent` (`parent`,`did`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=149 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=151 ;
 
 --
 -- Dumping data for table `hierarchy`
 --
 
 INSERT INTO `hierarchy` (`hid`, `parent`, `did`) VALUES
-(133, 90, 0),
+(150, 110, 107),
 (130, 90, 101),
 (124, 90, 100),
 (148, 103, 105),
 (131, 90, 104),
 (147, 105, 105),
 (126, 90, 97),
-(129, 91, 102);
+(129, 91, 102),
+(149, 105, 109);
 
 -- --------------------------------------------------------
 
@@ -259,11 +272,14 @@ CREATE TABLE IF NOT EXISTS `mainmenu` (
 --
 
 INSERT INTO `mainmenu` (`did`) VALUES
-(90),
 (91),
 (92),
 (103),
-(104);
+(104),
+(110),
+(111),
+(114),
+(115);
 
 -- --------------------------------------------------------
 
@@ -312,7 +328,6 @@ CREATE TABLE IF NOT EXISTS `module` (
 
 INSERT INTO `module` (`module_signature`, `module_name`, `display_path`, `cms_path`, `module_type`, `enabled`) VALUES
 ('normal_page', 'Regular Page', 'modules/normal_page.php', 'modules/normal_page.php', 'page', 1),
-('mod_subscription', 'Subscription Form', 'modules/mod_subscription.php', 'modules/mod_subscription_cms.php', 'page', 0),
 ('mod_hierarchy', 'hierarchy', 'modules/hierarchy.php', 'modules/hierarchy.php', 'general', 1),
 ('mod_mainmenu', 'mainmenu', 'modules/mainmenu.php', 'modules/mainmenu.php', 'general', 1);
 
