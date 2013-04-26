@@ -30,7 +30,7 @@ if (isset($_GET['save'])) {
 <html>
 <head>
 <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type"/>
-	<LINK REL="stylesheet" type="text/css" href="css/general.css">
+	<LINK REL="stylesheet" type="text/css" href="layout/css/general.css">
 	<title>Edit/add Mappings</title>
 	</head>
 	<body>

@@ -7,7 +7,7 @@ require_once("../CMS/functions/listDocs.php");
 <HTML>
   <HEAD>
      <TITLE></TITLE>
-     <LINK REL="stylesheet" type="text/css" href="css/general.css" >
+     <LINK REL="stylesheet" type="text/css" href="layout/css/general.css" >
      <BASE TARGET="main">
   </HEAD>
 <BODY class="navigation">

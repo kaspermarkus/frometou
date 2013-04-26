@@ -253,8 +253,8 @@ CREATE TABLE IF NOT EXISTS `lang` (
 --
 
 INSERT INTO `lang` (`lname`, `id`, `flagtext`, `thumbnail_path`, `priority`) VALUES
-('Dansk', 'dk', 'Dansk version', 'imgs/dkflag.gif', 1000),
-('English', 'uk', 'English Version', 'imgs/ukflag.gif', 120);
+('Dansk', 'dk', 'Dansk version', 'layout/imgs/dkflag.gif', 1000),
+('English', 'uk', 'English Version', 'layout/imgs/ukflag.gif', 120);
 
 -- --------------------------------------------------------
 

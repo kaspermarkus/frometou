@@ -64,7 +64,7 @@ function showhide(id) {
 </SCRIPT>
 <!-- CKEDITOR STUFF END --> 
 
-<LINK REL="stylesheet" type="text/css" href="css/general.css">
+<LINK REL="stylesheet" type="text/css" href="layout/css/general.css">
 <title>Edit/add documents</title>
 </HEAD>
 	<BODY>
