@@ -1,8 +1,14 @@
 <?php
-session_start(); // Starts the session
-
 require_once("../functions/system/siteInfo.php");
 require_once("../functions/security.php");
+require_once("system/doc.php");
+
+require_once("modules/normal_page.php");
+require_once("modules/hierarchy.php");
+require_once("modules/mainmenu.php");
+
+session_start(); // Starts the session
+
 
 $_POST = secureInput($_POST);
 $_GET = secureInput($_GET);

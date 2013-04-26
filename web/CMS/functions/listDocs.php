@@ -16,7 +16,7 @@ return $availableLang;
 
 
 /* insert flags on the page to change the current language. Used when editing pages, etc. */
-function docFlags($did) {
+function docFlags($did, $docSelected) {
 	$availableLang = availableLang();
 	global $SITE_INFO_PUBLIC_ROOT, $SITE_INFO_LANGS_ENABLED;
 
@@ -32,7 +32,7 @@ function docFlags($did) {
 
 		if (isset($langInUse)) {
 			//checking for the selected flag (the flag in use)
-			if($langInUse == $_SESSION['lang'] and $did == $_SESSION['ThisDid']) {
+			if ($docSelected && $langInUse == $_SESSION['lang']) {
 				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."'>";
 				echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$langImg."' WIDTH='22' HEIGHT='14' BORDER=2>";
 				echo "</a>";
@@ -42,7 +42,7 @@ function docFlags($did) {
 				echo "</a>";
 			}
 		}else{
-			if($langId == $_SESSION['lang'] and $did == $_SESSION['ThisDid']) {
+			if($docSelected && $langId == $_SESSION['lang']) {
 				echo "<a class='selectedDoc' href='editDocs.php?did=".$did."&lang=".$langId."'>";
 				echo "<IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$langImg."' WIDTH='22' HEIGHT='14' BORDER=2>";
 				echo "</a>";
@@ -61,17 +61,16 @@ function ListDocs($did){
 	$result = mysql_query($query) or die(mysql_error());
 	while ($row = mysql_fetch_array($result)) {
 		if ($did == $row['did']){
-			echo "<TR><TD><a class='selectedDoc' href='editDocs.php?did=".$row['did']."'> ".$row['ident']."</a>";
-			echo docFlags($row['did']);
-			echo "</TD></TR>";
+			echo "<li><a class='selectedDoc' href='editDocs.php?did=".$row['did']."'> ".$row['ident']."</a>";
+			echo docFlags($row['did'], true);
+			echo "</li>";
 		} else {
-			echo "<TR><TD><a href='editDocs.php?did=".$row['did']."'> ".$row['ident']."</a> ";
-			echo docFlags($row['did']);
-			echo "</TD></TR>";
+			echo "<li><a href='editDocs.php?did=".$row['did']."'> ".$row['ident']."</a> ";
+			echo docFlags($row['did'], false);
+			echo "</li>";
 		}
 	}
 }
 
-	ListDocs($_SESSION['ThisDid']);
-	availableLang();
+
 ?>

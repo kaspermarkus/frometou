@@ -1,11 +1,9 @@
-
-
 <?php
 class normal_page {
     var $props = [];
-    var $did;
 
-    function init($did, $lang) {
+    function load($did, $lang) {
+        $this->did = $did;
         $query = "SELECT * FROM doc_module_v as dmv, module_props as mp ".
             "WHERE dmv.prop_signature = mp.signature AND dmv.did=$did ".
             "AND dmv.langid='$lang' AND mp.module_signature='normal_page'";
@@ -14,7 +12,8 @@ class normal_page {
             while ($row = mysql_fetch_assoc($result)) {
                 $this->props[$row['prop_signature']] = $row['value'];
             }
-             // print_r($this->props);
+        } else {
+            $this->props = [];
         }
     }
     
@@ -22,7 +21,7 @@ class normal_page {
         return (isset($this->props[$key])) ? $this->props[$key] : "";
     }
 
-    function printHTMLForm() {
+    function printEditArea() {
         ?>
         <table>
             <tr>
@@ -49,8 +48,8 @@ class normal_page {
     }
 
     function single_save($lang, $did, $sig, $val) {
-        $query = "REPLACE doc_module_v ( `did` , `prop_signature` , `langid` , `value`) VALUES ".
-            "( '$did', \"$sig\", '$lang', \"$val\")";
+        $query = "REPLACE doc_module_v ( `did` , `module`, `prop_signature` , `langid` , `value`) VALUES ".
+            "( '$did', 'normal_page', \"$sig\", '$lang', \"$val\")";
         //echo $query."<br/>";
         mysql_query($query);
     }
@@ -62,4 +61,14 @@ class normal_page {
         $body = fix_html_field($post["normal_page_body_content"]);
         $this->single_save($lang, $did, "normal_page_body_content", $body);
     }
+
+    function delete() {
+        mysql_query("DELETE FROM doc_module_v WHERE module='normal_page' AND did='$this->did'");
+    }
+
+    function deleteLang($langid) {
+        //echo "DELETE FROM doc_module_v WHERE module='normal_page' AND did='$this->did' AND langid='$langid'";
+        mysql_query("DELETE FROM doc_module_v WHERE module='normal_page' AND did='$this->did' AND langid='$langid'");
+    }
 }
+?>
