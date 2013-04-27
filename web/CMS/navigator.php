@@ -1,6 +1,5 @@
 <?php
-require_once("functions/authorize.php");
-require_once("../functions/system/siteInfo.php");
+require_once("system/authorize.php");
 require_once("../CMS/functions/listDocs.php");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,7 +29,7 @@ require_once("../CMS/functions/listDocs.php");
             listDocs($_SESSION['did']); 
             //availableLang();
         ?>
-        <li><?php require_once("../CMS/new_doc.php");?></li>
+        <li><?php require_once("../CMS/doc_new.php");?></li>
     </ul>
     <li id='header'>Other</li>
     <ul>

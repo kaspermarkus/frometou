@@ -7,8 +7,8 @@ $query = "CREATE TABLE IF NOT EXISTS `hierarchy` (".
 	"`parent` int(11) NOT NULL, ".
 	"`did` int(11) NOT NULL, ".
 	"PRIMARY KEY (`hid`), ".
-	"KEY `parent`".
-	" (`parent`,`did`)) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=51 ;";
+    "UNIQUE KEY `parent_2` (`parent`,`did`),".
+	"KEY `parent` (`parent`,`did`)".
+    ") ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;";
 mysql_query($query);
-
-?>	
+?>

@@ -89,7 +89,6 @@ class doc {
         global $SITE_INFO_PUBLIC_ROOT;
         ?>
         <input type='hidden' name="did" value="<?php $this->show('did'); ?>">
-        <!-- <input type='hidden' name="module_signature" value="<?php echo $prop['module_signature']; ?>"> -->
                 <TD WIDTH=0><INPUT TYPE="submit" value="&nbsp;save changes &nbsp;" name="saveDoc"></TD><br><br>
         <TABLE BORDER=0 id="standardInfo" WIDTH=100%>
             <tr>
@@ -103,7 +102,7 @@ class doc {
                    <TD ROWSPAN=6 STYLE="vertical-align:top; text-align:left;">
                     <input type='hidden' NAME='description_img' id="description_img_form_field" VALUE="<?php $this->show('description_img'); ?>" name='description_img' />
                     <A HREF="#" class="kfm" onClick="javascript:update_description_img()">
-                        <IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'imgs/no_img.svg'); ?>" id="description_img" />
+                        <IMG WIDTH='150px' SRC="<?php echo $SITE_INFO_PUBLIC_ROOT.($this->get('description_img')?$this->get('description_img'):'layout/imgs/no_img.svg'); ?>" id="description_img" />
                     </A>
                     <script language='javascript'>
                         function update_description_img() {

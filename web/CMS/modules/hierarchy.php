@@ -14,7 +14,7 @@ if (!class_exists('hierarchy')) {
 				$sql = "DELETE FROM `hierarchy` WHERE parent = '$this->did' AND did = '$DeleteChild'";
 				mysql_query($sql);
 				echo "<SCRIPT LANGUAGE='javascript'>\n";
-				echo "document.location='editDocs.php?did=$this->did';\n";
+				echo "document.location='doc_edit.php?did=$this->did';\n";
 				echo "</SCRIPT>";
 				//echo $sql;
 			} 
@@ -25,7 +25,7 @@ if (!class_exists('hierarchy')) {
 				$sql = "DELETE FROM `hierarchy` WHERE parent = '$DeleteParent' AND did = '$this->did'";
 				mysql_query($sql);
 				echo "<SCRIPT LANGUAGE='javascript'>\n";
-				echo "document.location='editDocs.php?did=$this->did';\n";
+				echo "document.location='doc_edit.php?did=$this->did';\n";
 				echo "</SCRIPT>";
 				//echo $sql;
 			} 
@@ -70,7 +70,7 @@ if (!class_exists('hierarchy')) {
 				if (!in_array($ident, $children)) {
 					echo "<option value='$id'>$ident</option>";
 				} else {
-					$addedChildren .= "<a href='editDocs.php?did=$id'>".$ident."</a><a href='editDocs.php?did=$this->did&hierarchy_del_child=$id'> del</a><br>";
+					$addedChildren .= "<a href='doc_edit.php?did=$id'>".$ident."</a><a href='doc_edit.php?did=$this->did&hierarchy_del_child=$id'> del</a><br>";
 				}
 			}
 			echo "</select>";
@@ -90,7 +90,7 @@ if (!class_exists('hierarchy')) {
 				if (!in_array($ident, $parents)) {
 					echo "<option value='$id'>$ident</option>";
 				} else {
-					$addedParents .= "<a href='editDocs.php?did=$id'>".$ident."</a><a href='editDocs.php?did=$this->did&hierarchy_del_parent=$id'> del</a><br>";
+					$addedParents .= "<a href='doc_edit.php?did=$id'>".$ident."</a><a href='doc_edit.php?did=$this->did&hierarchy_del_parent=$id'> del</a><br>";
 				}
 			}
 			echo "</select>";

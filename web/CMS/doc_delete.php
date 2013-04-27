@@ -1,7 +1,6 @@
 <?php
 require_once("functions/cms_general.php");
 require_once("functions/parsing.php");
-require_once("functions/delete.php");
 
 $doc = unserialize($_SESSION['doc']);
 $modules = unserialize($_SESSION['modules']);
@@ -40,7 +39,7 @@ if (mysql_num_rows($result) > 1) {
 			$langid = $row['langid'];
 			echo $langid;
 			$doc->deleteLang($langid);
-			echo "<script>window.location.href = 'editDocs.php';</script>";
+			echo "<script>window.location.href = 'doc_edit.php';</script>";
 		}
 	}
 }

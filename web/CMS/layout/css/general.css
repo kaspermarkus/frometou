@@ -47,7 +47,7 @@ th {
 	color:#FF3300
 	}
 
-A.selectedDoc {
+li.selectedDoc a {
   color:#ff0000;
   text-decoration:none;
   font-weight:bold;

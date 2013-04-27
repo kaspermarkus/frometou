@@ -1,7 +1,8 @@
 <?php
+require_once("system/authorize.php");
 require_once("functions/cms_general.php");
 
-$filename = "editMappings.php";
+$filename = "mappings_edit.php";
 $id = "mid";
 
 if (isset($_GET['save'])) {
@@ -35,7 +36,7 @@ if (isset($_GET['save'])) {
 	</head>
 	<body>
 	<H1>Edit/add Mappings</H1>
-<A HREF='listMappings.php'>Back to list of mappings</A>
+<A HREF='mappings_list.php'>Back to list of mappings</A>
 	<HR>
 	<BR>
 	<FORM target="_self" method="get" action="<?php echo $filename; ?>" name="f1">
@@ -48,6 +49,6 @@ if (isset($_GET['save'])) {
 	<INPUT TYPE="submit" value="save" name="save">
 	</FIELDSET>
 	</FORM>
-<BR><A HREF='listMappings.php'>Back to list of mappings</A>
+<BR><A HREF='mappings_list.php'>Back to list of mappings</A>
 	</body>
 	</html>

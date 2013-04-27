@@ -1,5 +1,5 @@
 <?php 
-require_once("functions/authorize.php");
+require_once("system/authorize.php");
 ?>
 
 <html>
@@ -11,5 +11,5 @@ require_once("functions/authorize.php");
 </head>
 <frameset cols="200, *">
 <frame name="navigation" src="navigator.php" marginheight="0" marginwidth="0">
-<frame name="main" src="editDocs.php">
+<frame name="main" src="doc_edit.php">
 </html>

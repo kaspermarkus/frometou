@@ -24,11 +24,11 @@ if (isset($_POST['new'])) {
 if (isset($_GET['newPage'])) {
 	//lastly edit the new document in editDoc.php in frame
 	echo "<SCRIPT>setTimeout('document.reloadFrame.submit()',0);</script>";
-	echo "<form name='reloadFrame' method='post' action='http:editDocs.php?did=".$_GET["newPage"]."'></form>";
+	echo "<form name='reloadFrame' method='post' action='http:doc_edit.php?did=".$_GET["newPage"]."'></form>";
 	echo $_GET['newPage'];
 }
 
 ?>
-	<FORM method="POST" NAME="newDoc" target="_self" ACTION="new_doc.php">
+	<FORM method="POST" NAME="newDoc" target="_self">
 		<INPUT class="newInput" TYPE="submit" value="+ new document" name="new">
 	</FORM>
