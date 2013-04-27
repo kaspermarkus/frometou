@@ -1,6 +1,6 @@
 <?php
-require_once("functions/authorize.php");
-require_once("../functions/system/siteInfo.php");
+require_once("system/authorize.php");
+require_once("../CMS/functions/listDocs.php");
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <HTML>
@@ -22,13 +22,18 @@ require_once("../functions/system/siteInfo.php");
 <HR>
 </center>
 <br>
-<table>
-<TR><H2>Contents</H2></TR>
-<TR><TH>Documents<TH></TR>
-<TR><TD><?php require_once("../CMS/functions/listDocs.php");?></TD></TR>
-<TR><TD><?php require_once("../CMS/new_doc.php");?></TD></TR>
-<TR><TD><a href="listTypes.php">Types</a></TD></TR>
-<TR><TD><a href="listMappings.php">Mappings</a></TD></TR>
-</TABLE>
+<ul id='left_menu'>
+    <li id='header'>Documents</li>
+    <ul>
+        <?php 
+            listDocs($_SESSION['did']); 
+            //availableLang();
+        ?>
+        <li><?php require_once("../CMS/doc_new.php");?></li>
+    </ul>
+    <li id='header'>Other</li>
+    <ul>
+        <li><a href="listMappings.php">Mappings</a></li>
+    </ul>
 </BODY>
 </HTML>

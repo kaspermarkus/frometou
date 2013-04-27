@@ -1,5 +1,5 @@
 <?php 
-require_once("functions/authorize.php");
+require_once("system/authorize.php");
 ?>
 
 <html>
@@ -11,11 +11,5 @@ require_once("functions/authorize.php");
 </head>
 <frameset cols="200, *">
 <frame name="navigation" src="navigator.php" marginheight="0" marginwidth="0">
-<?php 
-$rightFrameContent = "main.php";
-if (isset($_SESSION['ThisDid'])) {
-    $rightFrameContent = "editDocs.php?did=".$_SESSION['ThisDid'];
-}
-?>
-<frame name="main" src="<?php echo $rightFrameContent; ?>">
+<frame name="main" src="doc_edit.php">
 </html>

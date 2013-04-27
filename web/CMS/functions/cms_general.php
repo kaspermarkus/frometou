@@ -1,10 +1,7 @@
 <?php
-require_once("../functions/system/siteInfo.php");
-require_once("authorize.php");
 require_once("functions.php");
 
 /* insert flags on the page to change the current language. Used when editing pages, etc. */
-
 function cms_insert_flags($id, $postid) {
 	global $SITE_INFO_PUBLIC_ROOT, $SITE_INFO_LANGS_ENABLED;
 	//only show flags if we have multiple languages enabled for website. This is a setting in siteInfo.php
