@@ -33,7 +33,7 @@ require_once("../CMS/functions/listDocs.php");
     </ul>
     <li id='header'>Other</li>
     <ul>
-        <li><a href="listMappings.php">Mappings</a></li>
+        <li><a href="mappings_list.php">Mappings</a></li>
     </ul>
 </BODY>
 </HTML>
