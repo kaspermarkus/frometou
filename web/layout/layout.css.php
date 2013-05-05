@@ -44,6 +44,11 @@ center{
   color: black;
 }
 
+/* ---------------------- Defoult Document ----------------------  */
+body.document{
+  background-color:#FFFFFF;
+}
+
 
 /* ---------------------- LEFT MENU ----------------------- */
 
@@ -97,6 +102,8 @@ A:HOVER.leftmenu-links
   color:black;
    font-weight:bold;
 }
+
+
 
 
 

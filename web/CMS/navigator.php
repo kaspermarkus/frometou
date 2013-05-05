@@ -10,30 +10,30 @@ require_once("../CMS/functions/listDocs.php");
      <BASE TARGET="main">
   </HEAD>
 <BODY class="navigation">
-<div class="navigation">
 <center>
-<br>
-<a href='main.php'>
-<H3><?php echo "$SITE_INFO_WEB_NAME"; ?></H3>
-<H4>Administration</H4>
-<H4>Home</H4>
-</a>
-<br>
-<HR>
+  <br>
+  <a href='main.php'>
+  <H3><?php echo "$SITE_INFO_WEB_NAME"; ?></H3>
+  <H4>Administration</H4>
+  <H4>Home</H4>
+  </a>
+  <br>
+  <HR>
 </center>
 <br>
-<ul id='left_menu'>
-    <li id='header'>Documents</li>
-    <ul>
-        <?php 
-            listDocs($_SESSION['did']); 
-            //availableLang();
-        ?>
-        <li><?php require_once("../CMS/doc_new.php");?></li>
-    </ul>
-    <li id='header'>Other</li>
-    <ul>
-        <li><a href="listMappings.php">Mappings</a></li>
-    </ul>
+<ul class="navigationParent">
+  <li>Documents</li>
+  <ul class="navigationChild">
+    <?php 
+      listDocs($_SESSION['did']); 
+      //availableLang();
+    ?>
+    <li><?php require_once("../CMS/doc_new.php");?></li>
+  </ul>
+  <li>Other</li>
+  <ul>
+    <li><a href="listMappings.php">Mappings</a></li>
+  </ul>
+</ul>
 </BODY>
 </HTML>

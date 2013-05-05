@@ -17,7 +17,7 @@ if (isset($_POST['new'])) {
 	$row = mysql_fetch_row(mysql_query($mysql));
 	$newID = $row[0];
 
-	echo "<html><body><script>window.location = 'navigator.php?newPage=$newID';</script></body></html>";
+	echo "<script>window.location = 'navigator.php?newPage=$newID';</script>";
 }
 
 
@@ -30,5 +30,5 @@ if (isset($_GET['newPage'])) {
 
 ?>
 	<FORM method="POST" NAME="newDoc" target="_self">
-		<INPUT class="newInput" TYPE="submit" value="+ new document" name="new">
+		<INPUT class="new" TYPE="submit" value="+ new document" name="new">
 	</FORM>

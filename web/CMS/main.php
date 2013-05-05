@@ -1,10 +1,11 @@
 <?php
-require_once("../functions/system/siteInfo.php"); 
-require_once("functions/cms_general.php");
-require_once("functions/parsing.php");
+require_once("system/authorize.php"); 
 
 //Unsetting the current Did in use
-$_SESSION['ThisDid'] = null;
+$_SESSION['doc'] = null;
+$_SESSION['module'] = null;
+$_SESSION['did'] = null;
+
 //Refreshing the navigation window, for new chonges to accur.
 echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 ?>
@@ -18,10 +19,10 @@ echo "<SCRIPT>parent.navigation.location.href = 'navigator.php';</script>";
 <BODY class="navigation">
 <center>
 <BR>
-	  <BR>
-	  <BR>
-	  <BR>
-	  <BR>
+<BR>
+<BR>
+<BR>
+<BR>
 <HR>
 <br>
 <H1><?php echo $SITE_INFO_WEB_NAME; ?></H1>

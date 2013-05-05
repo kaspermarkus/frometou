@@ -66,8 +66,8 @@ function showhide(id) {
 <LINK REL="stylesheet" type="text/css" href="layout/css/general.css">
 <title>Edit/add documents</title>
 </HEAD>
-	<BODY>
-	<TABLE BORDER=0 WIDTH='100%'>
+	<BODY class='document'>
+	<TABLE class="maintable" BORDER='0' WIDTH='100%'>
 		<TR>
 			<TD><H1>Edit/add Documents</H1></TD>
 			<td><a href='delete.php'><b>Delete this Document</b></a></h1></td>

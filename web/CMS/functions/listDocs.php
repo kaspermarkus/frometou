@@ -28,7 +28,7 @@ function printDocFlags($did, $docSelected) {
 		echo "'><IMG SRC='".$SITE_INFO_PUBLIC_ROOT.$langImg."' ";
 		echo ($translationExist) ? "WIDTH='22' HEIGHT='14'" : "WIDTH='11' HEIGHT='7'";
 		echo ($isCurrentLang && $docSelected) ? " BORDER=2" : "";
-		echo "/></a>";
+		echo "/></a> ";
 	}
 }
 
@@ -40,7 +40,7 @@ function ListDocs($did){
 		$isSelected = ($did == $row['did']);
 		echo $isSelected ? "<li class='selectedDoc'>" : "<li>";
 		//print link and flags:
-		echo "<a href='doc_edit.php?did=".$row['did']."'> ".$row['ident']."</a>";
+		echo "<a href='doc_edit.php?did=".$row['did']."'> ".$row['ident']."</a> ";
 		printDocFlags($row['did'], $isSelected);
 		echo "</li>";
 	}
